@@ -1,0 +1,590 @@
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKZZKF6"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div *ngIf="showStep1">
+  <ngb-progressbar striped="true" inputmode="" animated="true"  type="dark" [value]="1" [max]="maxTab" height="10px"></ngb-progressbar>
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="content-header">
+        <h4>{{'pwl-corporate-register.company.authorized.infos' | translate}}</h4>
+      </div>
+      <p class="content-sub-header">
+        {{'pwl-corporate-register.company.authorized.infos.text' | translate}}
+      </p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.signature.authorized.name' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #nameToolTip="ngbTooltip" (click)="nameToolTip.open()"></i></label>
+      <input matInput type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="name">
+    </div>
+
+
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.signature.authorized.surname' | translate}}</label>
+      <label matInput class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                        placement="top-right" ngbTooltip="This is Tooltip"
+                                                                        #surnameToolTip="ngbTooltip" (click)="surnameToolTip.open()"></i></label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="surname">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.signature.authorized.id.number' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #tckn="ngbTooltip" (click)="tckn.open()"></i></label>
+      <input matInput type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="citizenshipNumber">
+    </div>
+
+
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.birth.date' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #birthdateTooltip="ngbTooltip" (click)="birthdateTooltip.open()"></i></label>
+      <input matInput type="date" class="form-control" [(ngModel)]="birthdate">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.business.phone' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #phoneTooltip="ngbTooltip" (click)="phoneTooltip.open()"></i></label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="bussinessPhone">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.business.mail.address' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #mailTooltip="ngbTooltip" (click)="mailTooltip.open()"></i></label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="mailAddress">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label>{{'pwl-corporate-register.city' | translate}}</label>
+      <ng-select [items]="cityList"
+                 bindLabel="name"
+                 [(ngModel)]="city"
+                 (ngModelChange)="citySelect()">
+      </ng-select>
+    </div>
+    <div class="form-group col-md-6">
+      <label>{{'pwl-corporate-register.town' | translate}}</label>
+      <ng-select [items]="townList"
+                 bindLabel="name"
+                 [(ngModel)]="town">
+      </ng-select>
+    </div>
+
+    <div class="form-group col-12">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.address' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #addressTooltip="ngbTooltip" (click)="addressTooltip.open()"></i></label>
+      <textarea class="form-control" rows="3" [(ngModel)]="address"></textarea>
+    </div>
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.commercial.title' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #titleTooltip="ngbTooltip" (click)="titleTooltip.open()"></i></label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="commercialTitle">
+    </div>
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.iban' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #ibanTooltip="ngbTooltip" (click)="ibanTooltip.open()"></i></label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">TR</span>
+        </div>
+        <input type="text" (input)="ibanMask($event)" class="form-control" [(ngModel)]="iban">
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.tax.id.number' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #vknTooltip="ngbTooltip" (click)="vknTooltip.open()"></i></label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" [(ngModel)]="taxIdNumber">
+
+
+    </div>
+
+
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-12 text-center">
+       <button type="submit" class="btn btn-secondary invisible">
+       {{'pwl-corporate-register.back' | translate}}</button>
+
+
+      <button type="submit" class="btn btn-primary"
+              (click)="nextStep(2)">
+        {{'pwl-corporate-register.next' | translate}}</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="showStep2">
+  <ngb-progressbar striped="true" inputmode="" animated="true"  type="dark" [value]="2" [max]="maxTab" height="10px"></ngb-progressbar>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="row text-center" style="margin: 25px">
+        <div class="col-12">
+          <div class="content-header">{{'pwl-corporate-register.doc.upload' | translate}}</div>
+          <p class="content-sub-header">
+            {{'pwl-corporate-register.doc.upload.text' | translate}}
+          </p>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.company.partners' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #partnersTooltip="ngbTooltip" (click)="partnersTooltip.open()"></i></label>
+        <input type="file" class="form-control " [(ngModel)]="companyPartners"/>
+      </div>
+      <div class="mb-3">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.operating.certificate' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #certificateTooltip="ngbTooltip" (click)="certificateTooltip.open()"></i></label>
+        <input type="file" class="form-control" [(ngModel)]="operatingCertificate"/>
+      </div>
+      <div class="mb-3">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.tax.plate' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #taxTooltip="ngbTooltip" (click)="taxTooltip.open()"></i></label>
+        <input type="file" class="form-control" [(ngModel)]="taxPlate"/>
+      </div>
+      <div class="mb-3">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.registry.newspaper' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #registryTooltip="ngbTooltip" (click)="registryTooltip.open()"></i></label>
+        <input type="file" class="form-control" [(ngModel)]="registryNewspaper"/>
+      </div>
+      <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.signature.circulars' | translate}}</label>
+      <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                               placement="top-right" ngbTooltip="This is Tooltip"
+                                                               #signatureTooltip="ngbTooltip" (click)="signatureTooltip.open()"></i></label>
+
+      <input type="file" class="form-control" [(ngModel)]="signatureCirculars"/>
+    </div>
+
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-12 text-center">
+      <button type="submit" class="btn btn-secondary"
+              (click)="backStep(1)">
+        {{'pwl-corporate-register.back' | translate}}</button>
+
+      <button type="submit" class="btn btn-primary"
+              (click)="nextStep(3)">
+        {{'pwl-corporate-register.next' | translate}}</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="showStep3">
+  <ngb-progressbar striped="true" inputmode="" animated="true"  type="dark" [value]="3" [max]="maxTab" height="10px"></ngb-progressbar>
+  <div class="row align-items-center">
+    <div class="col-md-6 offset-md-3">
+      <div class="row text-center" style="margin: 25px">
+        <div class="col-12">
+          <div class="content-header">{{'pwl-corporate-register.shop.infos' | translate}}</div>
+          <p class="content-sub-header">
+            {{'pwl-corporate-register.shop.infos.text' | translate}}
+          </p>
+        </div>
+      </div>
+      <div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group-div text-center">
+      <div class="form-group text-left">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.shop.name' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #shopNameTooltip="ngbTooltip" (click)="shopNameTooltip.open()"></i></label>
+        <input type="text" class="form-control" [(ngModel)]="shopName">
+      </div>
+      <div class="form-group text-left">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.service.industry' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #serviceIndustryTooltip="ngbTooltip" (click)="serviceIndustryTooltip.open()"></i></label>
+        <ng-select [items]="parentSectorInfos"
+                   bindLabel="description"
+                   [(ngModel)]="serviceIndustry">
+        </ng-select>
+      </div>
+      <div class="form-group text-left">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.products.infos' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #productInfosTooltip="ngbTooltip" (click)="productInfosTooltip.open()"></i></label>
+        <textarea class="form-control" rows="3" [(ngModel)]="productsInfos"></textarea>
+      </div>
+      <div class="form-group text-left">
+        <label class="col-9" style="padding: 0px;">{{'pwl-corporate-register.website' | translate}}</label>
+        <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                 placement="top-right" ngbTooltip="This is Tooltip"
+                                                                 #websiteTooltip="ngbTooltip" (click)="websiteTooltip.open()"></i></label>
+        <input type="text" class="form-control" [(ngModel)]="website">
+      </div>
+    <div class="row socialMediaItemComponent ">
+      <div class="col-8 text-left">
+        <i class="ft-facebook social-media-icon"> </i>
+        <label>{{'pwl-corporate-register.facebook' | translate}}</label>
+      </div>
+      <div class="col-4 text-right socialMediaToggle">
+        <label class="switch">
+          <input [(ngModel)]="hasFacebookLink" (click)="changeSocialMediaSliderStatus('facebook')" type="checkbox"/>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div *ngIf="hasFacebookLink"  class="text-left">
+      <input type="text" class="form-control" [(ngModel)]="facebook">
+    </div>
+    <div class="row socialMediaItemComponent ">
+      <div class="col-8 text-left">
+        <i class="ft-youtube social-media-icon"> </i>
+        <label>{{'pwl-corporate-register.youtube' | translate}}</label>
+      </div>
+
+      <div class="col-4 text-right socialMediaToggle">
+        <label class="switch">
+          <input [(ngModel)]="hasYoutubeLink" (click)="changeSocialMediaSliderStatus('youtube')" type="checkbox"/>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div *ngIf="hasYoutubeLink" class="text-left">
+      <input type="text" class="form-control" [(ngModel)]="youtube">
+    </div>
+    <div class="row socialMediaItemComponent">
+      <div class="col-8 text-left">
+        <i class="ft-instagram social-media-icon"> </i>
+        <label>{{'pwl-corporate-register.instagram' | translate}}</label>
+      </div>
+
+      <div class="col-4 text-right socialMediaToggle">
+        <label class="switch">
+          <input [(ngModel)]="hasInstagramLink" (click)="changeSocialMediaSliderStatus('instagram')" type="checkbox"/>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div *ngIf="hasInstagramLink" class="text-left">
+      <input type="text" class="form-control" [(ngModel)]="instagram">
+    </div>
+    <div class="row socialMediaItemComponent">
+      <div class="col-8 text-left">
+        <i class="ft-twitter social-media-icon"> </i>
+        <label>{{'pwl-corporate-register.twitter' | translate}}</label>
+      </div>
+
+      <div class="col-4 text-right socialMediaToggle">
+        <label class="switch">
+          <input [(ngModel)]="hasTwitterLink" (click)="changeSocialMediaSliderStatus('twitter')" type="checkbox"/>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div *ngIf="hasTwitterLink" class="text-left">
+      <input type="text" class="form-control" [(ngModel)]="twitter">
+    </div>
+  </div>
+
+   <div class="row align-items-center">
+     <div class="col-md-12 text-center">
+       <button type="submit" class="btn btn-secondary"
+               (click)="backStep(2)">
+         {{'pwl-corporate-register.back' | translate}}</button>
+
+       <button type="submit" class="btn btn-primary"
+               (click)="nextStep(4)">
+         {{'pwl-corporate-register.next' | translate}}</button>
+     </div>
+   </div>
+</div>
+<div *ngIf="showStep4">
+  <ngb-progressbar striped="true" inputmode="" animated="true"  type="dark" [value]="4" [max]="maxTab" height="10px"></ngb-progressbar>
+  <div class="row text-center" style="margin: 25px">
+    <div class="col-12">
+      <div class="content-header">{{'pwl-corporate-register.application.summary' | translate}}</div>
+      <p class="content-sub-header">
+        {{'pwl-corporate-register.application.summary.text' | translate}}
+      </p>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row text-center" style="margin: 25px;">
+                    <div class="col-12">
+                      <div class="content-header">{{'pwl-corporate-register.company.authorized.infos' | translate}}</div>
+                      <p class="content-sub-header">
+                        {{'pwl-corporate-register.company.authorized.infos.text' | translate}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-group-div text-center">
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.signature.authorized.name' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="name" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.signature.authorized.surname' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="surname" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.signature.authorized.id.number' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="citizenshipNumber" readonly>
+                    </div>
+
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.birth.date' | translate}}</label>
+                      <input type="date" class="form-control" [(ngModel)]="birthdate" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.business.phone' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="bussinessPhone" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.business.mail.address' | translate}}</label>
+                      <input type="email" class="form-control" [(ngModel)]="mailAddress" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.city' | translate}}</label>
+                      <ng-select [items]="cityList"
+                                 bindLabel="name"
+                                 [(ngModel)]="city"
+                                 disabled>
+                      </ng-select>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.town' | translate}}</label>
+                      <ng-select [items]="townList"
+                                 bindLabel="name"
+                                 [(ngModel)]="town"
+                                 disabled>
+                      </ng-select>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.address' | translate}}</label>
+                      <textarea class="form-control" rows="3" [(ngModel)]="address" readonly></textarea>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.commercial.title' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="commercialTitle" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.tax.id.number' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="taxIdNumber" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.iban' | translate}}</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">TR</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="iban" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row text-center" style="margin: 25px">
+                    <div class="col-12">
+                      <div class="content-header">{{'pwl-corporate-register.doc.upload' | translate}}</div>
+                      <p class="content-sub-header">
+                        {{'pwl-corporate-register.doc.upload.text' | translate}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-group-div">
+                    <div class="form-group">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.company.partners' | translate}}</label>
+                      <input type="file" class="form-control" [(ngModel)]="companyPartners" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.operating.certificate' | translate}}</label>
+                      <input type="file" class="form-control" [(ngModel)]="operatingCertificate" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.tax.plate' | translate}}</label>
+                      <input type="file" class="form-control" [(ngModel)]="taxPlate" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.registry.newspaper' | translate}}</label>
+                      <input type="file" class="form-control" [(ngModel)]="registryNewspaper" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.signature.circulars' | translate}}</label>
+                      <input type="file" class="form-control" [(ngModel)]="signatureCirculars" readonly/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row text-center" style="margin: 25px;">
+                    <div class="col-12">
+                      <div class="content-header">{{'pwl-corporate-register.shop.infos' | translate}}</div>
+                      <p class="content-sub-header">
+                        {{'pwl-corporate-register.shop.infos.text' | translate}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-group-div text-center">
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.shop.name' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="shopName" readonly>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.service.industry' | translate}}</label>
+                      <ng-select [items]="parentSectorInfos"
+                                 bindLabel="description"
+                                 [(ngModel)]="serviceIndustry"
+                                 disabled>
+                      </ng-select>
+                    </div>
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.products.infos' | translate}}</label>
+                      <textarea class="form-control" rows="3" [(ngModel)]="productsInfos" readonly></textarea>
+                    </div>
+
+                    <div class="form-group text-left">
+                      <label class="col-12" style="padding: 0px;">{{'pwl-corporate-register.website' | translate}}</label>
+                      <input type="text" class="form-control" [(ngModel)]="website" readonly>
+                    </div>
+
+                    <div *ngIf="hasFacebookLink" class="row socialMediaItem">
+                      <div class="col-8 text-left">
+                        <i class="ft-facebook social-media-icon"> </i>
+                        <label>{{'pwl-corporate-register.facebook' | translate}}</label>
+                      </div>
+
+                    </div>
+                    <div *ngIf="hasFacebookLink" class="form-group text-left">
+                      <input type="text" class="form-control" [(ngModel)]="facebook" readonly>
+                    </div>
+
+                    <div *ngIf="hasYoutubeLink" class="row socialMediaItemComponent">
+                      <div class="col-8 text-left">
+                        <i class="ft-youtube social-media-icon"> </i>
+                        <label>{{'pwl-corporate-register.youtube' | translate}}</label>
+                      </div>
+
+                    </div>
+                    <div *ngIf="hasYoutubeLink" class="form-group text-left">
+                      <input type="text" class="form-control" [(ngModel)]="youtube" readonly>
+                    </div>
+
+                    <div *ngIf="hasInstagramLink" class="row socialMediaItemComponent">
+                      <div class="col-8 text-left">
+                        <i class="ft-instagram social-media-icon"> </i>
+                        <label>{{'pwl-corporate-register.instagram' | translate}}</label>
+                      </div>
+
+                    </div>
+                    <div *ngIf="hasInstagramLink" class="form-group text-left">
+                      <input type="text" class="form-control" [(ngModel)]="instagram" readonly>
+                    </div>
+
+                    <div *ngIf="hasTwitterLink" class="row socialMediaItemComponent">
+                      <div class="col-8 text-left">
+                        <i class="ft-twitter social-media-icon"> </i>
+                        <label>{{'pwl-corporate-register.twitter' | translate}}</label>
+                      </div>
+
+                    </div>
+                    <div *ngIf="hasTwitterLink" class="form-group text-left">
+                      <input type="text" class="form-control" [(ngModel)]="twitter" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-12 text-center">
+      <div class="form-group form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="contract1approved">
+        <a style="text-decoration: underline" (click)="openContactModelOpen(contractModal, contract1, 1)" class="form-check-label">{{contract1.title}}</a>
+      </div>
+      <div class="form-group form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="contract2approved">
+        <a style="text-decoration: underline" (click)="openContactModelOpen(contractModal, contract2, 2)" class="form-check-label">{{contract2.title}}</a>
+      </div>
+      <div class="form-group form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="contract3approved">
+        <a style="text-decoration: underline" (click)="openContactModelOpen(contractModal, contract3, 3)" class="form-check-label">{{contract3.title}}</a>
+      </div>
+
+      <button type="submit" class="btn btn-secondary"
+              (click)="backStep(3)">
+        {{'pwl-corporate-register.back' | translate}}</button>
+
+      <button type="submit" class="btn btn-primary" (click)="complete()">
+        {{'pwl-corporate-register.complete' | translate}}</button>
+    </div>
+  </div>
+
+  <ng-template #contractModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{openedContractTitle}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" [innerHTML]="openedContractContent"></div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <button type="button" class="btn btn-light" (click)="modal.close('closed'); contractApprove();" >Onayla</button>
+            <button type="button" class="btn btn-light" (click)="modal.close('Click to closed')">Vazgec</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+
+
+</div>

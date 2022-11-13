@@ -1,0 +1,352 @@
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKZZKF6"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">{{'save-product.header' | translate }}</div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{'save-product.product.infos' | translate }}</h4>
+        <hr>
+        <div class="col-12">
+          <div class="dropzone-container" appDnd (fileDropped)="onFileDropped($event)">
+            <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+            <div class="row">
+              <div class="col-9 text-left">
+                {{'save-product.dropbox.main.text1' | translate }}
+                <br>
+                {{'save-product.dropbox.main.text2' | translate }}
+              </div>
+              <div class="col-3">
+                <label for="fileDropRef"><i class="ft-upload"></i>{{'save-product.dropbox.choose.image' | translate }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="files-list">
+          <i class="ft-image font-large-3 file-icon" *ngFor="let file of files; let i = index">
+            <i class="ft-trash-2 font-medium-5 file-delete-icon" alt="file" (click)="deleteFile(i)" ></i>
+          </i>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group name1 col-12">
+              <label class="col-9" style="padding: 0px;">{{'save-product.product.name' | translate}}</label>
+              <input type="text" class="form-control" id="name" aria-describedby="emailHelp" name="muverName"
+                [(ngModel)]="requestProductInformation.title">
+            </div>
+
+            <div class="form-group name1 col-12">
+              <label class="col-9" style="padding: 0px;">{{'save-product.price' | translate}}</label>
+              <input type="number" class="form-control" id="name" aria-describedby="emailHelp" name="muverName"
+                [(ngModel)]="requestProductInformation.productPrice" placeholder="TL">
+              <div style="margin-top: 2px">
+                <input type="checkbox" (change)="divDiscountShow=$event.target.checked" [ngModel]="divDiscountShow">
+                <label class="col-9" style="padding: 0px; margin-left: 3px;">{{'save-product.discount' |
+                  translate}}</label>
+                <div *ngIf="divDiscountShow" id="divshow">
+                  <div>
+                    <label class="col-9" style="padding: 0px;">{{'save-product.discounted.price' | translate}}</label>
+                    <input type="number" class="form-control" id="hide-checkbox" aria-describedby="emailHelp"
+                      name="muverName" [(ngModel)]="requestProductInformation.productDiscountPrice" placeholder="TL">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group name2 col-12">
+              <label class="col-9" style="padding: 0px;">{{'save-product.stock.quantity' | translate}}</label>
+              <input type="number" class="form-control" id="name" aria-describedby="emailHelp" name="muverPhone"
+                [(ngModel)]="requestProductInformation.productStockAmount">
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group name2 col-12">
+              <label class="col-9" style="padding: 0px;">{{'save-product.product.category' | translate}}</label>
+              <ng-select style="margin-top: 0.8rem;" bindLabel="name" placeholder="Kategory Seçiniz"
+                [items]="categories" bindValue="identifier" [(ngModel)]="requestProductInformation.categoryIdentifier"
+                [ngModelOptions]="{standalone: true}" groupBy="country">
+                <ng-template ng-option-tmp let-item="item">
+                  <div title="{{item.identifier}}">{{item.name}}</div>
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="form-group name2 col-12">
+              <label class="col-9" style="padding: 0px;">{{'save-product.product.description' | translate}}</label>
+              <textarea class="form-control" rows="5" [(ngModel)]="requestProductInformation.description"
+                [ngModel]="responseEdit.description"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          <div class="row">
+            <div class="col-10">
+              <h4>{{'save-product.optional.infos' | translate}}</h4>
+            </div>
+            <div class="col-2 text-right">
+              <label class="switch">
+                <a type="checkbox" (click)="divOptionalInformationShow = !divOptionalInformationShow">
+                  <i class="ft-chevron-down"></i>
+                </a>
+              </label>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div *ngIf="divOptionalInformationShow">
+          <div class="row">
+            <div class="col-10">
+              <h5>{{'save-product.cargo.infos' | translate}}</h5>
+            </div>
+            <div class="col-2 text-right">
+              <label class="switch">
+                <input type="checkbox" (change)="divCargoInformationShow=$event.target.checked"
+                  [ngModel]="divCargoInformationShow">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <hr class="sub-hr">
+          <div *ngIf="divCargoInformationShow" class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">{{'save-product.cargo.price' | translate}}</label>
+            <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                placement="top-right" ngbTooltip="{{'save-product.cargo.price.tooltip' | translate}}" #cargoPrice="ngbTooltip"
+                (click)="cargoPrice.open()"></i></label>
+            <input type="text" class="form-control" [(ngModel)]="requestCargoPrice.value">
+            <p><a href="#" onclick="onHello();return false;">
+                <label style="cursor:pointer; text-decoration: underline;text-transform: capitalize">{{'save-product.contracted.cargo' |  translate}}</label>
+              </a></p>
+          </div>
+          <!--            <hr class="sub-hr">-->
+          <div class="row">
+            <div class="col-10">
+              <h5>{{'save-product.not.show' | translate}}</h5>
+            </div>
+            <div class="col-2 text-right">
+              <label class="switch">
+                <input type="checkbox" (change)="divProductShow=$event.target.checked" [ngModel]="divProductShow">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="divProductShow" class="form-group text-left">
+
+          </div>
+          <hr class="sub-hr">
+          <div class="row">
+            <div class="col-10">
+              <h5>{{'save-product.var.infos' | translate}}</h5>
+            </div>
+            <div class="col-2 text-right">
+              <label class="switch">
+                <input type="checkbox" (change)="divProductVariationShow=$event.target.checked" [ngModel]="divProductVariationShow">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <hr class="sub-hr">
+          <div *ngIf="divProductVariationShow" class="form-group text-left">
+
+            <!--            <a class="btn btn-dark">Hazir kisayol varyasyon setlerim</a>-->
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-2 col-xs-12">
+                    <label class="col-9" style="padding: 0px;">1. {{'save-product.variation' | translate}}</label>
+                    <ng-select style="margin-top: 0.8rem;" bindLabel="name" placeholder="{{'save-product.select.variation' | translate}}"
+                      [items]="productOptionTypes" [(ngModel)]="selectProductVariationOne"
+                      [ngModelOptions]="{standalone: true}">
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{item.identifier}}">{{item.name}}</div>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                  <div class="col-lg-2 col-xs-12">
+                    <label class="col-9" style="padding: 0px;">2. {{'save-product.variation' | translate}}</label>
+                    <ng-select style="margin-top: 0.8rem;" bindLabel="name" placeholder="{{'save-product.select.variation' | translate}}"
+                      [items]="productOptionTypes" [(ngModel)]="selectProductVariationTwo"
+                      [ngModelOptions]="{standalone: true}">
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{item.identifier}}">{{item.name}}</div>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                  <div class="col-lg-2 col-xs-12">
+                    <label class="col-9" style="padding: 0px;">{{'save-product.price' | translate}}</label>
+                  </div>
+                  <div class="col-lg-2 col-xs-12">
+                    <label class="col-9" style="padding: 0px;">{{'save-product.discounted.price' | translate}}</label>
+                  </div>
+                  <div class="col-lg-2 col-xs-12">
+                    <label class="col-9" style="padding: 0px;">{{'save-product.stock.quantity' | translate}}</label>
+                  </div>
+                  <div class="col-lg-2 col-xs-12">
+                    <label class="col-9" style="padding: 0px;">{{'save-product.add' | translate}}</label>
+                    <a class="btn btn-dark" style="margin-top: 0.8rem;" (click)="createNewVariation()">{{'save-product.new.var' | translate}}</a>
+                  </div>
+                </div>
+
+                <div *ngFor="let item of productVariationList; let i = index">
+                  <hr class="sub-hr">
+                  <div class="row">
+                    <div class="col-lg-2 col-xs-12">
+                      <ng-select bindLabel="value" bindValue="value" placeholder="{{'save-product.select.others' | translate}}"
+                        [items]="selectProductVariationOne?.productOptionTypeValues"
+                        [(ngModel)]="item.selectOptionOne"
+                        [ngModelOptions]="{standalone: true}">
+                        <ng-template ng-option-tmp let-item="item">
+                          <div title="{{item.value}}">{{item.value}}</div>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+
+                    <div class="col-lg-2 col-xs-12">
+                      <ng-select style="" bindLabel="value" bindValue="value" placeholder="{{'save-product.select.others' | translate}}"
+                        [items]="selectProductVariationTwo?.productOptionTypeValues"
+                        [(ngModel)]="item.selectOptionTwo"
+                        [ngModelOptions]="{standalone: true}">
+                        <ng-template ng-option-tmp let-item="item">
+                          <div title="{{item.value}}">{{item.value}}</div>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+
+
+                    <div class="col-lg-2 col-xs-12">
+
+                      <input type="text" class="form-control" [(ngModel)]="item.productSalesInfos.salePrice"
+                        placeholder="{{'save-product.select.price' | translate}}">
+                    </div>
+                    <div class="col-lg-2 col-xs-12">
+
+                      <input type="text" class="form-control" [(ngModel)]="item.productSalesInfos.discountPrice"
+                        placeholder="{{'save-product.discounted.price' | translate}}">
+                    </div>
+                    <div class="col-lg-2 col-xs-12">
+
+                      <input type="text" class="form-control" [(ngModel)]="item.productSalesInfos.stockAmount"
+                        placeholder="{{'save-product.stock.quantity' | translate}}">
+                    </div>
+                    <div class="col-lg-2 col-xs-12 text-center">
+                      <i class="ft-trash-2 font-medium-5" style="position: absolute;bottom: 5px;" (click)="deleteProductVariationList(i)"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">
+              <h5>{{'save-product.tab.info' | translate}}</h5>
+            </div>
+            <div class="col-2 text-right">
+              <label class="switch">
+                <input type="checkbox" (change)="divTabInformationShow=$event.target.checked"
+                  [ngModel]="divTabInformationShow">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <hr class="sub-hr">
+
+          <div class="form-group text-left" *ngIf="divTabInformationShow">
+            <div class="row">
+              <div class="form-group col-12">
+                <label class="col-9" style="padding: 0px;">{{'save-product.tab.shop' | translate}}</label>
+                <label class="col-3 text-right" style="padding: 0px;">
+                  <i class="ft-info font-medium-2" style="padding: 0px;" placement="top-right"
+                    ngbTooltip="Eklenecek ürünün dükkanda gösterileceği sekme bilgisi" #tabs="ngbTooltip"
+                    (click)="tabs.open()"></i>
+                </label>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let item of tabNames">
+                    <div class="row col-12">
+                      <div class="col-10">{{item.title}}</div>
+                      <div class="col-1 text-right">
+                        <input type="checkbox" (change)="selectTab(item.identifier, $event.target.checked)"
+                          [ngModel]="isSelectTab(item.identifier)">
+                      </div>
+                      <div class="col-1 text-right">
+                        <i class="ft-trash-2 font-medium-5 file-delete-icon" alt="file"
+                          (click)="deleteTab(item.identifier)"></i>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <div *ngIf="5 > tabNames.length" class="row col-12 mt-2">
+                  <div class="col-11">
+                    <input type="text" class="form-control" #newTabName>
+                  </div>
+                  <div class="col-1">
+                    <button type="submit" class="btn btn-primary" (click)="addNewTab(newTabName.value)">
+                      {{'save-product.add' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--            <hr class="sub-hr">-->
+          <div class="row">
+            <div class="col-10">
+              <h5>{{'save-product.add.service' | translate}}</h5>
+            </div>
+            <div class="col-2 text-right">
+              <label class="switch">
+                <input type="checkbox" (change)="divAdditionalServiceShow=$event.target.checked"
+                  [ngModel]="divAdditionalServiceShow">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <hr class="sub-hr">
+          <div *ngIf="divAdditionalServiceShow" class="form-group text-left">
+            <div class="form-group name1 col-12">
+              <label class="col-9" style="padding: 0px;">{{'save-product.add.service.name' | translate}}</label>
+              <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2"
+                  style="padding: 0px;" placement="top-right" ngbTooltip="Ürünlerinize örneğin “Hediye Paketi” gibi ek hizmetler ekleyebilirsiniz"
+                  #additionalServiceName="ngbTooltip" (click)="additionalServiceName.open()"></i></label>
+              <input type="text" class="form-control"
+                [(ngModel)]="requestAdditionalService.additionalServiceDescription">
+            </div>
+            <div class="form-group name1 col-12"><label class="col-9" style="padding: 0px;">{{'save-product.add.service.price' | translate}}</label>
+              <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2"
+                  style="padding: 0px;" placement="top-right" ngbTooltip="Belirlediğiniz tutar ek hizmet seçen alıcılarınızın sepet tutarına eklenecektir "
+                  #additionalServicePrice="ngbTooltip" (click)="additionalServicePrice.open()"></i></label>
+              <input type="number" class="form-control" placeholder="TL" [(ngModel)]="requestAdditionalService.additionalServicePrice">
+            </div>
+
+            <div class="form-group name1 col-12">
+              <label class="col-9" style="padding: 0px;">{{'save-product.note.customer' | translate}}</label>
+              <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2"
+                  style="padding: 0px;" placement="top-right" ngbTooltip="This is Tooltip" #customerNote="ngbTooltip"
+                  (click)="customerNote.open()"></i></label>
+              <input type="text" class="form-control"
+                [(ngModel)]="requestAdditionalService.additionalServiceCustomerNote">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 text-right">
+    <hr class="newheader-hr">
+    <span class="mr-2">
+      <a (click)="saveProductConfirmDialog()" class="btn btn-dark mr-5">{{editPage ? 'Güncelle': 'Kaydet'}}</a>
+    </span>
+  </div>
+</div>

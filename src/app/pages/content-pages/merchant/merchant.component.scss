@@ -1,0 +1,15 @@
+::ng-deep .merchant-select .ng-dropdown-panel .ng-dropdown-panel-items {
+  max-height: 100px !important;
+  padding: 0 10px;
+}
+
+::ng-deep .merchant-select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  overflow: auto;
+  padding: 8px 0;
+  margin: 0 0;
+}
+
+::ng-deep .merchant-select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option .ng-option-label {
+  width: max-content;
+  display: block;
+}

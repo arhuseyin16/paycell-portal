@@ -1,0 +1,137 @@
+Index: src/app/layouts/mail-templates/reset-password.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n  \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0;\">\n  <meta name=\"format-detection\" content=\"telephone=no\"/>\n\n  <style>\n    /* Reset styles */\n    body {\n      margin: 0;\n      padding: 0;\n      min-width: 100%;\n      width: 100% !important;\n      height: 100% !important;\n    }\n\n    body, table, td, div, p, a {\n      -webkit-font-smoothing: antialiased;\n      text-size-adjust: 100%;\n      -ms-text-size-adjust: 100%;\n      -webkit-text-size-adjust: 100%;\n      line-height: 100%;\n    }\n\n    table, td {\n      mso-table-lspace: 0pt;\n      mso-table-rspace: 0pt;\n      border-collapse: collapse !important;\n      border-spacing: 0;\n    }\n\n    img {\n      border: 0;\n      line-height: 100%;\n      outline: none;\n      text-decoration: none;\n      -ms-interpolation-mode: bicubic;\n    }\n\n    #outlook a {\n      padding: 0;\n    }\n\n    .ReadMsgBody {\n      width: 100%;\n    }\n\n    .ExternalClass {\n      width: 100%;\n    }\n\n    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {\n      line-height: 100%;\n    }\n\n    /* Rounded corners for advanced mail clients only */\n    @media all and (min-width: 560px) {\n      .container {\n        border-radius: 2px;\n        -webkit-border-radius: 2px;\n        -moz-border-radius: 2px;\n        -khtml-border-radius: 2px;\n      }\n\n      .title {\n        line-height: 30px;\n      }\n    }\n\n    /* Set color for auto links (addresses, dates, etc.) */\n    a, a:hover {\n      color: #127DB3;\n    }\n\n    .footer a, .footer a:hover {\n      color: #999999;\n    }\n\n  </style>\n\n</head>\n\n<body topmargin=\"0\" rightmargin=\"0\" bottommargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\" width=\"100%\"\n      style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;\n\tbackground-color: rgb(234,234,234);color: #000000;\" text=\"#000000\">\n\n<!-- SECTION / BACKGROUND -->\n<table width=\"100%\" align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\n       style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;\" class=\"background\">\n  <tr>\n    <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;\n      background-color: rgb(234,234,234)\"\n        bgcolor=\"#000\">\n\n      <!-- HEADER -->\n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%;\" class=\"wrapper\">\n\n        <!-- LOGO -->\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; max-width: 1100px\">\n            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; max-width: 1100px;\">\n              <tr>\n                <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0 10px 30px 0; width: 50%;\">\n                  <a target=\"_blank\" style=\"text-decoration: none; width: 100%; display: block;\">\n                    <img border=\"0\" vspace=\"0\" hspace=\"0\"\n                         src=\"https://paycell.com.tr/wp-content/uploads/2022/02/PaycellLogo-siyahbg.png\"\n                         alt=\"Paycell\" title=\"Paycell\" style=\"\n                   color: #000000;\n                   max-height: 125px;\n                   font-size: 10px; margin: 0; padding: 0; outline: none; width: auto;\n                   height: auto; text-decoration: none; -ms-interpolation-mode: bicubic; border: none;\" />\n                  </a>\n                </td>\n              </tr>\n            </table>\n          </td>\n        </tr>\n\n        <!-- End of WRAPPER -->\n      </table>\n\n      <!-- CONTENT -->\n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"\n             width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;\n\tmax-width: 1080px;\" class=\"container\">\n\n        <!-- HEADER BOTTOM IMAGE -->\n        <!-- HEADER BOTTOM TEXT -->\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 30px 15px 10px 15px;\n          font-size: 25px; line-height: 28px; color: black;font-family: futura; \" class=\"hero\">\n            Merhaba,\n          </td>\n        </tr>\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 25px 15px 30px 15px;\n          font-size: 25px; line-height: 28px; color: black;font-family: futura; \" class=\"hero\">\n            Paycell portal &#351;ifrenizi <br> sıfırlamak i&#231;in\n          </td>\n        </tr>\n        <tr>\n          <td align=\"center\" valign=\"top\">\n            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"\n                   width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; cursor: pointer;max-width: 250px;\" class=\"container\">\n              <tr>\n                <td align=\"center\" valign=\"top\" style=\"background-color: rgb(34, 205, 219); border-radius: 5px; padding: 12px; \">\n                  <a href=\"${url}\" style=\"font-size: 25px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;\">\n                    Tıklayın\n                  </a>\n                </td>\n              </tr>\n            </table>\n          </td>\n        </tr>\n      </table>\n\n      <!-- FOOTER -->\n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"\n             width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;\n\tmin-width: 100%;\" class=\"wrapper\">\n\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 100px 15px 0px 15px;\n          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; \" class=\"hero\">\n            &#304;yi g&#252;nler dileriz,\n          </td>\n        </tr>\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0px 15px 10px 15px;\n          font-size: 25px; font-style: italic; line-height: 28px; color: black; font-family: futura; \" class=\"hero\">\n            Paycell\n          </td>\n        </tr>\n      </table>\n\n    </td>\n  </tr>\n</table>\n</body>\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/layouts/mail-templates/reset-password.html b/src/app/layouts/mail-templates/reset-password.html
+--- a/src/app/layouts/mail-templates/reset-password.html	(revision cb8a90fe3489d1cdc6c433e8d9132b128cfede35)
++++ b/src/app/layouts/mail-templates/reset-password.html	(date 1645175951126)
+@@ -84,14 +84,14 @@
+ 
+ <body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%"
+       style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;
+-	background-color: rgb(234,234,234);color: #000000;" text="#000000">
++	color: #000000;" text="#000000">
+ 
+ <!-- SECTION / BACKGROUND -->
+ <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0"
+        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background">
+   <tr>
+     <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
+-      background-color: rgb(234,234,234)"
++      background-color: rgb(234,234,234); width: 595px; height: 726px"
+         bgcolor="#000">
+ 
+       <!-- HEADER -->
+@@ -130,13 +130,13 @@
+         <!-- HEADER BOTTOM TEXT -->
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 30px 15px 10px 15px;
+-          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++          font-size: 28px; line-height: 28px; color: black;font-family: futura; " class="hero">
+             Merhaba,
+           </td>
+         </tr>
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 25px 15px 30px 15px;
+-          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++          font-size: 28px; line-height: 28px; color: black;font-family: futura; " class="hero">
+             Paycell portal &#351;ifrenizi <br> sıfırlamak i&#231;in
+           </td>
+         </tr>
+@@ -146,7 +146,7 @@
+                    width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; cursor: pointer;max-width: 250px;" class="container">
+               <tr>
+                 <td align="center" valign="top" style="background-color: rgb(34, 205, 219); border-radius: 5px; padding: 12px; ">
+-                  <a href="${url}" style="font-size: 25px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;">
++                  <a href="${url}" style="font-size: 28px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;">
+                     Tıklayın
+                   </a>
+                 </td>
+@@ -163,13 +163,13 @@
+ 
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 100px 15px 0px 15px;
+-          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
++          font-size: 28px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
+             &#304;yi g&#252;nler dileriz,
+           </td>
+         </tr>
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0px 15px 10px 15px;
+-          font-size: 25px; font-style: italic; line-height: 28px; color: black; font-family: futura; " class="hero">
++          font-size: 28px; font-style: italic; line-height: 28px; color: black; font-family: futura; " class="hero">
+             Paycell
+           </td>
+         </tr>
+Index: src/app/layouts/mail-templates/mail-verification.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n  \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0;\">\n  <meta name=\"format-detection\" content=\"telephone=no\"/>\n\n  <style>\n    /* Reset styles */\n    body {\n      margin: 0;\n      padding: 0;\n      min-width: 100%;\n      width: 100% !important;\n      height: 100% !important;\n    }\n\n    body, table, td, div, p, a {\n      -webkit-font-smoothing: antialiased;\n      text-size-adjust: 100%;\n      -ms-text-size-adjust: 100%;\n      -webkit-text-size-adjust: 100%;\n      line-height: 100%;\n    }\n\n    table, td {\n      mso-table-lspace: 0pt;\n      mso-table-rspace: 0pt;\n      border-collapse: collapse !important;\n      border-spacing: 0;\n    }\n\n    img {\n      border: 0;\n      line-height: 100%;\n      outline: none;\n      text-decoration: none;\n      -ms-interpolation-mode: bicubic;\n    }\n\n    #outlook a {\n      padding: 0;\n    }\n\n    .ReadMsgBody {\n      width: 100%;\n    }\n\n    .ExternalClass {\n      width: 100%;\n    }\n\n    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {\n      line-height: 100%;\n    }\n\n    /* Rounded corners for advanced mail clients only */\n    @media all and (min-width: 560px) {\n      .container {\n        border-radius: 2px;\n        -webkit-border-radius: 2px;\n        -moz-border-radius: 2px;\n        -khtml-border-radius: 2px;\n      }\n\n      .title {\n        line-height: 30px;\n      }\n    }\n\n    /* Set color for auto links (addresses, dates, etc.) */\n    a, a:hover {\n      color: #127DB3;\n    }\n\n    .footer a, .footer a:hover {\n      color: #999999;\n    }\n\n  </style>\n\n</head>\n\n<body topmargin=\"0\" rightmargin=\"0\" bottommargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\" width=\"100%\"\n      style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;\n\tbackground-color: rgb(234,234,234);color: #000000;\"\n      text=\"#000000\">\n\n<!-- SECTION / BACKGROUND -->\n<table width=\"100%\" align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\n       style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;\" class=\"background\">\n  <tr>\n    <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;\n      background-color: rgb(234,234,234)\"\n        bgcolor=\"#000\">\n\n      <!-- HEADER -->\n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%;\" class=\"wrapper\">\n\n        <!-- LOGO -->\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; max-width: 1100px\">\n            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; max-width: 1100px;\">\n              <tr>\n                <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0 10px 30px 0; width: 50%;\">\n                  <a target=\"_blank\" style=\"text-decoration: none; width: 100%; display: block;\">\n                    <img border=\"0\" vspace=\"0\" hspace=\"0\"\n                         src=\"https://paycell.com.tr/wp-content/uploads/2022/02/PaycellLogo-siyahbg.png\"\n                         alt=\"Paycell\" title=\"Paycell\" style=\"\n                   color: #000000;\n                   max-height: 125px;\n                   font-size: 10px; margin: 0; padding: 0; outline: none; width: auto;\n                   height: auto; text-decoration: none; -ms-interpolation-mode: bicubic; border: none;\" />\n                  </a>\n                </td>\n              </tr>\n            </table>\n          </td>\n        </tr>\n\n        <!-- End of WRAPPER -->\n      </table>\n\n      <!-- CONTENT -->\n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"\n             width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;\n\tmax-width: 1080px;\" class=\"container\">\n\n        <!-- HEADER BOTTOM IMAGE -->\n        <!-- HEADER BOTTOM TEXT -->\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 30px 15px 10px 15px;\n          font-size: 25px; line-height: 28px; color: black;font-family: futura; \" class=\"hero\">\n            Merhaba,\n          </td>\n        </tr>\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 25px 15px 30px 15px;\n          font-size: 25px; line-height: 28px; color: black;font-family: futura; \" class=\"hero\">\n            Paycell portal'ı kullanmaya ba&#351;lamadan &#246;nce <br>\n            e-mail adresinizi do&#287;rulamak i&#231;in\n          </td>\n        </tr>\n        <tr>\n          <td align=\"center\" valign=\"top\">\n            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"\n                   width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; cursor: pointer;\n\tmax-width: 260px;\" class=\"container\">\n              <tr>\n                <td align=\"center\" valign=\"top\" style=\"background-color: rgb(255, 128, 57); border-radius: 5px; padding: 12px; \">\n                  <a href=\"${url}\" style=\"font-size: 25px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;\">\n                    Tıklayın\n                  </a>\n                </td>\n              </tr>\n            </table>\n          </td>\n        </tr>\n      </table>\n\n      <!-- FOOTER -->\n      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\"\n             width=\"100%\" style=\"border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;\n\tmin-width: 100%;\" class=\"wrapper\">\n\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 100px 15px 0px 15px;\n          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; \" class=\"hero\">\n            &#304;yi g&#252;nler dileriz,\n          </td>\n        </tr>\n        <tr>\n          <td align=\"center\" valign=\"top\" style=\"border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0px 15px 10px 15px;\n          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; \" class=\"hero\">\n            Paycell\n          </td>\n        </tr>\n      </table>\n\n    </td>\n  </tr>\n</table>\n</body>\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/layouts/mail-templates/mail-verification.html b/src/app/layouts/mail-templates/mail-verification.html
+--- a/src/app/layouts/mail-templates/mail-verification.html	(revision cb8a90fe3489d1cdc6c433e8d9132b128cfede35)
++++ b/src/app/layouts/mail-templates/mail-verification.html	(date 1645176137588)
+@@ -84,7 +84,7 @@
+ 
+ <body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%"
+       style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;
+-	background-color: rgb(234,234,234);color: #000000;"
++	color: #000000;"
+       text="#000000">
+ 
+ <!-- SECTION / BACKGROUND -->
+@@ -92,7 +92,7 @@
+        style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background">
+   <tr>
+     <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
+-      background-color: rgb(234,234,234)"
++      background-color: rgb(234,234,234); width: 595px; height: 726px"
+         bgcolor="#000">
+ 
+       <!-- HEADER -->
+@@ -131,13 +131,13 @@
+         <!-- HEADER BOTTOM TEXT -->
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 30px 15px 10px 15px;
+-          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++          font-size: 28px; line-height: 28px; color: black;font-family: futura; " class="hero">
+             Merhaba,
+           </td>
+         </tr>
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 25px 15px 30px 15px;
+-          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++          font-size: 27px; line-height: 28px; color: black;font-family: futura; " class="hero">
+             Paycell portal'ı kullanmaya ba&#351;lamadan &#246;nce <br>
+             e-mail adresinizi do&#287;rulamak i&#231;in
+           </td>
+@@ -149,7 +149,7 @@
+ 	max-width: 260px;" class="container">
+               <tr>
+                 <td align="center" valign="top" style="background-color: rgb(255, 128, 57); border-radius: 5px; padding: 12px; ">
+-                  <a href="${url}" style="font-size: 25px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;">
++                  <a href="${url}" style="font-size: 28px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;">
+                     Tıklayın
+                   </a>
+                 </td>
+@@ -166,13 +166,13 @@
+ 
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 100px 15px 0px 15px;
+-          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
++          font-size: 28px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
+             &#304;yi g&#252;nler dileriz,
+           </td>
+         </tr>
+         <tr>
+           <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0px 15px 10px 15px;
+-          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
++          font-size: 28px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
+             Paycell
+           </td>
+         </tr>

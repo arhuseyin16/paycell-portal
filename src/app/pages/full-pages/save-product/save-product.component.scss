@@ -1,0 +1,137 @@
+hr {
+  height: 3px;
+  background-color: black;
+}
+.sub-hr{
+  background-color: black;
+  height: 0.5px;
+}
+
+.text-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #000000;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(10px);
+  -ms-transform: translateX(10px);
+  transform: translateX(19px);
+}
+.slider.round {
+  border-radius: 16px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+input[selected] {
+  color:white;
+  margin: 10px;
+}
+
+.contracted-cargo {
+  text-decoration: underline;
+  font-size: x-small;
+}
+
+.dropzone-container {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 2rem;
+  text-align: center;
+  border: dashed 2px black;
+  border-radius: 10px;
+  position: relative;
+  background-color: #F7F7F8;
+
+  input {
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  label {
+    color: white;
+    width: 183px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: black;
+    padding: 8px 16px;
+  }
+  
+  i {
+    margin : 5px;
+  }
+}
+
+.fileover {
+  animation: shake 1s;
+  animation-iteration-count: infinite;
+}
+
+.files-list {
+  padding: 20px 0px;
+
+  .file-icon{
+    margin: 10px;
+    padding: 15px;
+    background-color: #F7F7F8;
+    border-radius: 10px;
+
+    .file-delete-icon {
+      margin-left: -25px;
+      color: white;
+      background-color: black;
+      padding: 5px;
+      border-radius: 50px;
+    }
+  }
+}

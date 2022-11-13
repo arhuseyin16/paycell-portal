@@ -1,0 +1,3 @@
+<ngb-alert *ngIf="alert && alert.type && alert.message" [type]="alert.type" class="mb-2" [dismissible]="false">
+  <p class="mb-0">{{ alert.message }}</p>
+</ngb-alert>

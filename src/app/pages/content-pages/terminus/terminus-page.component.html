@@ -1,0 +1,24 @@
+<!--Error page starts-->
+<section id="error">
+  <div class="container-fluid">
+    <div class="row auth-height full-height-vh">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="row">
+          <div class="col-12 text-center"  *ngIf="isFailed">
+            <img src="assets/img/gallery/error.png" alt="" class="img-fluid error-img mt-2" height="300" width="400">
+<!--            <h1 class="mt-4" *ngIf="!isFailed">{{ 'terminus.message.routing' | translate }}</h1>-->
+            <div class="w-75 error-text mx-auto mt-4">
+              <p>{{ 'terminus.error.title' | translate }}</p>
+              <p>{{ errorMessage | translate }}</p>
+            </div>
+            <a *ngIf="isFailed" [routerLink]="['/']" class="btn btn-warning my-2">{{ 'terminus.button.goHome' | translate }}</a>
+            <a *ngIf="isFailed" (click)="fetchData()" class="btn btn-warning my-2">{{ 'terminus.button.retry' | translate }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner><p *ngIf="spinnerText" style="font-size: 20px; color: white">{{spinnerText | translate}}</p></ngx-spinner>
+
+</section>
+<!--Error page ends-->

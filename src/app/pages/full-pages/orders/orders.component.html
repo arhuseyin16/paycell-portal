@@ -1,0 +1,824 @@
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKZZKF6"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="row">
+  <div class="col-12">
+    <div class="content-sub-header">
+      <mat-tab-group id="main-tab" animationDuration="500ms" disableRipple>
+        <mat-tab label="{{'orders.open.orders.header' | translate }}">
+          <div class="row">
+            <div class="col-12">
+              <div class="content-header">{{'orders.open.orders.header' | translate }}</div>
+              <p class="content-sub-header">
+                {{'orders.open.orders.subheader' | translate }}
+              </p>
+            </div>
+            <div class="container-fluid d-flex justify-content-center" *ngFor="let order of openOrders">
+              <div class="card card-1">
+                <div class="card-body">
+                  <div class="row justify-content-between">
+                    <div class="col">
+                      <h6 class="color-1 mb-0 change-color">{{order.identifier}} - {{order.orderState}}</h6>
+                    </div>
+                    <div class="col-auto font-weight-bold">{{order.createdDate | date:'dd/MM/yyyy - hh:mm'}}
+                    </div>
+                  </div>
+                  <div class="row" *ngFor="let lineItem of order.orderLineItems">
+                    <div class="col">
+                      <div class="media">
+                        <div class="sq align-self-center "><i
+                          class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0 ft-image font-large-3"
+                          width="100" height="100"></i></div>
+                        <div class="media-body my-auto text-right">
+                          <div class="row my-auto flex-column flex-md-row">
+                            <div class="col-auto my-auto ">
+                              <h6 class="mb-0"> {{lineItem.productModelTitle}}</h6>
+                            </div>
+                            <div class="col my-auto ">
+                              <h6 class="mb-0">&#8378;{{lineItem.totalPrice.value | number: '1.2-2' : 'tr-TR'}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3 ">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                  <table class="table datatable-row-center table-borderless text-center">
+                    <thead>
+                    <tr>
+                      <th scope="col">{{'orders.buyer.info' | translate}}</th>
+                      <th scope="col">{{'orders.bill.info' | translate}}</th>
+                      <th scope="col">{{'orders.customer.note' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <p>{{order.deliveryAddress.contactName}} {{order.deliveryAddress.contactSurname}}</p>
+                        <p>{{order.customerEmail}}</p>
+                        <p>{{order.deliveryAddress.phone}}</p>
+                        <p>{{order.deliveryAddress.address}} {{order.deliveryAddress.districtName}}/{{order.deliveryAddress.cityName}}</p>
+                      </td>
+                      <td>
+                        <p>{{order.billingAddress.contactName}} {{order.billingAddress.contactSurname}}</p>
+                        <p>{{order.billingAddress.phone}}</p>
+                        <p>{{order.billingAddress.address}} {{order.billingAddress.districtName}}/{{order.billingAddress.cityName}}</p>
+                      </td>
+                      <td>
+                        <p>{{order.noteToMerchant}}</p>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <hr class="my-3 ">
+                  <div class="row">
+                    <div class="text-left col-0">
+                      <a></a>
+                    </div>
+
+                    <div class="text-right col-12">
+                      <button type="submit" class="btn btn-secondary m-1" (click)="cancelOrderModal(cancelOrder)"><b>{{'orders.cancel.order' | translate}}</b></button>
+                      <button *ngIf="order.orderState === 'INITIAL' || order.orderState === 'PREINITIAL'" type="submit" class="btn btn-dark m-1" (click)="openPrimary(content)"><b>{{'orders.approve.order' | translate}}</b></button>
+                      <button *ngIf="order.orderState === 'PREPARING'" type="submit" class="btn btn-dark m-1" (click)="openSecondary(contentSecondary)"><b>{{'orders.send.order' | translate}}</b></button>
+                      <button *ngIf="order.orderState === 'WAITING_SEND_TO_CARGO'" type="submit" class="btn btn-dark text-center" (click)="deleteCargoCode(order.identifier)"><b>{{'orders.delete.send.code' | translate}}</b></button>
+                    </div>
+                  </div>
+                  <ng-template #cancelOrder let-c="close" let-d="dismiss">
+
+                    <form #myForm3="ngForm" (submit)="submitForm3(myForm3, order.identifier)" novalidate>
+
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-primary-title"> {{'orders.cancel.order' | translate}}</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="group-gap">
+
+                          <div class="d-block my-3">
+
+                            <div class="custom-control">
+                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                    value="a" checked>
+                              <label class="form-check-label" for="exampleRadios1">
+                               {{'orders.insufficient.stock' | translate}}
+                              </label>
+                            </div>
+                            <div class="custom-control mt-2">
+                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="b">
+                              <label class="form-check-label" for="exampleRadios2">
+                                {{'orders.incorrect.price' | translate}}
+                              </label>
+                            </div>
+                            <div class="custom-control mt-2">
+                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                                    value="c">
+                              <label class="form-check-label" for="exampleRadios3">
+                                {{'orders.product.related.problem' | translate}}
+                              </label>
+                            </div>
+                            <div class="custom-control mt-2">
+                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4"
+                                    value="d">
+                              <label class="form-check-label" for="exampleRadios4">
+                                {{'orders.cargo.related.problem' | translate}}
+                              </label>
+                            </div>
+                            <div class="custom-control mt-2">
+                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4"
+                                    value="d">
+                              <label class="form-check-label" for="exampleRadios4">
+                                {{'orders.product.temporarily.unable.to.provide.service' | translate}}
+                              </label>
+                            </div>
+                            <div class="custom-control mt-2">
+                              <input class="form-check-input mt-2" type="radio" name="exampleRadios" id="exampleRadios5"
+                                    value="e">
+                              <label class="form-check-label" for="exampleRadios5">
+                                {{'orders.other' | translate}}
+                              </label>
+                              <label>
+                                <input class="form-control ml-2" type="text">
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-6 text-right">
+                            <button class="btn btn-secondary" type="button" aria-label="Close"
+                                    (click)="d('Cross click')">
+                              {{'orders.cancel' | translate}}
+                            </button>
+                          </div>
+                          <div class="col-6">
+                            <button class="btn btn-dark" type="submit" aria-label="Close" (click)="d('Cross click')"
+                            >{{'orders.accept' | translate}}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </ng-template>
+                  <ng-template #content let-c="close" let-d="dismiss">
+
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-primary-title">{{'orders.approve.order' | translate}}</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="group-gap">
+
+                        <div class="d-block my-3">
+
+                          <div class="custom-control">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                  value="a" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                              1-3 {{'orders.workday' | translate}}
+                            </label>
+                          </div>
+
+                          <div class="custom-control mt-2">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                  value="b">
+                            <label class="form-check-label" for="exampleRadios2">
+                              3-5 {{'orders.workday' | translate}}
+                            </label>
+                          </div>
+
+                          <div class="custom-control mt-2">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                                  value="c">
+                            <label class="form-check-label" for="exampleRadios3">
+                              5-7 {{'orders.workday' | translate}}
+                            </label>
+                          </div>
+
+                          <div class="custom-control mt-2">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4"
+                                  value="d">
+                            <label class="form-check-label" for="exampleRadios4">
+                              7-10 {{'orders.workday' | translate}}
+                            </label>
+                          </div>
+                          <div class="custom-control mt-2">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5"
+                                  value="e">
+                            <label class="form-check-label" for="exampleRadios5">
+                              10-15 {{'orders.workday' | translate}}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6 text-right">
+                          <button class="btn btn-secondary" type="button" aria-label="Close" (click)="d('Cross click')">
+                            {{'orders.cancel' | translate}}
+                          </button>
+                        </div>
+                        <div class="col-6">
+                          <button class="btn btn-dark" aria-label="Close" (click)="d('Cross click')"
+                                  (click)="approveOrder(order.identifier)">{{'orders.accept' | translate}}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #contentSecondary let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-primary-title">{{'orders.send.order' | translate}}</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="custom-control mt-2">
+                        <input class="form-check-input" [(ngModel)]="cargoSelection" type="radio" name="exampleRadios" id="exampleRadios2" value="1">
+                        <label class="form-check-label" for="exampleRadios2">
+                          {{'orders.contracted.shipping' | translate}}
+                        </label>
+                      </div>
+                      <div class="custom-control mt-2">
+                        <input class="form-check-input" [(ngModel)]="cargoSelection" type="radio" name="exampleRadios" id="exampleRadios3" value="2">
+                        <label class="form-check-label" for="exampleRadios3">
+                          {{'orders.independent.shipping' | translate}}
+                        </label>
+                      </div>
+                      <div class="mt-2" *ngIf="cargoSelection == 2">
+                        <div class="mt-2">
+                          <ng-select>
+                            <ng-option>
+                              Mng {{'orders.cargo' | translate}}
+                            </ng-option>
+                            <ng-option>
+                              Aras {{'orders.cargo' | translate}}
+                            </ng-option>
+                            <ng-option>
+                              Sürat {{'orders.cargo' | translate}}
+                            </ng-option>
+                            <ng-option>
+                              Yurtiçi {{'orders.cargo' | translate}}
+                            </ng-option>
+                            <ng-option>
+                              Ups {{'orders.cargo' | translate}}
+                            </ng-option>
+                          </ng-select>
+                        </div>
+                        <div class="mt-2">
+                          <input type="text" class="form-control" placeholder="{{'orders.warning.placeholder' | translate}}">
+                        </div>
+                      </div>
+
+                      <hr>
+
+                      <div class="row mt-5">
+                        <div class="col-6 text-right">
+                          <button class="btn btn-secondary" type="button" aria-label="Close" (click)="d('Cross click')">
+                            {{'orders.cancel' | translate}}
+                          </button>
+                        </div>
+                        <div class="col-6">
+                          <button type="submit" class="btn btn-dark" aria-label="Close" (click)="d('Cross click')"
+                                  (click)="sendCargo(order.identifier, ThirdContent)">{{'orders.accept' | translate}}
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </ng-template>
+                  <ng-template #ThirdContent let-c="close" let-d="dismiss">
+
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-primary-title">{{'orders.contracted.cargo.info' | translate}}</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+
+                      <form #courierForm="ngForm" (submit)="submitForm(courierForm)" novalidate>
+
+
+                        <h5>PTT Kargo</h5>
+
+                        <label>Gönderi Kodu : KP00399928472023</label>
+
+                        <hr>
+                        <div class="row">
+                          <div class="col-12 text-center">
+                            <button class="btn btn-dark" type="submit" aria-label="Close" (click)="d('Cross click')">
+                              Tamam
+                            </button>
+                          </div>
+                        </div>
+
+                      </form>
+
+                    </div>
+
+                  </ng-template>
+
+
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </mat-tab>
+
+        <mat-tab label="{{'orders.sending.orders.header' | translate }}">
+          <div class="row">
+            <div class="col-12">
+              <div class="content-header">{{'orders.sending.orders.header' | translate }}</div>
+              <p class="content-sub-header">
+                {{'orders.sending.orders.subheader' | translate }}
+              </p>
+            </div>
+          </div>
+
+          <div class="container-fluid d-flex justify-content-center" *ngFor="let order of sendingOrders">
+            <div class="card card-1">
+              <div class="card-body">
+                <div class="row justify-content-between mb-3">
+                  <div class="col">
+                    <h6 class="color-1 mb-0 change-color">{{order.identifier}} - {{order.orderState}}</h6>
+                    </div>
+                    <div class="col-auto font-weight-bold">{{order.createdDate | date:'dd/MM/yyyy - hh:mm'}}
+                    </div>
+                  </div>
+                  <div class="row" *ngFor="let lineItem of order.orderLineItems">
+                    <div class="col">
+                      <div class="media">
+                        <div class="sq align-self-center "><i
+                          class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0 ft-image font-large-3"
+                          width="100" height="100"></i></div>
+                        <div class="media-body my-auto text-right">
+                          <div class="row my-auto flex-column flex-md-row">
+                            <div class="col-auto my-auto ">
+                              <h6 class="mb-0"> {{lineItem.productModelTitle}}</h6>
+                            </div>
+                            <div class="col my-auto ">
+                              <h6 class="mb-0">&#8378;{{lineItem.totalPrice.value | number: '1.2-2' : 'tr-TR'}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3 ">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                  <table class="table datatable-row-center table-borderless text-center">
+                    <thead>
+                    <tr>
+                      <th scope="col">{{'orders.buyer.info' | translate}}</th>
+                      <th scope="col">{{'orders.bill.info' | translate}}</th>
+                      <th scope="col">{{'orders.customer.note' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <p>{{order.deliveryAddress.contactName}} {{order.deliveryAddress.contactSurname}}</p>
+                        <p>{{order.customerEmail}}</p>
+                        <p>{{order.deliveryAddress.phone}}</p>
+                        <p>{{order.deliveryAddress.address}} {{order.deliveryAddress.districtName}}/{{order.deliveryAddress.cityName}}</p>
+                      </td>
+                      <td>
+                        <p>{{order.billingAddress.contactName}} {{order.billingAddress.contactSurname}}</p>
+                        <p>{{order.billingAddress.phone}}</p>
+                        <p>{{order.billingAddress.address}} {{order.billingAddress.districtName}}/{{order.billingAddress.cityName}}</p>
+                      </td>
+                      <td>
+                        <p>{{order.noteToMerchant}}</p>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <hr class="my-3 ">
+                  <div class="row">
+                    <div class="text-left col-6">
+                      <a></a>
+                    </div>
+
+                    <div class="text-right col-6">
+                      <button type="submit" *ngIf="order.orderState === 'WAITING_FOR_CUSTOMER_DELIVERY_CONFIRM'" class="btn btn-dark text-center"><b>{{'orders.start.the.return.process' | translate}}</b></button>
+                    </div>
+                  </div>
+
+
+                <ng-template #doNotSendOrder let-c="close" let-d="dismiss">
+
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-primary-title">{{'orders.order.return' | translate}}</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form #myForm3="ngForm" (submit)="submitForm3(myForm3, order.identifier)" novalidate>
+
+                      <h5>{{'orders.query.for.return.process' | translate}}</h5>
+
+                      <label> {{'orders.processes.info' | translate}} <b>{{'orders.cancel.returns' | translate}}</b> {{'orders.via.page' | translate}}</label>
+
+                      <hr>
+                      <div class="row">
+                        <div class="col-6">
+                          <button class="btn btn-secondary" type="button" aria-label="Close">{{'orders.cancel' | translate}}</button>
+                        </div>
+                        <div class="col-6 text-right">
+                          <button class="btn btn-dark" type="submit" aria-label="Close">{{'orders.accept' | translate}}</button>
+                        </div>
+                      </div>
+
+                    </form>
+
+                  </div>
+
+                </ng-template>
+
+              </div>
+
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="{{'orders.completed.orders.header' | translate }}">
+          <div class="row">
+            <div class="col-12">
+              <div class="content-header">{{'orders.completed.orders.header' | translate }}</div>
+              <p class="content-sub-header">
+                {{'orders.completed.orders.subheader' | translate }}
+              </p>
+            </div>
+          </div>
+
+          <div class="container-fluid d-flex justify-content-center" *ngFor="let order of completedOrders">
+            <div class="card card-1">
+              <div class="card-body">
+                <div class="row justify-content-between mb-3">
+                  <div class="col">
+                    <h6 class="color-1 mb-0 change-color">{{order.identifier}} - {{order.orderState}}</h6>
+                    </div>
+                    <div class="col-auto font-weight-bold">{{order.createdDate | date:'dd/MM/yyyy - hh:mm'}}
+                    </div>
+                  </div>
+                  <div class="row" *ngFor="let lineItem of order.orderLineItems">
+                    <div class="col">
+                      <div class="media">
+                        <div class="sq align-self-center "><i
+                          class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0 ft-image font-large-3"
+                          width="100" height="100"></i></div>
+                        <div class="media-body my-auto text-right">
+                          <div class="row my-auto flex-column flex-md-row">
+                            <div class="col-auto my-auto ">
+                              <h6 class="mb-0"> {{lineItem.productModelTitle}}</h6>
+                            </div>
+                            <div class="col my-auto ">
+                              <h6 class="mb-0">&#8378;{{lineItem.totalPrice.value | number: '1.2-2' : 'tr-TR'}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3 ">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                  <table class="table datatable-row-center table-borderless text-center">
+                    <thead>
+                    <tr>
+                      <th scope="col">{{'orders.buyer.info' | translate}}</th>
+                      <th scope="col">{{'orders.bill.info' | translate}}</th>
+                      <th scope="col">{{'orders.customer.note' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <p>{{order.deliveryAddress.contactName}} {{order.deliveryAddress.contactSurname}}</p>
+                        <p>{{order.customerEmail}}</p>
+                        <p>{{order.deliveryAddress.phone}}</p>
+                        <p>{{order.deliveryAddress.address}} {{order.deliveryAddress.districtName}}/{{order.deliveryAddress.cityName}}</p>
+                      </td>
+                      <td>
+                        <p>{{order.billingAddress.contactName}} {{order.billingAddress.contactSurname}}</p>
+                        <p>{{order.billingAddress.phone}}</p>
+                        <p>{{order.billingAddress.address}} {{order.billingAddress.districtName}}/{{order.billingAddress.cityName}}</p>
+                      </td>
+                      <td>
+                        <p>{{order.noteToMerchant}}</p>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <hr class="my-3 ">
+                  <div class="row">
+                    <div class="text-left col-6">
+                      <a></a>
+                    </div>
+
+                    <div class="text-right col-6">
+                      <button type="submit" *ngIf="order.orderState === 'CUSTOMER_DELIVERY_CONFIRMED'" class="btn btn-dark text-center"><b>{{'orders.start.the.return.process' | translate}}</b></button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="{{'orders.cancellations.and.refunds.header' | translate }}">
+          <div class="row">
+            <div class="col-12">
+              <div class="content-header">{{'orders.cancellations.and.refunds.header' | translate }}</div>
+              <p class="content-sub-header">
+                {{'orders.cancellations.and.refunds.subheader' | translate }}
+              </p>
+            </div>
+            <div class="container-fluid d-flex justify-content-center" *ngFor="let order of cancellationsAndRefunds">
+              <div class="card card-1">
+                <div class="card-body">
+                  <div class="row justify-content-between mb-3">
+                    <div class="col">
+                      <h6 class="color-1 mb-0 change-color">{{order.identifier}} - {{order.orderState}}</h6>
+                    </div>
+                    <div class="col-auto font-weight-bold">{{order.createdDate | date:'dd/MM/yyyy - hh:mm'}}</div>
+                  </div>
+                  <div class="row" *ngFor="let lineItem of order.orderLineItems">
+                    <div class="col">
+                      <div class="media">
+                        <div class="sq align-self-center "><i
+                          class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0 ft-image font-large-3"
+                          width="100" height="100"></i></div>
+                        <div class="media-body my-auto text-right">
+                          <div class="row my-auto flex-column flex-md-row">
+                            <div class="col-auto my-auto ">
+                              <h6 class="mb-0"> {{lineItem.productModelTitle}}</h6>
+                            </div>
+                            <div class="col my-auto ">
+                              <h6 class="mb-0">&#8378;{{lineItem.totalPrice.value | number: '1.2-2' : 'tr-TR'}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3 ">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="jumbotron-fluid">
+                    <div class="row justify-content-between ">
+                      <div class="col-auto my-auto ">
+                        <h2 class="mb-0 font-weight-bold">{{'orders.total.price' | translate }}</h2>
+                      </div>
+                      <label class="col-auto my-auto ml-auto">
+
+
+                      </label>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="text-dark"><b>{{'orders.for.all.the.orders' | translate }}:</b></p>
+                      <h4>&#8378; {{order.totalPrice | number: '1.2-2' : 'tr-TR'}}</h4>
+                      <button type="submit" class="mb-1 btn btn-dark btn-block" (click)="cancelOrderModal(returnOrder)"><b> {{'orders.start.the.return.process' | translate}}</b></button>
+                      <button type="submit" class="mb-1 btn btn-dark btn-block" (click)="cancelOrderModal(agreedCourier)"><b>{{'orders.cancel.return.request' | translate }}</b></button>
+                    </div>
+                  </div>
+
+
+                  <hr class="my-3">
+
+                  <table class="table datatable-row-center table-borderless text-center">
+                    <thead>
+                    <tr>
+                      <th scope="col">{{'orders.buyer.info' | translate}}</th>
+                      <th scope="col">{{'orders.bill.info' | translate}}</th>
+                      <th scope="col">{{'orders.customer.note' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <p>{{order.deliveryAddress.contactName}} {{order.deliveryAddress.contactSurname}}</p>
+                          <p>{{order.customerEmail}}</p>
+                          <p>{{order.deliveryAddress.phone}}</p>
+                          <p>{{order.deliveryAddress.address}} {{order.deliveryAddress.districtName}}/{{order.deliveryAddress.cityName}}</p>
+                        </td>
+                        <td>
+                          <p>{{order.billingAddress.contactName}} {{order.billingAddress.contactSurname}}</p>
+                          <p>{{order.billingAddress.phone}}</p>
+                          <p>{{order.billingAddress.address}} {{order.billingAddress.districtName}}/{{order.billingAddress.cityName}}</p>
+                        </td>
+                        <td>
+                          <p>{{order.noteToMerchant}}</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <hr class="my-3 ">
+
+              </div>
+            </div>
+          </div>
+          <ng-template #courierInformation let-c="close" let-d="dismiss">
+            <form #myForm2="ngForm" (submit)="submitForm2(myForm2)" novalidate>
+
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-primary-title">{{'orders.contracted.cargo.info' | translate}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h5>{{'orders.return.product.finished' | translate}}</h5>
+
+                <label>{{'orders.contracted.cargo.ptt' | translate}}</label>
+
+              </div>
+              <hr>
+              <div class="text-center mb-2">
+
+                <button class="btn btn-dark" type="submit" aria-label="Close"
+                        (click)="d('Cross click')">
+                  {{'orders.ok' | translate}}
+                </button>
+
+              </div>
+            </form>
+
+          </ng-template>
+          <ng-template #returnOrder let-c="close" let-d="dismiss">
+
+            <form #myForm4="ngForm" (submit)="submitForm4(myForm4)" novalidate>
+
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-primary-title"> {{'orders.start.the.return.process' | translate}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="group-gap">
+
+                  <div class="d-block my-3">
+
+
+                    <div class="custom-control mt-2">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" (click)="openSecondary(courierInformation)"
+                             (click)="d('Cross click')"
+                             value="b">
+                      <label class="form-check-label" for="exampleRadios2">
+                        {{'orders.contracted.cargo.return' | translate}}
+                      </label>
+                    </div>
+
+                    <div class="custom-control mt-2">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                             value="c" (click)="details[i]=!details[i]">
+                      <label class="form-check-label" for="exampleRadios3">
+                        {{'orders.independent.return.query' | translate}}
+                      </label>
+                    </div>
+                    <div class="mt-2" *ngIf="details[i]">
+                      <div class="mt-2">
+                        <ng-select>
+                          <ng-option>
+                            Mng {{'orders.cargo' | translate}}
+                          </ng-option>
+                          <ng-option>
+                            Aras {{'orders.cargo' | translate}}
+                          </ng-option>
+                          <ng-option>
+                            Sürat {{'orders.cargo' | translate}}
+                          </ng-option>
+                          <ng-option>
+                            Yurtiçi {{'orders.cargo' | translate}}
+                          </ng-option>
+                          <ng-option>
+                            Ups {{'orders.cargo' | translate}}
+                          </ng-option>
+                        </ng-select>
+                      </div>
+                      <div class="mt-2">
+                        <input type="text" class="form-control" placeholder="{{'orders.enter.cargo.code' | translate}}">
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 text-right">
+                    <button class="btn btn-secondary" type="button" aria-label="Close"
+                            (click)="d('Cross click')">{{'orders.cancel' | translate}}</button>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-dark" type="button" aria-label="Close" (click)="d('Cross click')" (click)="openSecondary(returnPayment)">{{'orders.send' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+          <ng-template #agreedCourier let-c="close" let-d="dismiss">
+
+            <form #myForm5="ngForm" (submit)="submitForm5(myForm5)" novalidate>
+
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-primary-title"> {{'orders.reject.refund' | translate}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row text-center mt-4 mb-4">
+                  <div class="col-12">
+
+                    <textarea rows="4" cols="50" placeholder="{{'orders.causeof.reject' | translate}}"></textarea>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 text-right">
+                    <button class="btn btn-secondary" type="button" aria-label="Close"
+                            (click)="d('Cross click')">{{'orders.cancel' | translate}}</button>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-dark" type="button" aria-label="Close" (click)="d('Cross click')" >{{'orders.send' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+          <ng-template #returnPayment let-c="close" let-d="dismiss">
+
+            <form #myForm6="ngForm" (submit)="submitForm6(myForm6)" novalidate>
+
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-primary-title"> {{'orders.reject.refund' | translate}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row text-center mt-4 mb-4">
+                  <div class="col-12">
+
+                    <div class="custom-control mt-2">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4"
+                             value="d">
+                      <label class="form-check-label" for="exampleRadios4">
+                        {{'orders.refund.total.price' | translate }} (<b>123.99 TL</b>)
+                      </label>
+                    </div>
+                    <div class="custom-control mt-2">
+                      <input class="form-check-input mt-2" type="radio" name="exampleRadios" id="exampleRadios5"
+                             value="e">
+                      <label class="form-check-label" for="exampleRadios5">
+                        Diğer
+                      </label>
+                      <label>
+                        <input class="form-control ml-2" type="text" placeholder="{{'orders.partial.refund' | translate}}">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 text-right">
+                    <button class="btn btn-secondary" type="button" aria-label="Close"
+                            (click)="d('Cross click')">{{'orders.cancel' | translate}}</button>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-dark" type="submit" aria-label="Close" (click)="d('Cross click')">{{'orders.send' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

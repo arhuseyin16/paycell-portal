@@ -1,0 +1,35 @@
+<div *ngIf="approved" class="row">
+  <div class="col-12 justify-content-center align-items-center">
+    <div class="col-12 p-2 center">
+      <i class="icon-emoticon-smile font-large-5"></i>
+    </div>
+    <div class="col-12 font-large-1">{{'pwl-register-status.header.message' | translate}}</div>
+    <div class="p-2 justify-content-center align-items-center">
+      {{'pwl-register-status.info.text' | translate}}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="waiting" class="row">
+<div class="col-12 justify-content-center align-items-center">
+    <div class="col-12 p-2 center">
+      <i class="ft-loader font-large-5"></i>
+    </div>
+    <div class="col-12 font-large-1">{{'pwl-register-status.waiting.approval' | translate}}</div>
+    <div class="p-2 justify-content-center align-items-center">
+      {{'pwl-register-status.waiting.approval.message' | translate}}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="rejected" class="row">
+  <div class="col-12 justify-content-center align-items-center">
+    <div class="col-12 p-2 center">
+      <i class="ft-minus-circle font-large-5"></i>
+    </div>
+    <div class="col-12 font-large-1">{{'pwl-register-status.approval.status.not.approved' | translate}}</div>
+    <div class="p-2 justify-content-center align-items-center">
+      {{'pwl-register-status.not.approved.message' | translate}}
+    </div>
+  </div>
+</div>

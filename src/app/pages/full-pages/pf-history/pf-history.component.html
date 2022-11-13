@@ -1,0 +1,460 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="content-header">{{'pf.header' | translate }}</div>
+  </div>
+</div>
+<div *ngIf="isPermission">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div *ngIf="!isUserMerchantChild" class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <label id="başlangıçtarihi" class="form-control-label" style="font-weight: 500">{{'pf.start.date' | translate }}</label>
+                <div class="input-group" id="p1">
+                  <input class="form-control" [minDate]="{year: 2019, month: 3, day: 16}"
+                         [(ngModel)]="startDate"
+                         placeholder="{{past| date: 'yyyy-MM-dd'}}" name="dp" ngbDatepicker
+                         #d="ngbDatepicker">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="d.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <label id="bitistarihi" class="form-control-label" style="font-weight: 500">{{'pf.end.date' | translate }}</label>
+                <div class="input-group" id="p2">
+                  <input class="form-control" [minDate]="{year: 2019, month: 3, day: 16}"
+                         placeholder="{{current| date: 'yyyy-MM-dd'}}" name="b" ngbDatepicker
+                         [(ngModel)]="endDate"
+                         #b="ngbDatepicker">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="b.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label id="siparisno" class="form-control-label" style="font-weight: 500">{{'pf.order.number' | translate }}</label>
+                <input ngmodel="" required id="firstname" #_orderNo="ngModel"
+                       maxlength="100" name="firstname" type="text" [(ngModel)]="orderNo"
+                       class="form-control input-md ng-untouched ng-pristine ng-invalid" style="width: 97%">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label id="siparistipi" class="form-control-label" style="font-weight: 500">{{'pf.order.type' | translate }}</label>
+                <ng-select [items]="orderTypes"
+                           bindLabel="name"
+                           bindValue="orginalName"
+                           placeholder="{{'pf.all' | translate }}"
+                           [(ngModel)]="selectedOrderType">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label id="siparisdurumu" class="form-control-label" style="font-weight: 500">{{'pf.order.status' | translate }}</label>
+                <ng-select [items]="orderStatuss"
+                           bindLabel="name"
+                           bindValue="orginalName"
+                           placeholder="{{'pf.all' | translate }}"
+                           [(ngModel)]="selectedOrderStatus">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-primary btn-block" type="button"
+                        (click)="onPfHistoryLast(startDate,endDate,1,null)">{{'pf.search' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isUserMerchantChild" class="card-content">
+          <div class="card-body" style="margin-bottom: 2rem;">
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">{{'pf.merchant' | translate }}</span>
+                    </div>
+                    <span class="form-control"
+                          aria-describedby="basic-addon1">{{selectedMerchant?.merchantName || ''}}</span>
+                    <div class="input-group-append">
+                      <button class="btn btn-dark" type="button" (click)="openFirmModal(true)">{{'pf.choose' | translate }}</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label id="başlangıçtarihi" class="form-control-label" style="font-weight: 500">{{'pf.start.date' | translate }}</label>
+                <div class="input-group" id="p1">
+                  <input class="form-control" [minDate]="{year: 2019, month: 3, day: 16}"
+                         placeholder="{{past| date: 'yyyy-MM-dd'}}" name="dp" ngbDatepicker
+                         #d="ngbDatepicker" [(ngModel)]="startDate">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="d.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <label id="bitistarihi" class="form-control-label" style="font-weight: 500">{{'pf.end.date' | translate }}</label>
+                <div class="input-group" id="p2">
+                  <input class="form-control" [minDate]="{year: 2019, month: 3, day: 16}"
+                         placeholder="{{current| date: 'yyyy-MM-dd'}}" name="b" ngbDatepicker
+                         #b="ngbDatepicker" [(ngModel)]="endDate">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="b.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label id="siparisno" class="form-control-label" style="font-weight: 500">{{'pf.order.number' | translate }}</label>
+                <input ngmodel="" required id="firstname" #_orderNo="ngModel"
+                       maxlength="100" name="firstname" type="text" [(ngModel)]="orderNo"
+                       class="form-control input-md ng-untouched ng-pristine ng-invalid" style="width: 97%">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label id="siparistipi" class="form-control-label" style="font-weight: 500">{{'pf.order.type' | translate }}</label>
+                <ng-select [items]="orderTypes"
+                           bindLabel="name"
+                           bindValue="orginalName"
+                           placeholder="{{'pf.all' | translate }}"
+                           [(ngModel)]="selectedOrderType">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label id="siparisdurumu" class="form-control-label" style="font-weight: 500">{{'pf.order.status' | translate }}</label>
+                <ng-select [items]="orderStatuss"
+                           bindLabel="name"
+                           bindValue="orginalName"
+                           placeholder="{{'pf.all' | translate }}"
+                           [(ngModel)]="selectedOrderStatus">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-control-label" style="font-weight: 500">{{'pf.installment.type' | translate }}</label>
+                <ng-select [items]="installmentStatus"
+                           bindLabel="name"
+                           bindValue="orginalName"
+                           placeholder="{{'pf.all' | translate }}"
+                           [(ngModel)]="installmentType">
+                </ng-select>
+              </div>
+              <div class="col-md-4" style="padding-top: 24px">
+                <button class="btn btn-dark btn-block" type="button"
+                        (click)="onPfHistoryLast(startDate,endDate,1,null)">{{'pf.search' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isNoDataToDisplay" class="table-responsive">
+            <table class="table m-0" style="background-color: white;">
+              <thead class="thead-light">
+              <tr>
+                  <th>{{'pf.lower.order.number' | translate }}</th>
+                  <th>{{'pf.referance.number' | translate }}</th>
+                  <th>{{'pf.order.date' | translate }}</th>
+                  <th>{{'pf.transaction.amount' | translate }}</th>
+                  <th>{{'pf.commission.amount' | translate }}</th>
+                  <th>{{'pf.commission.rate' | translate }}</th>
+                  <th>{{'pf.lower.order.type' | translate }}</th>
+                  <th>{{'pf.lower.order.status' | translate }}</th>
+                  <th>{{'pf.bank.reconciliation.date' | translate }}</th>
+                  <th>{{'pf.action' | translate }}</th>
+                  <th></th>
+                  <th></th>
+
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{'pf.no.data.to.display' | translate }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div *ngIf="showTable" class="table-responsive">
+          <table class="table m-0">
+            <thead class="thead-light">
+            <tr>
+                <th>{{'pf.lower.order.number' | translate }}</th>
+                <th>{{'pf.referance.number' | translate }}</th>
+                <th>{{'pf.order.date' | translate }}</th>
+                <th>{{'pf.transaction.amount' | translate }}</th>
+                <th>{{'pf.commission.amount' | translate }}</th>
+                <th>{{'pf.commission.rate' | translate }}</th>
+                <th>{{'pf.lower.order.type' | translate }}</th>
+                <th>{{'pf.lower.installment.type' | translate}}</th>
+                <th>{{'pf.lower.order.status' | translate }}</th>
+                <th>{{'pf.bank.reconciliation.date' | translate }}</th>
+                <th>{{'pf.action' | translate }}</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of pfResponses.historyTransactions">
+              <td>{{row.orderId}}</td>
+              <td>{{row.referenceNumber}}</td>
+              <td>{{row.orderDate}}&nbsp;&nbsp;{{row.orderTime}}</td>
+              <td>{{row.netOrderAmount|number: '1.2-2' : 'tr-TR'}}&nbsp;&nbsp;{{row.currency}}</td>
+              <td>{{row.commissionAmount|number: '1.2-2' : 'tr-TR'}}&nbsp;&nbsp;{{row.commissionAmount ? row.currency : ''}}</td>
+              <td>{{row.commissionRate ? '%' + row.commissionRate : ''}}</td>
+              <td>
+                <div *ngIf="row.orderType=='SALE'"
+                     class="badge badge-pill bg-light-success ng-star-inserted">{{'pf.sale' | translate }}
+                </div>
+                <div *ngIf="row.orderType=='REVERSE'"
+                     class="badge badge-pill bg-light-danger ng-star-inserted">{{'pf.reverse' | translate }}
+                </div>
+                <div *ngIf="row.orderType=='REFUND'"
+                     class="badge badge-pill bg-light-danger ng-star-inserted">{{'pf.refund' | translate }}
+                </div>
+                <div *ngIf="row.orderType=='PREAUTH'"
+                     class="badge badge-pill bg-light-success ng-star-inserted">{{'pf.preauth' | translate }}
+                </div>
+                <div *ngIf="row.orderType=='PREAUTH_REVERSE'"
+                     class="badge badge-pill bg-light-danger ng-star-inserted">{{'pf.preauth.reverse' | translate }}
+                </div>
+                <div *ngIf="row.orderType=='POSTAUTH'"
+                     class="badge badge-pill bg-light-success ng-star-inserted">{{'pf.postauth' | translate }}
+                </div>
+                <div *ngIf="row.orderType=='POSTAUTH_REVERSE'"
+                     class="badge badge-pill bg-light-danger ng-star-inserted">{{'pf.postauth.reverse' | translate }}
+                </div>
+
+              </td>
+              <td>
+                <div *ngIf="row.installmentType=='NON_INSTALLMENT'"
+                     class="badge badge-pill bg-light-success ng-star-inserted">{{'pf.non.installment' | translate }}
+                </div>
+                <div *ngIf="row.installmentType=='WITH_INSTALLMENT'"
+                     class="badge badge-pill bg-light-warning ng-star-inserted">{{'pf.with.installment' | translate }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="row.orderStatus=='SUCCESS'"
+                     class="badge badge-pill bg-light-success ng-star-inserted">{{'pf.success' | translate }}
+                </div>
+                <div *ngIf="row.orderStatus=='FAIL'"
+                     class="badge badge-pill bg-light-danger ng-star-inserted">{{'pf.fail' | translate }}
+                </div>
+                <div *ngIf="row.orderStatus=='UNKNOWN'"
+                     class="badge badge-pill bg-light-warning ng-star-inserted">{{'pf.processing' | translate }}
+                </div>
+              </td>
+              <td>{{row.reconciliationDate}}</td>
+              <td style="color: #975aff!important;cursor: pointer;"(click)="openTransactionDetailModal(true);transactionDetail(row)">
+                      {{'pf.detail' | translate }}
+              </td>
+              <td>
+                  <div  *ngIf="(row.orderType=='SALE'||row.orderType=='PREAUTH'||row.orderType=='POSTAUTH')&&row.orderStatus=='SUCCESS'" style="color: #975aff!important;cursor: pointer;padding-left: 2px;"
+                      (click)="reverseTransaction(row)">
+                      {{'pf.cancel' | translate }}</div>
+              </td>
+              <td>
+                  <div  *ngIf="(row.orderType=='SALE'||row.orderType=='POSTAUTH')&&row.orderStatus=='SUCCESS'"  style="color: #975aff!important;cursor: pointer;padding-left: 0px;"
+                      (click)="refundTransaction(row)">
+                      {{'pf.request.refund' | translate }}</div>
+
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
+                 <div *ngIf="showTable">
+            <button class="btn btn-dark btn-block" style="max-width:140px; margin-left: 10px" type="button"
+                        (click)="onPfHistoryExport(startDate,endDate,1,null)"> {{'pf.export' | translate }}</button>
+            <div *ngIf="showTable" class="mt-3 mr-3 pagination-container">
+                <ngb-pagination style="color: #975aff!important;" role="navigation" [collectionSize]="this.collectionSize"
+                                [maxSize]="5" [pageSize]="50" [(page)]="page" [rotate]="true"
+                                [ellipses]="false" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+        </div>
+      </div>
+
+      </div>
+  </div>
+
+  <div *ngIf="!isNoDataToDisplay" id="mdlSample" class="overlay" role="dialog"
+       [ngStyle]="{'display': isOpen ? 'block' : 'none', 'opacity': 1}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="position: absolute;
+                 margin-top: 10rem;
+                 border-bottom: 2px solid black;height: 28rem;">
+        <div class="modal-header">
+          <h4 class="modal-title">{{'pf.order.detail' | translate }}</h4>
+          <button type="button" aria-label="Close" class="close">
+            <span aria-hidden="true" (click)="openTransactionDetailModal(false)">×</span>
+          </button>
+        </div>
+        <div class="modal-content" id="popup" style="overflow: auto;">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.lower.order.number' | translate }}:</div> <div class="col">{{detailOrderNo}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.order.date' | translate }}:</div> <div class="col">{{detailOrderDate}} {{detailOrderTime}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.amount' | translate }}:</div> <div class="col">{{detailOrderAmount|number: '1.2-2' : 'tr-TR'}} {{detailCurrency}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.net.amount' | translate }}:</div> <div class="col">{{detailNetOrderAmount|number: '1.2-2' : 'tr-TR'}} {{detailCurrency}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.lower.order.type' | translate }}:</div> <div class="col">{{detailOrderType}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.lower.order.status' | translate }}:</div> <div class="col">{{detailOrderStatus}}</div>
+                </div>
+              <div class="row">
+                <div class="col-xl-4">{{'pf.lower.installment.type' | translate }}:</div> <div class="col">{{modalInstallmentType}}</div>
+              </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.installment.count' | translate }}:</div> <div class="col">{{detailInstallmentCount}}</div>
+                </div>
+                 <div *ngIf="detailBankResponseCode" class="row">
+                    <div class="col-xl-4">{{'pf.bank.reply.code' | translate }}:</div> <div class="col">{{detailBankResponseCode}}</div>
+                </div>
+                <div *ngIf="detailBankResponseCodeDesc" class="row">
+                    <div class="col-xl-4">{{'pf.bank.reply.code.detail' | translate }}:</div> <div class="col">{{detailBankResponseCodeDesc}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.referance.no' | translate }}:</div> <div class="col">{{detailReferenceNumber}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.bank.reconciliation.date' | translate }}:</div> <div class="col">{{detailReconciliationDate}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.detail.acquirer.bank.desc' | translate }}:</div> <div class="col">{{detailAcquirerBankDesc}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.detail.payment.method.type' | translate }}:</div> <div class="col">{{detailPaymentMethodType}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">{{'pf.detail.issuer.bank.code.desc' | translate }}:</div> <div class="col">{{detailIssuerBankCodeDesc}}</div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay" role="dialog"
+       [ngStyle]="{'display': isFirmModalOpen ? 'block' : 'none', 'opacity': 1}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="min-height:550px; margin-top: 10rem;">
+        <div class="modal-header">
+          <h4 class="modal-title">{{'pf.header.choose.merchant' | translate }}</h4>
+          <button type="button" aria-label="Close" class="close">
+            <span aria-hidden="true" (click)="openFirmModal(false)">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--<span *ngIf="firmError" class="mb-2" style="color: red"> Lütfen Seçim Yapınız</span>-->
+          <span *ngIf="!merchantFilters">{{'pf.merchant.loading' | translate }}</span>
+          <div class="col-12 col-sm-12" *ngIf="merchantFilters && merchantFilters.length>0">
+            <label id="üyeisyeri" class="form-control-label"
+                   style="font-weight: 500;margin-top: 2rem;margin-left: -1rem">{{'pf.upper.merchant' | translate }}</label>
+            <ng-select class="form-control mb-2" *ngIf="merchantFilters"
+                       [items]="merchantFilters"
+                       [(ngModel)]="selectedMasterMerchant" [ngModelOptions]="{standalone: true}"
+                       (ngModelChange)="onSelectedMasterMerchantChange()"
+                       bindLabel="merchantName"
+                       placeholder="{{'pf.choose.merchant' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+            <ng-select class="form-control mb-2" *ngIf="ll1Merchants && ll1Merchants.length>0"
+                       [items]="ll1Merchants"
+                       [(ngModel)]="selectedLl1Merchant" [ngModelOptions]="{standalone: true}"
+                       (ngModelChange)="getOnL1MerchantChange()"
+                       bindLabel="merchantName"
+                       placeholder="{{'pf.choose.sub.merchant' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}"> {{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+            <ng-select class="form-control mb-2" *ngIf="ll2Merchants && ll2Merchants.length>0"
+                       [items]="ll2Merchants"
+                       [(ngModel)]="selectedLl2Merchant" [ngModelOptions]="{standalone: true}"
+                       (ngModelChange)="getOnL2MerchantChange()"
+                       bindLabel="merchantName"
+                       placeholder="{{'pf.choose.sub.merchant' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                 {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+            <ng-select class="form-control mb-2" *ngIf="ll3Merchants && ll3Merchants.length>0"
+                       [items]="ll3Merchants"
+                       [(ngModel)]="selectedLl3Merchant" [ngModelOptions]="{standalone: true}"
+                       (ngModelChange)="getOnL3MerchantChange()"
+                       bindLabel="merchantName"
+                       placeholder="{{'home-page.choose.sub.company' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+          </div>
+        </div>
+          <div class="modal-footer" align="right">
+              <button type="button" class="btn btn-secondary"
+                      (click)="openFirmModal(false);">
+                  {{'pf.button.apply' | translate }}
+              </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="!isPermission" class="row">
+  <div class="col-12 col-sm-12" style="background-color: white;height: 10rem">
+    <label style="margin-top: 4rem">{{message | translate }}</label>
+  </div>
+</div>

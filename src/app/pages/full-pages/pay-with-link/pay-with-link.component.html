@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="col-12 col-sm-12 text-center" style="background-color: white;height: 10rem">
+    <p style="margin-top: 4rem" *ngIf="!isPermission">{{message | translate}}</p>
+    <p style="margin-top: 4rem" *ngIf="isPermission">{{message}}</p>
+  </div>
+</div>

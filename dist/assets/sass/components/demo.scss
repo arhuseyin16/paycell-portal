@@ -1,0 +1,308 @@
+// Remove this SCSS from production
+.main-content {
+
+  // color palette
+  .color-palette {
+    .color-group {
+      li {
+        list-style-type: none;
+
+        &.color {
+          padding: 10px 15px 11px;
+          margin: 0;
+
+          &.main-color {
+            .name {
+              display: block;
+              margin-bottom: 53px;
+              font-size: 2rem;
+            }
+          }
+
+          .hex {
+            float: right;
+            text-transform: uppercase;
+            display: block;
+          }
+        }
+      }
+
+      &:last-child {
+        li {
+          &.color {
+            padding: 10px 15px 11px;
+            margin: 0;
+
+            &.main-color {
+              .name {
+                display: block;
+                margin-bottom: 53px;
+                font-size: 2rem;
+              }
+            }
+
+            .hex {
+              float: right;
+              text-transform: uppercase;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+
+    .dark {
+      span {
+        color: $body-color;
+      }
+    }
+
+    span {
+      color: rgba($white, .87);
+      font-size: 14px;
+      font-weight: 500;
+
+      &.light-strong {
+        color: $white;
+      }
+
+      &.dark {
+        color: $body-color;
+      }
+    }
+  }
+
+  // helper class
+  .bd-highlight,
+  .width-example {
+    background-color: rgba(86, 61, 124, 0.15);
+    border: 1px solid rgba(86, 61, 124, 0.15);
+  }
+
+  .height-example-wrapper {
+    background-color: rgba(255, 0, 0, 0.1);
+    height: 100px;
+
+    .height-example {
+      background-color: rgba(0, 0, 255, .1);
+      width: 120px;
+    }
+  }
+
+  // font icons
+  .fonticon-container {
+    > .fonticon-wrap {
+      float: left;
+      width: 60px;
+      height: 60px;
+      line-height: 4.8rem;
+      text-align: center;
+      border-radius: 0.1875rem;
+      margin-right: 1rem;
+      margin-bottom: 1.5rem;
+
+      > i {
+        font-size: 2.28rem;
+
+        &.fa {
+          font-size: 2.28rem !important;
+        }
+
+        transition: all .2s ease-in-out;
+      }
+
+      &.youtube {
+        width: 100px;
+      }
+    }
+
+    &:hover {
+      i {
+        color: theme-color('primary');
+        font-size: 2.9rem;
+        transform: scale(1.3);
+      }
+    }
+
+    > .fonticon-classname,
+    > .fonticon-unit {
+      display: block;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    > .fonticon-unit {
+      font-size: 1rem;
+      font-style: italic;
+    }
+  }
+}
+
+// buy now button
+.buy-now {
+  position: fixed;
+  bottom: 4%;
+  right: 5.8rem;
+  z-index: 1039;
+}
+
+// scroll to top button
+.scroll-top {
+  position: fixed;
+  z-index: 1039;
+  bottom: 4%;
+  right: 4rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.scroll-top2 {
+  position: fixed;
+  z-index: 1039;
+  bottom: 4%;
+  right: 5rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.scroll-top2 {
+  position: fixed;
+  z-index: 1039;
+  bottom: 14%;
+  right: 5rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.checkboxx {
+  margin-left: -900px;
+  margin-top: 5rem;
+}
+.checkboxp {
+  text-align: left !important;
+  margin-left: -40rem !important;
+}
+
+
+.h44 {
+  margin-top: 2rem;
+  margin-left: 1.3rem;
+  text-align: left !important;
+}
+
+.overlay {
+  position: fixed; /* Positioning and size */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128,128,128,0.5); /* color */
+  display: none; /* making it hidden by default */
+}
+
+.label {
+  margin-left: -7%;
+  text-align: left !important;
+}
+
+.mer.label {
+  margin-left: 20px;
+  text-align: left !important;
+  margin-top: 1.5rem;
+}
+
+.mer.label2 {
+  margin-left: 25px;
+  text-align: left !important;
+  margin-top: 1.5rem;
+}
+
+.roww {
+  margin-left: 20px;
+  margin-bottom: 3rem;
+}
+
+.danger {
+  background-color: white;
+  color: red;
+  width: 40%;
+  padding: -0.5rem 1.45rem;
+}
+
+.user {
+  margin-left: 20px;
+  text-align: left !important;
+}
+
+.font-user-info{
+  font-size: 1.2rem !important;
+  color: black;
+  font-weight: 450;
+
+}
+.permission{
+  height: 40px;
+  background-color: #EEEEEE;
+  border-width: thick;
+  border-bottom: 1px solid #aaa;
+
+}
+@include media-breakpoint-down(xs) {
+
+  // Media object -> smaller img in small screen
+  #media-object {
+    img {
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  // carousel caption
+  .carousel-caption {
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // upload/dropzone -> message font size
+  .dropzone.dropzone-area .dz-message {
+    font-size: 1.5rem;
+
+    &:before {
+      font-size: 3rem;
+      height: 50px;
+    }
+  }
+}
+
+// Modal -> form with icon
+#iconForm {
+  .form-control-position {
+    top: 1px;
+  }
+}
+
+
+//--------------- Documentation ---------------
+.doc-sidebar-wrapper {
+  position: fixed;
+  right: 1rem;
+
+  .doc-sidebar {
+    margin-left: 4.5rem;
+  }
+
+  body.page-scrolled & {
+    top: 1.5rem;
+  }
+}
+
+ul.doc-sidebar-nav-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+@include media-breakpoint-down(lg) {
+  .doc-sidebar-wrapper .doc-sidebar {
+    margin-left: 0.5rem;
+  }
+}

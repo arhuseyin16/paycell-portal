@@ -1,0 +1,51 @@
+<!--E-Mail Confirmation Starts-->
+<section id="change-password">
+  <div class="row auth-height full-height-vh m-0">
+    <div class="row full-width justify-content-end" style="position:absolute;z-index: 9999">
+      <app-lang-selector></app-lang-selector>
+    </div>
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body auth-img">
+            <div class="row m-0">
+              <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center auth-img-bg p-3">
+                <img src="assets/img/gallery/login.png" alt="" class="img-fluid" width="300" height="230">
+              </div>
+
+              <div class="col-lg-6 col-12 px-4 py-5">
+                <h4 class="mb-2 card-title">{{'mail-confirmation.welcome.header' | translate }}</h4>
+                <div *ngIf="!isExpired">
+                  <p *ngIf="messageStatus === true">{{'mail-confirmation.message.valid' | translate }}</p>
+                  <p *ngIf="messageStatus === false">{{'mail-confirmation.message.invalid1' | translate }}</p>
+                  <p *ngIf="messageStatus === false">{{'mail-confirmation.message.invalid2' | translate}}</p>
+                  <p *ngIf="messageStatus === undefined || messageStatus === null">{{errorMessage | translate }}</p>
+                  <hr>
+                  <div class="d-sm-flex justify-content-end font-small-2">
+                    <a [routerLink]="['/']">{{'mail-confirmation.link.homePage' | translate }}</a>
+                  </div>
+                </div>
+                <div *ngIf="isExpired">
+                  <div *ngIf="!isLinkSent">
+                    <p>{{'mail-confirmation.message.expired' | translate }}</p>
+                    <a class="link-mail" (click)="retryMailValidation()">{{'mail-confirmation.message.expired-link' |
+                      translate }}</a>
+                  </div>
+                  <div *ngIf="isLinkSent">
+                    <p>{{'mail-confirmation.message.link-sent' | translate }}</p>
+                    <hr>
+                    <div class="d-sm-flex justify-content-end font-small-2">
+                      <a [routerLink]="['/']">{{'mail-confirmation.link.homePage' | translate }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--E-Mail Confirmation Ends-->

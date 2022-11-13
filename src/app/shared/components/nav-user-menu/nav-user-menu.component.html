@@ -1,0 +1,32 @@
+<div class="dropdown nav-item mr-1" (click)="dropDownMenu()" placement="bottom-left" display="static" ngbDropdown>
+  <a class="nav-link dropdown-toggle user-dropdown d-flex align-items-end p-0,
+" id="dropdownBasic2"
+     href="javascript:;" data-toggle="dropdown" ngbDropdownToggle>
+    <div class="user d-md-flex d-none mr-2 ml-0">
+      <span class="text-right" *ngIf="customerType === '2'">{{'menu.profile.welcome' | translate}}</span>
+      <span class="text-right">{{getUsername()}}</span>
+      <span *ngIf="customerType === '1'" class="text-right text-muted font-small-3">{{getMerchant()}}</span>
+    </div>
+    <img class="avatar" [src]="getAvatar()" alt="avatar" height="35" width="35"/>
+  </a>
+  <div class="dropdown-menu text-left dropdown-menu-right m-0 pb-0" aria-labelledby="dropdownBasic2"
+       ngbDropdownMenu>
+    <a class="dropdown-item" (click)="userRouter('general')">
+      <div class="d-flex align-items-center">
+        <i class="ft-edit mr-2"></i><span>{{'navbar.user.edit-profile' | translate}}</span>
+      </div>
+    </a>
+    <div class="dropdown-divider" *ngIf="valueHidden"></div>
+    <a class="dropdown-item" (click)="userRouter('change-business')" *ngIf="valueHidden">
+      <div class="d-flex align-items-center">
+        <i class="ft-edit mr-2"></i><span>{{'navbar.user.change.business' | translate}}</span>
+      </div>
+    </a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="javascript:;" (click)="logout()">
+      <div class="d-flex align-items-center">
+        <i class="ft-power mr-2"></i><span>{{'navbar.user.logout' | translate}}</span>
+      </div>
+    </a>
+  </div>
+</div>

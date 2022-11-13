@@ -1,0 +1,267 @@
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKZZKF6"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="row text-center" style="margin: 25px">
+        <div class="col-12">
+          <div class="content-header">{{'pf-dcb.seller.informations' | translate}}</div>
+          <p class="content-sub-header">
+            {{'pf-dcb.seller.informations.text' | translate}}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group-div text-center">
+        <form [formGroup]="pfdcbForm">
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">{{'pf-dcb.shop.name' | translate}}</label>
+            <input class="form-control" formControlName="shopName"
+                   [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.shopName.invalid, 'is-valid': pfdcbFormSubmit && !formControl.shopName.invalid }"
+                   required>
+
+            <div *ngIf="pfdcbFormSubmit && (formControl.shopName.invalid || formControl.shopName.errors?.required)"
+                 class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.field.not.left.blank' | translate}}
+            </div>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">{{'pf-dcb.service.industry' | translate}}</label>
+            <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                     placement="top-right" ngbTooltip="This is Tooltip"
+                                                                     #serviceIndustryTooltip="ngbTooltip"
+                                                                     (click)="serviceIndustryTooltip.open()"></i></label>
+            <ng-select class="ng-select form-group" formControlName="serviceIndustry"
+                      [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.serviceIndustry.invalid, 'is-valid': pfdcbFormSubmit && !formControl.serviceIndustry.invalid }"
+                      [items]="parentSectorInfos"
+                      bindLabel="description"
+                      bindValue="code"
+                      placeholder="Kategori Seciniz">
+            </ng-select>
+            <div *ngIf="pfdcbFormSubmit && (formControl.serviceIndustry.invalid || formControl.serviceIndustry.errors?.required)"
+            class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.choose.town' | translate}}
+            </div>
+          </div>
+
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">{{'pf-dcb.info.about.products' | translate}}</label>
+            <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                     placement="top-right" ngbTooltip="This is Tooltip"
+                                                                     #productInfosTooltip="ngbTooltip"
+                                                                     (click)="productInfosTooltip.open()"></i></label>
+            <textarea class="form-control" formControlName="productsInfos"
+                      [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.productsInfos.invalid, 'is-valid': pfdcbFormSubmit && !formControl.productsInfos.invalid }"
+                      required></textarea>
+            <div *ngIf="pfdcbFormSubmit && (formControl.productsInfos.invalid || formControl.productsInfos.errors?.required)"
+                 class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.field.not.left.blank' | translate}}
+            </div>
+          </div>
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">Iban</label>
+            <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                     placement="top-right" ngbTooltip="This is Tooltip"
+                                                                     #ibanTooltip="ngbTooltip"
+                                                                     (click)="ibanTooltip.open()"></i></label>
+            <input type="text" class="form-control" formControlName="iban"
+                   [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.iban.invalid, 'is-valid': pfdcbFormSubmit && !formControl.iban.invalid }"
+                   required>
+            <div *ngIf="pfdcbFormSubmit && (formControl.iban.invalid || formControl.iban.errors?.required)"
+                 class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.field.not.left.blank' | translate}}
+            </div>
+          </div>
+
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">{{'pf-dcb.website' | translate}}</label>
+            <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                     placement="top-right" ngbTooltip="This is Tooltip"
+                                                                     #websiteTooltip="ngbTooltip"
+                                                                     (click)="websiteTooltip.open()"></i></label>
+            <input type="text" class="form-control" formControlName="webSite"
+                   [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.webSite.invalid, 'is-valid': pfdcbFormSubmit && !formControl.webSite.invalid }"
+                   required>
+            <div *ngIf="pfdcbFormSubmit && (formControl.webSite.invalid || formControl.webSite.errors?.required)"
+                 class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.field.not.left.blank' | translate}}
+            </div>
+          </div>
+
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">Adres</label>
+            <label class="col-3 text-right" style="padding: 0px;"><i class="ft-info font-medium-2" style="padding: 0px;"
+                                                                     placement="top-right" ngbTooltip="This is Tooltip"
+                                                                     #productInfosTooltip="ngbTooltip"
+                                                                     (click)="productInfosTooltip.open()"></i></label>
+            <textarea class="form-control" formControlName="address"
+                      [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.address.invalid, 'is-valid': pfdcbFormSubmit && !formControl.address.invalid }"
+                      required></textarea>
+            <div *ngIf="pfdcbFormSubmit && (formControl.address.invalid || formControl.address.errors?.required)"
+                 class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.field.not.left.blank' | translate}}
+            </div>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">{{'pf-dcb.city' | translate}}</label>
+            <ng-select class="ng-select" formControlName="city"
+                      [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.city.invalid, 'is-valid': pfdcbFormSubmit && !formControl.city.invalid }"
+                      (ngModelChange)="citySelect()"
+                      [items]="cityList"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="Il Seciniz"
+                      required>
+
+            </ng-select>
+            <div *ngIf="pfdcbFormSubmit && (formControl.city.invalid || formControl.city.errors?.required)"
+            class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.choose.city' | translate}}
+            </div>
+          </div>
+          <div class="form-group text-left">
+            <label class="col-9" style="padding: 0px;">{{'pf-dcb.town' | translate}}</label>
+            <ng-select class="ng-select" formControlName="town"
+                      [ngClass]="{ 'is-invalid': pfdcbFormSubmit && formControl.town.invalid, 'is-valid': pfdcbFormSubmit && !formControl.town.invalid }"
+                      [items]="townList"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="Ilce Seciniz"
+                      required>
+            </ng-select>
+            <div *ngIf="pfdcbFormSubmit && (formControl.town.invalid || formControl.town.errors?.required)"
+            class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+              {{'pf-dcb.choose.town' | translate}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-8 text-left mb-1">
+              <i class="ft-facebook font-medium-1 mr-2"> </i>
+              <label>{{'pf-dcb.facebook' | translate}}</label>
+            </div>
+
+            <div class="col-4 text-right">
+              <label class="switch">
+                <input formControlName="hasFacebookLink" (click)="changeSocialMediaSliderStatus('facebook')" type="checkbox"/>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="formControl.hasFacebookLink.value" class="form-group text-left">
+            <input type="text" class="form-control" formControlName="facebookLink">
+          </div>
+
+          <div class="row">
+            <div class="col-8 text-left mb-1">
+              <i class="ft-twitter font-medium-1 mr-2"> </i>
+              <label>{{'pf-dcb.twitter' | translate}}</label>
+            </div>
+
+            <div class="col-4 text-right">
+              <label class="switch">
+                <input formControlName="hasTwitterLink" (click)="changeSocialMediaSliderStatus('twitter')" type="checkbox"/>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="formControl.hasTwitterLink.value" class="form-group text-left">
+            <input type="text" class="form-control" formControlName="twitterLink">
+          </div>
+
+          <div class="row">
+            <div class="col-8 text-left mb-1">
+              <i class="ft-instagram font-medium-1 mr-2"> </i>
+              <label>{{'pf-dcb.instagram' | translate}}</label>
+            </div>
+
+            <div class="col-4 text-right">
+              <label class="switch">
+                <input formControlName="hasInstagramLink" (click)="changeSocialMediaSliderStatus('instagram')" type="checkbox"/>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="formControl.hasInstagramLink.value" class="form-group text-left">
+            <input type="text" class="form-control" formControlName="instagramLink">
+          </div>
+
+          <div class="row">
+            <div class="col-8 text-left mb-1">
+              <i class="ft-youtube font-medium-1 mr-2"> </i>
+              <label>{{'pf-dcb.youtube' | translate}}</label>
+            </div>
+
+            <div class="col-4 text-right">
+              <label class="switch">
+                <input formControlName="hasYoutubeLink" (click)="changeSocialMediaSliderStatus('youtube')" type="checkbox"/>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="formControl.hasYoutubeLink.value" class="form-group text-left">
+            <input type="text" class="form-control" formControlName="youtubeLink">
+          </div>
+          <div class="text-center">
+            <div class="form-group form-check">
+              <input class="form-check-input" type="checkbox" formControlName="contract1approved">
+              <a style="text-decoration: underline" (click)="openContactModelOpen(contractModal, contract1, 1)"
+                 class="form-check-label">{{contract1.title}}</a>
+            </div>
+            <div class="form-group form-check">
+              <input class="form-check-input" type="checkbox" formControlName="contract2approved">
+              <a style="text-decoration: underline" (click)="openContactModelOpen(contractModal, contract2, 2)"
+                 class="form-check-label">{{contract2.title}}</a>
+            </div>
+            <div class="form-group form-check">
+              <input class="form-check-input" type="checkbox" formControlName="contract3approved">
+              <a style="text-decoration: underline" (click)="openContactModelOpen(contractModal, contract3, 3)" class="form-check-label">{{contract3.title}}</a>
+            </div>
+          </div>
+          <div class="row mt-4 text-center">
+            <div class="col-12 ">
+              <a class="btn btn-dark" (click)="onSubmit()">{{'pf-dcb.save' | translate}}</a>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+<ng-template #contractModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{openedContractTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" [innerHTML]="openedContractContent"></div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <button type="button" class="btn btn-light" (click)="modal.close('closed'); contractApprove();">{{'pf-dcb.approve' | translate}}
+          </button>
+          <button type="button" class="btn btn-light" (click)="modal.close('Click to closed')">{{'pf-dcb.cancel' | translate}}</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</ng-template>

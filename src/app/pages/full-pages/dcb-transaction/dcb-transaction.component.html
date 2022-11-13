@@ -1,0 +1,489 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="content-header">{{'dcb.transaction-header' | translate }}</div>
+  </div>
+</div>
+<div *ngIf="isPermission">
+  <!--Merchant Select Card Start-->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body" style="margin-bottom: 2rem;">
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">{{'dcb.merchant' | translate }}</span>
+                    </div>
+                    <span class="form-control" aria-describedby="basic-addon1">{{lastSelectedMerchant?.merchantName||
+                      ''}}</span>
+                    <div class="input-group-append">
+                      <button class="btn btn-dark" type="button" (click)="openFirmModal(true)">{{'dcb.choose' |
+                        translate }}</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label id="başlangıçtarihi" class="form-control-label" style="font-weight: 500">{{'dcb.start.date' |
+                  translate }}</label>
+                <div class="input-group" id="p1">
+                  <input class="form-control" [minDate]="{year: 2019, month: 4, day: 22}"
+                    placeholder="{{past| date: 'yyyy-MM-dd'}}" name="dp" ngbDatepicker #d="ngbDatepicker"
+                    [(ngModel)]="startDate">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="d.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <label id="bitistarihi" class="form-control-label" style="font-weight: 500">{{'dcb.end.date' | translate
+                  }}</label>
+                <div class="input-group" id="p2">
+                  <input class="form-control" [minDate]="{year: 2019, month: 4, day: 22}"
+                    placeholder="{{current| date: 'yyyy-MM-dd'}}" name="b" ngbDatepicker #b="ngbDatepicker"
+                    [(ngModel)]="endDate">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="b.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label id="siparisno" class="form-control-label" style="font-weight: 500">{{'dcb.order.number' |
+                  translate }}</label>
+                <input ngmodel="" required id="firstname" #_orderNo="ngModel" maxlength="100" name="firstname"
+                  type="text" [(ngModel)]="orderId" class="form-control input-md ng-untouched ng-pristine ng-invalid"
+                  style="width: 97%">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label id="odemearacitipi" class="form-control-label"
+                  style="font-weight: 500">{{'dcb.funding.source.type' | translate }}</label>
+                <ng-select [items]="fundingSourceTypeItem" bindLabel="name" bindValue="orginalName"
+                  placeholder="{{'dcb.please.choose' | translate }}" [(ngModel)]="selectedFundingSourceType">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label id="siparistipi" class="form-control-label" style="font-weight: 500">{{'dcb.order.type' |
+                  translate }}</label>
+                <ng-select [items]="orderTypesItem" bindLabel="name" bindValue="orginalName"
+                  placeholder="{{'dcb.please.choose' | translate }}" [(ngModel)]="selectedOrderType">
+                </ng-select>
+              </div>
+              <div class="col-md-4">
+                <label id="odemeDurumu" class="form-control-label" style="font-weight: 500">{{'dcb.payment.status' |
+                  translate }}</label>
+                <ng-select [items]="paymentStatusItem" bindLabel="name" bindValue="orginalName"
+                  placeholder="{{'dcb.please.choose' | translate }}" [(ngModel)]="selectedPaymentStatus">
+                </ng-select>
+              </div>
+              <div class="col-md-4" style="padding-top: 24px">
+                <button class="btn btn-dark btn-block" type="button"
+                  (click)="onDcbTransactionList(startDate,endDate,1)">{{'dcb.search' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isNoDataToDisplay" class="table-responsive">
+            <table class="table m-0" style="background-color: white;">
+              <thead class="thead-light">
+                <tr>
+                  <th>{{'dcb.sub.merchant.name' | translate }}</th>
+                  <th>{{'dcb.lower.order.number' | translate }}</th>
+                  <th>{{'dcb.order.date' | translate }}</th>
+                  <th>{{'dcb.transaction.amount' | translate }}</th>
+                  <th>{{'dcb.commission.amount' | translate }}</th>
+                  <th>{{'dcb.lower.funding.source.type' | translate }}</th>
+                  <th>{{'dcb.lower.order.type' | translate }}</th>
+                  <th>{{'dcb.payment.status' | translate }}</th>
+                  <th>{{'dcb.action' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{'dcb.no.data.to.display' | translate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div *ngIf="showTable" class="table-responsive">
+          <table class="table m-0">
+            <thead class="thead-light">
+              <tr>
+                <th>{{'dcb.sub.merchant.name' | translate }}</th>
+                <th>{{'dcb.lower.order.number' | translate }}</th>
+                <th>{{'dcb.order.date' | translate }}</th>
+                <th>{{'dcb.transaction.amount' | translate }}</th>
+                <th>{{'dcb.commission.amount' | translate }}</th>
+                <th>{{'dcb.lower.funding.source.type' | translate }}</th>
+                <th>{{'dcb.lower.order.type' | translate }}</th>
+                <th>{{'dcb.payment.status' | translate }}</th>
+                <th>{{'dcb.action' | translate }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of dcbOrders">
+                <td>{{row.dcbSubMerchantName}}</td>
+                <td>{{row.orderId}}</td>
+                <td>{{row.orderDate|date:'dd.MM.yyyy HH:mm:ss'}}</td>
+                <td>
+                  <div *ngIf="row.transactionAmount" class="col"> {{row.transactionAmount|number: '1.2-2' :
+                    'tr-TR'}}&nbsp;&nbsp;{{'dcb.currency' | translate }}</div>
+                </td>
+                <td>
+                  <div *ngIf="row.commissionAmount" class="col"> {{row.commissionAmount|number: '1.2-2' :
+                    'tr-TR'}}&nbsp;&nbsp;{{'dcb.currency' | translate }}</div>
+                </td>
+                <td>
+                  <div *ngIf="row.fundingSourceType=='MOBIL ODEME'"
+                    class="badge badge-pill bg-light-primary ng-star-inserted">{{'dcb.mobile.payment' | translate }}
+                  </div>
+                  <div *ngIf="row.fundingSourceType=='HEDIYE PARA'"
+                    class="badge badge-pill bg-light-info ng-star-inserted">{{'dcb.gift.money' | translate }}
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="row.orderType=='SATIS'" class="badge badge-pill bg-light-success ng-star-inserted">
+                    {{'dcb.sale' | translate }}
+                  </div>
+                  <div *ngIf="row.orderType=='IADE'" class="badge badge-pill bg-light-danger ng-star-inserted">
+                    {{'dcb.refund' | translate }}
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="row.paymentStatus=='ODENDI'" class="badge badge-pill bg-light-success ng-star-inserted">
+                    {{'dcb.paid' | translate }}
+                  </div>
+                  <div *ngIf="row.paymentStatus=='ODENMEDI'" class="badge badge-pill bg-light-danger ng-star-inserted">
+                    {{'dcb.not.paid' | translate }}
+                  </div>
+                </td>
+                <td style="color: #975aff!important;cursor: pointer;"
+                  (click)="openTransactionDetailModal(true);transactionDetail(row)">
+                  {{'dcb.detail' | translate }}
+                </td>
+                <td>
+                  <div style="color: #ff5722!important;cursor: pointer;"
+                    *ngIf="(['ODENDI','ODENMEDI'].includes(row.paymentStatus)) && row.orderType === 'SATIS'"
+                    (click)="refundModal(true, row)">
+                    {{'dcb.return.to' | translate}}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="showTable">
+            <button class="btn btn-dark btn-block" style="max-width:140px; margin-left: 10px" type="button"
+              (click)="onDcbTransactionExport(startDate,endDate,1)">{{'dcb.export' | translate }}</button>
+            <div *ngIf="showTable" class="mt-3 mr-3 pagination-container">
+              <ngb-pagination style="color: #975aff!important;" role="navigation" [collectionSize]="this.collectionSize"
+                [maxSize]="5" [pageSize]="this.pageSize" [(page)]="page" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!--Merchant Select Card Finish-->
+  <!--Table Detail Start-->
+  <div *ngIf="!isNoDataToDisplay" id="mdlSample" class="overlay" role="dialog"
+    [ngStyle]="{'display': isOpen ? 'block' : 'none', 'opacity': 1}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="position: absolute;
+             margin-top: 10rem;
+             border-bottom: 2px solid black;height: 40rem;">
+        <div class="modal-header">
+          <h4 class="modal-title">{{'dcb.order.detail' | translate }}</h4>
+          <button type="button" aria-label="Close" class="close">
+            <span aria-hidden="true" (click)="openTransactionDetailModal(false)">×</span>
+          </button>
+        </div>
+        <div class="modal-content" id="popup">
+          <div class="container">
+            <br>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.d.merchant.name' | translate }}:</div>
+              <div class="col">{{detailDcbMerchantName}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.d.sub.merchant.name' | translate }}:</div>
+              <div class="col">{{detailDcbSubMerchantName}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.d.service.name' | translate }}:</div>
+              <div class="col">{{detailDcbServiceName}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.lower.order.number' | translate }}:</div>
+              <div class="col">{{detailOrderNo}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.transaction.id' | translate }}:</div>
+              <div class="col">{{detailTransactionId}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.lower.order.type' | translate }}:</div>
+              <div class="col">{{detailOrderType}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.lower.funding.source.type' | translate }}:</div>
+              <div class="col">{{detailFundingSourceType}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.payment.type' | translate }}:</div>
+              <div class="col">{{detailPaymentType}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.payment.status' | translate }}:</div>
+              <div class="col">{{detailPaymentStatus}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.transaction.amount' | translate }}:</div>
+              <div *ngIf="detailTransactionAmount" class="col">{{detailTransactionAmount|number: '1.2-2' :
+                'tr-TR'}}&nbsp;&nbsp;{{'dcb.currency' | translate }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.commission.rate' | translate }}:</div>
+              <div class="col">{{detailCommissionRate ? '%' + detailCommissionRate : ''}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.commission.amount' | translate }}:</div>
+              <div *ngIf="detailCommissionAmount" class="col">{{detailCommissionAmount|number: '1.2-2' :
+                'tr-TR'}}&nbsp;&nbsp;{{'dcb.currency' | translate }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.order.date' | translate }}:</div>
+              <div class="col">{{detailOrderDate|date:'dd.MM.yyyy HH:mm:ss'}}</div>
+            </div>
+            <div class="row">
+              <div *ngIf="detailPaymentStatus=='ODENDI'" class="col-xl-4">{{'dcb.merchant.payment.date' | translate }}:
+              </div>
+              <div *ngIf="detailPaymentStatus=='ODENDI'" class="col">{{detailMerchantPaymentDate|date:'dd.MM.yyyy
+                HH:mm:ss'}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.param1' | translate }}:</div>
+              <div class="col">{{detailParam1}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.param2' | translate }}:</div>
+              <div class="col">{{detailParam2}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xl-4">{{'dcb.param3' | translate }}:</div>
+              <div class="col">{{detailParam3}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Table Detail Finish-->
+  <!--Merchant Select Dialog Start-->
+  <div class="overlay" role="dialog" [ngStyle]="{'display': isFirmModalOpen ? 'block' : 'none', 'opacity': 1}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="min-height:550px; margin-top: 10rem;">
+        <div class="modal-header">
+          <h4 class="modal-title">{{'dcb.header.choose.merchant' | translate }}</h4>
+          <button type="button" aria-label="Close" class="close">
+            <span aria-hidden="true" (click)="openFirmModal(false)">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--<span *ngIf="firmError" class="mb-2" style="color: red"> Lütfen Seçim Yapınız</span>-->
+          <span *ngIf="!merchantFilters"> {{'dcb.merchant.loading' | translate }}</span>
+          <div class="col-12 col-sm-12" *ngIf="merchantFilters && merchantFilters.length>0">
+            <label id="üyeisyeri" class="form-control-label"
+              style="font-weight: 500;margin-top: 2rem;margin-left: -1rem">{{'dcb.upper.merchant' | translate }}</label>
+            <ng-select class="form-control mb-2" *ngIf="merchantFilters" [items]="merchantFilters"
+              [(ngModel)]="selectedMasterMerchant" [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="onSelectedMasterMerchantChange()" bindLabel="merchantName"
+              placeholder="{{'dcb.please.choose' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+            <ng-select class="form-control mb-2" *ngIf="ll1Merchants && ll1Merchants.length>0" [items]="ll1Merchants"
+              [(ngModel)]="selectedLl1Merchant" [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="getOnL1MerchantChange()" bindLabel="merchantName"
+              placeholder="{{'dcb.choose.sub.merchant' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}"> {{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+            <ng-select class="form-control mb-2" *ngIf="ll2Merchants && ll2Merchants.length>0" [items]="ll2Merchants"
+              [(ngModel)]="selectedLl2Merchant" [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="getOnL2MerchantChange()" bindLabel="merchantName"
+              placeholder="{{'dcb.choose.sub.merchant' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+            <ng-select class="form-control mb-2" *ngIf="ll3Merchants && ll3Merchants.length>0" [items]="ll3Merchants"
+              [(ngModel)]="selectedLl3Merchant" [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="getOnL3MerchantChange()" bindLabel="merchantName"
+              placeholder="{{'home-page.choose.sub.company' | translate }}">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.merchantName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+              </ng-template>
+            </ng-select>
+
+          </div>
+        </div>
+        <div class="modal-footer" align="right">
+          <button type="button" class="btn btn-secondary" (click)="openFirmModal(false);">
+            {{'dcb.button.apply' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Merchant Select Dialog Finish-->
+  <!----İade Et Start----->
+  <div class="overlay" role="dialog" [ngStyle]="{'display': returnIsOpen ? 'block' : 'none', 'opacity': 1}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="min-height:450px; margin-top: 5rem; width: 75%">
+        <div class="modal-header">
+          <h4 class="modal-title">{{"dcb.refund.title" | translate}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-12">{{"dcb.refund.description" |translate}}</div>
+          <div class="col-12 mt-3">
+            <span>{{"dcb.refund.order.no" | translate}}: <span
+                class="pl-2">{{returnToModel?.transactionId}}</span></span>
+          </div>
+          <div class="col-12 mt-2">
+            <span>{{"dcb.refund.transaction.amount" | translate}}: <span
+                style="padding-left: 50px">{{returnToModel?.transactionAmount | number: '1.2-2' :
+                'tr-TR'}}&nbsp;&nbsp;{{'dcb.currency' | translate }}</span></span>
+          </div>
+          <div class="col-12 mt-2">
+            <input type="checkbox" (ngModelChange)="checkValueChange($event)" [(ngModel)]="checkValue"><span
+              class="pl-1">{{"dcb.refund.partial" | translate}}</span>
+          </div>
+          <div class="col-12 mt-2" *ngIf="checkValue">
+            <div class="row">
+              <div class="col-3">
+                {{"dcb.refund.amount" | translate}}:
+              </div>
+              <div class="col-9">
+                <input appDecimalAmount (ngModelChange)="refundAmountChange($event)" placeholder="0,00 TL"
+                  [(ngModel)]="refundAmount">
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mt-2">
+            <div class="row">
+              <div class="col-3">
+                {{"dcb.refund.reason" | translate}}:
+              </div>
+              <div class="col-9">
+                <textarea [maxLength]="400" [(ngModel)]="refundReason"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mt-3 p-1 text-center" style="border: 2px solid #ff00009e; color: red" *ngIf="netAmount">
+            {{'dcb.cannot.greater.than.transaction.net.amount' | translate}}
+          </div>
+        </div>
+        <div class="modal-footer" style="display: block !important; padding-left: 30%;" align="right">
+          <div class="row">
+            <button class="btn btn-secondary" (click)="refundModal(false)">{{"dcb.refund.cancel" | translate}}</button>
+            <button class="btn btn-dark" (click)="refundContinue()">{{"dcb.refund.go" | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!----İade Et Finish----->
+</div>
+
+<!----İade Et Summary Start----->
+<div class="overlay" role="dialog" [ngStyle]="{'display': summaryRefund ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="min-height:450px; margin-top: 5rem; width: 75%">
+      <div class="modal-header">
+        <h4 class="modal-title">İşlem İadesi</h4>
+        <button type="button" aria-label="Close" class="close">
+          <span aria-hidden="true" (click)="refundSummaryCloseIcon()">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12 mt-2">
+          <span>Sipariş Numarası: <span class="pl-2">{{dcbRefundDto?.transactionId}}</span></span>
+        </div>
+        <div class="col-12 mt-2">
+          <span>İşlem Tutarı: <span style="padding-left: 50px">{{dcbRefundDto?.amount | number: '1.2-2' :
+              'tr-TR'}}&nbsp;&nbsp;{{'dcb.currency' | translate }}</span></span>
+        </div>
+        <div class="col-12 mt-2" *ngIf="dcbRefundDto?.refundAmount">
+          <div class="row">
+            <div class="col-3">
+              İade Tutarı:
+            </div>
+            <div class="col-9">
+              <input disabled type="text" placeholder="0,00 TL"
+                [value]="dcbRefundDto?.refundAmount | number: '1.2-2' : 'tr-TR' + ' TL'">
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-2">
+          <div class="row">
+            <div class="col-3">
+              İade Sebebi:
+            </div>
+            <div class="col-9">
+              <textarea [value]="dcbRefundDto?.refundReason" disabled></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: block !important; padding-left: 38%;" align="right">
+        <div class="row">
+          <button class="btn btn-secondary" (click)="refundSummaryCancel(false)">Geri</button>
+          <button class="btn btn-dark" (click)="refundSummaryContinue()">Onay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!----İade Et Summary Finish----->
+
+<div *ngIf="!isPermission" class="row">
+  <div class="col-12 col-sm-12" style="background-color: white;height: 10rem">
+    <label style="margin-top: 4rem">{{message| translate }}</label>
+  </div>
+</div>
