@@ -1,0 +1,101 @@
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKZZKF6"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="row" *ngIf="products?.length === 0">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-header">{{'shop-management.product.infos.header' | translate }}</div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body" style="margin-bottom: 2rem;">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-md-12">
+              <i class="ft-box font-large-3  mr-2"></i>
+            </div>
+            <h4 class="card-title col-12">
+              {{'products.noProduct.header' | translate }}
+            </h4>
+            <p class="col-12">
+              {{'products.noProduct.sub.header' | translate }}
+            </p>
+            <a routerLink="/save-product">
+              <button class="btn btn-dark" type="button">{{'products.addNewProduct' | translate}}</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="products?.length > 0">
+  <div class="col-12">
+    <div class="content-sub-header">
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <div class="content-header">{{'products.header' | translate }}</div>
+          <p class="content-sub-header">
+            {{'products.sub.header' | translate }}
+          </p>
+        </div>
+        <div class="col-6 col-md-4 text-right">
+          <div class="content-header">
+            <a class="btn btn-dark" routerLink="/save-product">
+              <i class="ft-plus"></i> {{'products.addNewProduct' | translate}}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div *ngFor="let product of products">
+                    <div class="row">
+                      <div class="col-10">
+                        <div class="input-group">
+                          <label class="font-weight-bold"><img src="" class="ft-image font-large-3"></label>&nbsp;
+                          <label class="font-weight-bold mt-2">{{product.title}} {{product.status === 'DRAFT' ? ' [TASLAK]': ''}}</label>&nbsp;
+                        </div>
+                      </div>
+                      &nbsp;
+                      <div class="col text-right mt-2">
+                        <a (click)="editProduct(product.identifier)">
+                          <i class="ft-edit font-large-1">&nbsp;</i>
+                        </a>
+                        <a (click)="deleteProductConfirmDialog(product.identifier)">
+                          <i class="ft-trash-2 font-large-1"></i>
+                        </a>&nbsp;
+                        <a (click)="duplicateProductConfirmDialog(product.identifier)" *ngIf="product.status  !== 'DRAFT'" >
+                          <i class="ft-copy font-large-1"></i>
+                        </a>&nbsp;
+                        <a (click)="copyToClipboard(product.identifier)"  *ngIf="product.status !== 'DRAFT'">
+                          <i class="ft-share-2 font-large-1 " id="myProductLink" value="https://www.paycellmarketplace.com.tr/product/{{product.identifier}}" ngbTooltip="https://www.paycellmarketplace.com.tr/product/{{product.identifier}}" #product_name="ngbTooltip"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                  <div class="row justify-content-center">
+                    <ngb-pagination style="color: #975aff!important;" role="navigation" [collectionSize]="totalElements"
+                      [maxSize]="3" [pageSize]="5" (page)="page" [rotate]="true" [ellipses]="false"
+                      (pageChange)="loadPage($event)">
+                    </ngb-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

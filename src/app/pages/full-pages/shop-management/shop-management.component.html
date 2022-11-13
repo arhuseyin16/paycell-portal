@@ -1,0 +1,598 @@
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKZZKF6"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="col-12">
+  <div class="content-sub-header">
+    <mat-tab-group id="main-tab" animationDuration="500ms" disableRipple>
+      <mat-tab label="{{'shop-management.product.infos.header' | translate }}">
+        <div class="row">
+          <div class="col-12">
+            <div class="content-header">{{'shop-management.product.infos.header' | translate }}</div>
+            <p class="content-sub-header">
+              {{'shop-management.product.infos.subheader' | translate }}
+            </p>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+
+
+                <div class="card-title">
+                  <div class="row">
+                    <div class="col-12 col-md-8">
+                      <h4>{{'shop-management.product.infos.is.shop.installments' | translate }}</h4>
+                    </div>
+                    <div class="col-6 col-md-4 text-right">
+                      <label class="switch">
+                        <input type="checkbox" [(ngModel)]="installmentInStore"
+                               (click)="changeSliderStatus('installmentInStore')"/>
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <hr class="newheader-hr">
+                <div>
+                  <div *ngIf="installmentInStore">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th scope="col">{{'shop-management.product.infos.month' | translate }}</th>
+                        <th scope="col">{{'shop-management.product.infos.commission' | translate }}</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let commissionRate of commissionRates">
+                        <td scope="row">{{ commissionRate.month }}</td>
+                        <td>{{ commissionRate.commission }}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-right">
+            <button class="btn btn-dark btn-block" type="button"
+                    (click)="saveShopManagementInfo()">{{'shop-management.product.infos.save' | translate }}</button>
+          </div>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="{{'shop-management.shop.infos.header' | translate }}">
+        <div class="row">
+          <div class="col-12">
+            <div class="content-header">{{'shop-management.shop.infos.header' | translate }}</div>
+            <p class="content-sub-header">
+              {{'shop-management.shop.infos.subheader' | translate }}
+            </p>
+          </div>
+        </div>
+
+
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="card-title">
+                  <div class="row">
+                    <div class="col-12 col-md-8">
+                      <h4>{{'shop-management.shop.infos.shop.page' | translate }}</h4>
+                    </div>
+                    <div class="col-6 col-md-4 text-right">
+                      <label class="switch">
+                        <input type="checkbox" [(ngModel)]="hasShopPage" (click)="changeSliderStatus('hasShopPage')"/>
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <hr class="newheader-hr">
+
+              </div>
+            </div>
+            <div class="card" *ngIf="hasShopPage">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <h4>{{'shop-management.shop.infos.shop.informations' | translate }}</h4>
+                  </div>
+
+                </div>
+
+
+                <hr class="hr-1">
+                <div class="row">
+                  <div class="col-12 justify-content-center">
+                    <label class="col-3">{{'shop-management.shop.infos.logo.scan' | translate }}</label>
+                  </div>
+                </div>
+
+
+
+                <form [formGroup]="shopForm">
+
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="col-11 ">
+                        <button class="btn btn-dark" onclick="document.getElementById('scanLogo').click()"><i class="ft-upload font-medium-4"></i> Dosya Yukle</button>
+                        <input #fileUploader type='file' id="scanLogo" class="form-control" accept="image/*" (change)="onFileChanged($event)" (change)="handleFileInput($event.target.files )" style="display: none;">
+                        <img width="200px" height="150px" *ngIf="imageUrl" [src]="imageUrl" class="image ml-2">
+                      </label>
+                      <a class="col-1 text-center"><i class="ft-trash-2 font-medium-4"></i></a>
+                    </div>
+                  </div>
+
+                  <hr class="hr-1">
+
+                  <div class="row">
+                    <div class="col-12 justify-content-center">
+                      <label class="col-3">{{'shop-management.shop.infos.cover.img' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="col-11 ">
+                        <button class="btn btn-dark" onclick="document.getElementById('imgFile').click()"><i class="ft-upload font-medium-4"></i> Dosya Yukle</button>
+                        <input type='file' id="imgFile" class="form-control" accept="image/*" (change)="onFilePick($event)" (change)="handleFileInputNew($event.target.files )" style="display: none;">
+                        <img width="200px" height="150px" *ngIf="newImageUrl" [src]="newImageUrl" class="image ml-2">
+                      </label>
+                      <a class="col-1 text-center"><i class="ft-trash-2 font-medium-4"></i></a>
+                    </div>
+                  </div>
+
+                  <hr class="hr-1">
+
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="col-3">{{'shop-management.shop.infos.shop.name' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="row">
+                    <label class="col-10">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ft-user"></i> </span>
+                        </div>
+                        <input type="text" class="form-control" type="text"
+                               formControlName="shopNameForm"
+                               [ngClass]="{ 'is-invalid': shopFormSubmit && formControl.shopNameForm.invalid, 'is-valid': shopFormSubmit && !formControl.shopNameForm.invalid }"
+                               required>
+                      </div>
+                    </label>
+                    </div>
+                    <div *ngIf="shopFormSubmit && (formControl.shopNameForm.invalid || formControl.shopNameForm.errors?.required)"
+                         class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+                      Bu Alan Boş Bırakılamaz
+                    </div>
+                  </div>
+
+                  <hr class="hr-1">
+
+                  <div class="row form-group">
+                    <div class="col-12">
+
+                      <label class="col-3">{{'shop-management.shop.infos.shop.link' | translate }}</label>
+                      <label class="col-7 text-right"><i class="ft-info font-medium-2"
+                                                         placement="top-right"
+                                                         ngbTooltip="Dükkanınıza özel oluşturacağınız link sonradan değiştirilemeyecektir"
+                                                         #shopLinkToolTip="ngbTooltip"
+                                                         (click)="shopLinkToolTip.open()"></i></label>
+                    </div>
+                    <div class="col-12">
+                      <label class="col-10">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="text-transform: lowercase">paycell.com.tr/</span>
+                          </div>
+                          <input type="text" class="form-control" type="text"
+                                 formControlName="webLinkForm"
+                                 [ngClass]="{ 'is-invalid': shopFormSubmit && formControl.webLinkForm.invalid, 'is-valid': shopFormSubmit && !formControl.webLinkForm.invalid }"
+                                 required>
+                        </div>
+                      </label>
+                      <div *ngIf="shopFormSubmit && (formControl.webLinkForm.invalid || formControl.webLinkForm.errors?.required)"
+                           class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+                        Bu Alan Boş Bırakılamaz
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="hr-1">
+
+                  <div class="row form-group">
+                    <div class="col-12">
+                      <label class="col-9">{{'shop-management.shop.infos.shop.intro' | translate }}</label>
+                      <label class="col-12">
+                          <textarea class="form-control" type="text"
+                                    formControlName="shopDescriptionForm"
+                                    [ngClass]="{ 'is-invalid': shopFormSubmit && formControl.shopDescriptionForm.invalid, 'is-valid': shopFormSubmit && !formControl.shopDescriptionForm.invalid }"
+                                    required></textarea>
+                      </label>
+                      <div
+                        *ngIf="shopFormSubmit && (formControl.shopDescriptionForm.invalid || formControl.shopDescriptionForm.errors?.required)"
+                        class="help-block mt-1 text-danger"><i class="ft-alert-circle align-middle"></i>
+                        Bu Alan Boş Bırakılamaz
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+
+              </div>
+
+            </div>
+
+            <!--
+            TODO  Alım sonrası bakılacak
+            <div class="card" *ngIf="hasShopPage">
+              <div class="card-body">
+
+                <div class="card-title">
+                  <div class="row">
+                    <div class="col-12 col-md-8">
+                      <h4>{{'shop-management.shop.infos.tabs' | translate }}</h4>
+                    </div>
+                  </div>
+                </div>
+                <hr class="newheader-hr">
+                <div class="card">
+                  <div class="card-body">
+
+                    <div class="row">
+                      <div class="col-12 col-md-8">
+                        <a class="btn btn-dark"><i class="ft-plus"></i> Yeni
+                          Ekle</a>
+                      </div>
+
+                      <hr class="social-media-hr">
+
+
+                      <div class="col-xl-11 col-md-8 col-sm-4">
+                        <input class="form-control" type="text">
+                      </div>
+
+                      <div class="col text-right">
+                        <i class="ft-trash-2"></i>
+                      </div>
+                    </div>
+
+                    <hr class="social-media-hr">
+
+                    <div class="row">
+
+
+                      <div class="col-xl-11 col-md-8 col-sm-4">
+                        <input class="form-control" type="text">
+                      </div>
+
+                      <div class="col text-right">
+                        <i class="ft-trash-2"></i>
+                      </div>
+                    </div>
+
+                    <hr class="social-media-hr">
+
+                    <div class="row">
+                      <div class="col-xl-11 col-md-8 col-sm-4">
+                        <input class="form-control" type="text">
+                      </div>
+
+                      <div class="col text-right">
+                        <i class="ft-trash-2"></i>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            -->
+          </div>
+
+        </div>
+
+
+        <div class="card" *ngIf="hasShopPage">
+          <div class="card-body">
+
+            <div class="card-title">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <h4>{{'shop-management.shop.infos.other.settings' | translate }}</h4>
+                </div>
+              </div>
+
+              <hr class="header-hr">
+
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="text-right"><i class="ft-info font-medium-2"
+                                                   placement="top-left"
+                                                   ngbTooltip="Alıcılarınıza hizmet veremeyeceğiniz dönemlerde dükkanınızı tatil moduna alabilir ve dilediğiniz zaman tekrar açabilirsiniz"
+                                                   #shopLinkToolTip="ngbTooltip"
+                                                   (click)="shopLinkToolTip.open()"></i></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      {{'shop-management.shop.infos.vacation.mode' | translate }}
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-6 col-md-4 text-right">
+                  <label class="switch">
+                    <input type="checkbox" [(ngModel)]="holidayModeOn"/>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+
+              <hr class="header-hr">
+
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="text-right"><i class="ft-info font-medium-2"
+                                                   placement="top-left"
+                                                   ngbTooltip="Stoğu tükenen ürünlerinizin dükkanda görüntülenmesini istemiyorsanız bu seçeneği aktifleştirebilirsiniz. Bu seçenek aktifleştirilmediğinde tükenen ürünleriniz “Tükendi” etiketiyle listeniyor olacak."
+                                                   #shopLinkToolTip="ngbTooltip"
+                                                   (click)="shopLinkToolTip.open()"></i></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      {{'shop-management.shop.infos.not.stock.items' | translate }}
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-6 col-md-4 text-right">
+                  <label class="switch">
+                    <input type="checkbox" [(ngModel)]="showOutOfStockItems"/>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-right">
+            <button class="btn btn-dark btn-block" type="button"
+                    (click)="saveShopManagementInfo(); onSubmit(); isDirty= false">{{'shop-management.shop.infos.save' | translate }}</button>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="{{'shop-management.cargo.and.return.settings.header' | translate }}">
+        <div class="row">
+          <div class="col-12">
+            <div class="content-header">{{'shop-management.cargo.and.return.settings.header' | translate
+              }}</div>
+            <p class="content-sub-header">
+              {{'shop-management.cargo.and.return.settings.subheader' | translate }}
+            </p>
+          </div>
+        </div>
+        <div class="card mt-4">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <h4>{{'shop-management.cargo.and.return.settings.cargo.time' | translate }}</h4>
+                </div>
+                <div class="col-6 col-md-4 text-right">
+                  <label class="switch">
+                    <input type="checkbox" [(ngModel)]="courierInfo" (click)="changeSliderStatus('courierInfo')"/>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr class="newheader-hr">
+            </div>
+            <div class="form-group" *ngIf="courierInfo">
+              <ng-select name="option" [(ngModel)]="courierInfoSelection">
+                <ng-option value="1">1-2 iş günü</ng-option>
+                <ng-option value="2">3-5 iş günü</ng-option>
+                <ng-option value="1">5-7 iş günü</ng-option>
+                <ng-option value="2">7-10 iş günü</ng-option>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-4">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div class="row">
+                    <div class="col-12 col-md-8">
+                    <label class="text-right"><i class="ft-info font-medium-2"
+                                                 placement="top-left"
+                                                 ngbTooltip="Bu seçeneği seçtiğinizde dükkanınızda yer alan tüm ürünler için kargo ücretsiz olacaktır."
+                                                 #shopLinkToolTip="ngbTooltip"
+                                                 (click)="shopLinkToolTip.open()"></i></label>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                    <h4>{{'shop-management.cargo.and.return.settings.free.shipping' | translate }}</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-4 text-right">
+                  <label class="switch">
+                    <input type="checkbox" [(ngModel)]="freeCargo" (click)="changeSliderStatus('freeCargo')"/>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
+              </div>
+              <hr class="newheader-hr">
+            </div>
+          </div>
+        </div>
+        <div class="card mt-4" [ngClass]="{'div-disabled': freeCargo}">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-1 col-md-8">
+                  <label class="text-right"><i class="ft-info font-medium-2"
+                                               placement="top-left"
+                                               ngbTooltip="Bu seçeneği seçtiğinizde dükkanınızda yer alan tüm ürünler için aynı kargo ücreti uygulanır."
+                                               #shopLinkToolTip="ngbTooltip"
+                                               (click)="shopLinkToolTip.open()"></i></label>
+                </div>
+                <div class="col-11 col-md-8">
+                  <h4>{{'shop-management.cargo.and.return.settings.cargo.fee' | translate }}</h4>
+                </div>
+                <div class="col-6 col-md-4 text-right">
+                  <label class="switch">
+                    <input type="checkbox" [(ngModel)]="courierPayment"
+                           (click)="changeSliderStatus('courierPayment')"/>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <hr class="newheader-hr">
+            </div>
+            <div *ngIf="courierPayment" class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">&#x20BA;</span>
+                </div>
+                <input type="number" class="form-control" [(ngModel)]="courierPaymentPrice">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-4" [ngClass]="{'div-disabled': freeCargo}">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="text-right"><i class="ft-info font-medium-2"
+                                                   placement="top-left"
+                                                   ngbTooltip="Bu seçeneği seçtiğinizde dükkanınızda yer alan tüm ürünler için kargo ücretsiz olacaktır."
+                                                   #shopLinkToolTip="ngbTooltip"
+                                                   (click)="shopLinkToolTip.open()"></i></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-8">
+                  <div class="row">
+                    <div class="col-12">
+                      <h4>{{'shop-management.cargo.and.return.settings.cargo.amount.in.basket' | translate }}</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-4 text-right">
+                  <label class="switch">
+                    <input type="checkbox" [(ngModel)]="courierChartPayment"
+                           (click)="changeSliderStatus('courierChartPayment')"/>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              </div>
+              <hr class="newheader-hr">
+            <div *ngIf="courierChartPayment" class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">&#x20BA;</span>
+                </div>
+                <input type="number" class="form-control" [(ngModel)]="courierChartPaymentPrice">
+              </div>
+            </div>
+            </div>
+          </div>
+        <div class="card mt-4">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="text-right"><i class="ft-info font-medium-2"
+                                                   placement="top-left"
+                                                   ngbTooltip="Alıcılarınız ürün iadesi gönderdiğinde kargonun gönderileceği iade/depo adresinizi değiştirebilirsiniz"
+                                                   #shopLinkToolTip="ngbTooltip"
+                                                   (click)="shopLinkToolTip.open()"></i></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <h4>{{'shop-management.cargo.and.return.settings.return.address' | translate }}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="newheader-hr">
+            </div>
+            <textarea class="form-control" rows="3" [(ngModel)]="returnAddressInfo"></textarea>
+          </div>
+        </div>
+        <div class="card mt-4">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <h4>{{'shop-management.cargo.and.return.settings.determine.other.settings' | translate }}</h4>
+                </div>
+              </div>
+              <hr class="newheader-hr">
+
+              <div class="col-12 col-md-8">
+                <form>
+
+                  <div>
+                    <input type="radio" class="radio-input" name="cargoPriceCalculateSelection"
+                           [(ngModel)]="cargoPriceCalculateSelection" value="0">
+                    <label>
+                      <p>{{'shop-management.cargo.and.return.settings.all.basket.one.cargo.price' | translate }}</p>
+                    </label>
+                  </div>
+                  <div>
+                    <input type="radio" class="radio-input" name="cargoPriceCalculateSelection"
+                           [(ngModel)]="cargoPriceCalculateSelection" value="1">
+                    <label>
+                      <p>{{'shop-management.cargo.and.return.settings.sum.all.cargo.price' | translate }}</p>
+                    </label>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-right">
+            <button class="btn btn-dark btn-block" type="button"
+                    (click)="saveShopManagementInfo(); onSubmit()">{{'shop-management.cargo.and.return.settings.save' | translate }}</button>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+

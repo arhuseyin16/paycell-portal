@@ -1,0 +1,139 @@
+Index: src/app/pages/content-pages/merchant/merchant.component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!--Login Page Starts-->\n<section id=\"validate-otp\" *ngIf=\"showMerchant\">\n  <div class=\"row auth-height full-height-vh m-0\"><div class=\"row full-width justify-content-end\" style=\"position:absolute;z-index: 9999\"> <app-lang-selector></app-lang-selector></div>\n    <div class=\"col-12 d-flex align-items-center justify-content-center\">\n      <div class=\"card overflow-hidden\">\n        <div class=\"card-content\">\n          <div class=\"card-body auth-img\">\n            <div class=\"row m-0\">\n              <div class=\"col-lg-4 d-none d-lg-flex justify-content-center align-items-center auth-img-bg p-3\">\n                <img src=\"assets/img/gallery/login.png\" alt=\"\" class=\"img-fluid\" width=\"300\" height=\"230\">\n              </div>\n              <div class=\"col-lg-8 col-12 px-4 py-3\" *ngIf=\"responseSuccess\">\n                <h4 class=\"mb-2 card-title\">{{'merchant.welcome.header' | translate }}</h4>\n                <p>{{'merchant.select.info' | translate }}</p>\n                <hr>\n                <div class=\"col p-0 merchant-select\">\n                  <ng-select [items]=\"merchantList?.userMerchants\"\n                             bindLabel=\"merchantName\"\n                             bindValue=\"merchantId\"\n                             placeholder=\"Firma Adı\"\n                             [(ngModel)]=\"merchant\">\n                  </ng-select>\n                </div>\n                <div class=\"d-flex justify-content-end flex-sm-row flex-column mt-2 px-2\">\n                  <a (click)=\"submitClick()\" class=\"btn btn-dark\">{{'merchant.submit.btn' | translate }}</a>\n                </div>\n\n                <hr>\n                <div class=\"d-sm-flex justify-content-end font-small-2\">\n                  <a [routerLink]=\"['/']\">{{'merchant.link.homePage' | translate }}</a>\n                </div>\n              </div>\n              <div class=\"col-lg-8 col-12 px-4 py-3 mt-5\" *ngIf=\"responseError\">\n                <p>{{errorMessage}}</p>\n                <hr>\n                <div class=\"d-sm-flex justify-content-end font-small-2\">\n                  <a [routerLink]=\"['/']\">{{'merchant.link.homePage' | translate }}</a>\n                </div>\n              </div>\n              </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n<!--Login Page Ends-->\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/pages/content-pages/merchant/merchant.component.html b/src/app/pages/content-pages/merchant/merchant.component.html
+--- a/src/app/pages/content-pages/merchant/merchant.component.html	(revision 121242f4a42fb193e31cbc84f5431718859a3025)
++++ b/src/app/pages/content-pages/merchant/merchant.component.html	(date 1645444480772)
+@@ -14,7 +14,7 @@
+                 <p>{{'merchant.select.info' | translate }}</p>
+                 <hr>
+                 <div class="col p-0 merchant-select">
+-                  <ng-select [items]="merchantList?.userMerchants"
++                  <ng-select [items]="merchantList"
+                              bindLabel="merchantName"
+                              bindValue="merchantId"
+                              placeholder="Firma Adı"
+Index: src/app/pages/content-pages/merchant/merchant.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {ChangeDetectorRef, Component, OnInit} from '@angular/core';\nimport {Router} from '@angular/router';\nimport {MerchantService} from '../../../services/merchant.service';\nimport {MessageService} from '../../../shared/services/message.service';\nimport {TranslateService} from '@ngx-translate/core';\nimport {AccountService} from '../../../shared/auth/account.service';\nimport {UserMerchantResponse} from '../../../models/response/user-merchant-response';\nimport {ReturnLocalizedMessage} from '../../../util/return-localizedMessage';\n\n@Component({\n  selector: 'app-merchant',\n  templateUrl: './merchant.component.html',\n  styleUrls: ['./merchant.component.scss']\n})\nexport class MerchantComponent implements OnInit {\n  merchant: any\n // merchantList: MerchantRoleResponse;\n  merchantList: UserMerchantResponse\n  showMerchant = false;\n  responseSuccess = false;\n  responseError = false;\n  errorMessage: string;\n\n  constructor(private router: Router,\n              private messageService: MessageService,\n              private translate: TranslateService,\n              private accountService: AccountService,\n              private service: ChangeDetectorRef,\n              private merchantService: MerchantService) {\n    this.merchantRequest();\n  }\n\n  ngOnInit(): void {\n\n  }\n\n  merchantRequest() {\n      localStorage.removeItem('merchantLength');\n      this.accountService.getUserAllMerchants().subscribe((res) => {\n        if (res.userMerchants.length === 1) {\n          localStorage.setItem('merchantLength', '1');\n          this.merchant = res.userMerchants[0].merchantId;\n          this.merchantList = res;\n          this.submitClick();\n        } else {\n          this.merchantList = res;\n        }\n        this.responseError = false;\n        this.responseSuccess = true;\n        this.showMerchant = true;\n        this.service.detectChanges();\n      }, (err) => {\n        this.errorMessage = ReturnLocalizedMessage(err);\n        this.responseSuccess = false;\n        this.responseError = true;\n        this.showMerchant = true;\n        this.service.detectChanges();\n      });\n  }\n\n  submitClick() {\n    if (this.merchant) {\n      const merchant = this.merchantList.userMerchants.find(m => m.merchantId === this.merchant);\n      localStorage.setItem('merchantName', JSON.stringify(merchant));\n      /*this.router.navigate(['/pages/terminus']).then(() => {\n        window.location.reload();\n      });*/\n      this.router.navigate(['/pages/terminus']);\n    } else {\n      this.messageService.addError(this.translate.instant('merchant.merchant.required'));\n    }\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/pages/content-pages/merchant/merchant.component.ts b/src/app/pages/content-pages/merchant/merchant.component.ts
+--- a/src/app/pages/content-pages/merchant/merchant.component.ts	(revision 121242f4a42fb193e31cbc84f5431718859a3025)
++++ b/src/app/pages/content-pages/merchant/merchant.component.ts	(date 1645447839424)
+@@ -4,8 +4,9 @@
+ import {MessageService} from '../../../shared/services/message.service';
+ import {TranslateService} from '@ngx-translate/core';
+ import {AccountService} from '../../../shared/auth/account.service';
+-import {UserMerchantResponse} from '../../../models/response/user-merchant-response';
++import {UserMerchantResponse, UserMerchantResponseView} from '../../../models/response/user-merchant-response';
+ import {ReturnLocalizedMessage} from '../../../util/return-localizedMessage';
++import {SessionService} from '../../../shared/auth/session.service';
+ 
+ @Component({
+   selector: 'app-merchant',
+@@ -14,8 +15,7 @@
+ })
+ export class MerchantComponent implements OnInit {
+   merchant: any
+- // merchantList: MerchantRoleResponse;
+-  merchantList: UserMerchantResponse
++  merchantList: Array<UserMerchantResponseView> = new Array<UserMerchantResponseView>();
+   showMerchant = false;
+   responseSuccess = false;
+   responseError = false;
+@@ -26,6 +26,7 @@
+               private translate: TranslateService,
+               private accountService: AccountService,
+               private service: ChangeDetectorRef,
++              private sessionService: SessionService,
+               private merchantService: MerchantService) {
+     this.merchantRequest();
+   }
+@@ -37,18 +38,59 @@
+   merchantRequest() {
+       localStorage.removeItem('merchantLength');
+       this.accountService.getUserAllMerchants().subscribe((res) => {
+-        if (res.userMerchants.length === 1) {
+-          localStorage.setItem('merchantLength', '1');
+-          this.merchant = res.userMerchants[0].merchantId;
+-          this.merchantList = res;
+-          this.submitClick();
+-        } else {
+-          this.merchantList = res;
+-        }
+-        this.responseError = false;
+-        this.responseSuccess = true;
+-        this.showMerchant = true;
+-        this.service.detectChanges();
++        if (this.sessionService.getCustomerType() === null || this.sessionService.getCustomerType() === '1') { // faal user
++          if (res.userMerchants.length === 1) { // faal user one merchant
++            if (res.userMerchants[0].isPotential !== null && res.userMerchants[0].isPotential === true) { // faal user and one merchant isPotential true
++              this.errorMessage = 'Faal bir kullanıcı ile giriş yapılmış, fakat tek bir firma olup isPotential alanı true.';
++              this.responseSuccess = false;
++              this.responseError = true;
++              this.showMerchant = true;
++              this.service.detectChanges();
++              return;
++            } else {
++              localStorage.setItem('merchantLength', '1');
++              this.merchant = res.userMerchants[0].merchantId;
++              this.merchantList = res.userMerchants;
++              this.submitClick();
++            }
++          } else { // faal user multi merchants
++            res.userMerchants.forEach(row => {
++              if (row.isPotential === null || row.isPotential === false) {
++                this.merchantList.push(row);
++              }
++            });
++          }
++          this.responseError = false;
++          this.responseSuccess = true;
++          this.showMerchant = true;
++          this.service.detectChanges();
++        } else { // potential user
++          if (res.userMerchants.length === 1) { // potential user one merchant
++            if (res.userMerchants[0].isPotential !== null && res.userMerchants[0].isPotential === false) { // potential user and one merchant isPotential false
++              this.errorMessage = 'Potansiyel bir kullanıcı ile giriş yapılmış, fakat tek bir firma olup isPotential alanı false.';
++              this.responseSuccess = false;
++              this.responseError = true;
++              this.showMerchant = true;
++              this.service.detectChanges();
++              return;
++            } else {
++              localStorage.setItem('merchantLength', '1');
++              this.merchant = res.userMerchants[0].merchantId;
++              this.merchantList = res.userMerchants;
++              this.submitClick();
++            }
++          } else { // potential user multi merchants
++            res.userMerchants.forEach(row => {
++              if (row.isPotential !== null && row.isPotential === true) {
++                this.merchantList.push(row);
++              }
++            });
++          }
++          this.responseError = false;
++          this.responseSuccess = true;
++          this.showMerchant = true;
++          this.service.detectChanges();
++        }
+       }, (err) => {
+         this.errorMessage = ReturnLocalizedMessage(err);
+         this.responseSuccess = false;
+@@ -60,7 +102,7 @@
+ 
+   submitClick() {
+     if (this.merchant) {
+-      const merchant = this.merchantList.userMerchants.find(m => m.merchantId === this.merchant);
++      const merchant = this.merchantList.find(m => m.merchantId === this.merchant);
+       localStorage.setItem('merchantName', JSON.stringify(merchant));
+       /*this.router.navigate(['/pages/terminus']).then(() => {
+         window.location.reload();

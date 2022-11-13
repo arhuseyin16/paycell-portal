@@ -1,0 +1,47 @@
+<!--Login Page Starts-->
+<section id="validate-otp" *ngIf="showMerchant">
+  <div class="row auth-height full-height-vh m-0"><div class="row full-width justify-content-end" style="position:absolute;z-index: 9999"> <app-lang-selector></app-lang-selector></div>
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body auth-img">
+            <div class="row m-0">
+              <div class="col-lg-4 d-none d-lg-flex justify-content-center align-items-center auth-img-bg p-3">
+                <img src="assets/img/gallery/login.png" alt="" class="img-fluid" width="300" height="230">
+              </div>
+              <div class="col-lg-8 col-12 px-4 py-3" *ngIf="responseSuccess">
+                <h4 class="mb-2 card-title">{{'merchant.welcome.header' | translate }}</h4>
+                <p>{{'merchant.select.info' | translate }}</p>
+                <hr>
+                <div class="col p-0 merchant-select">
+                  <ng-select [items]="merchantList"
+                             bindLabel="merchantName"
+                             bindValue="merchantId"
+                             placeholder="Firma Adı"
+                             [(ngModel)]="merchant">
+                  </ng-select>
+                </div>
+                <div class="d-flex justify-content-end flex-sm-row flex-column mt-2 px-2">
+                  <a (click)="submitClick()" class="btn btn-dark">{{'merchant.submit.btn' | translate }}</a>
+                </div>
+
+                <hr>
+                <div class="d-sm-flex justify-content-end font-small-2">
+                  <a [routerLink]="['/']">{{'merchant.link.homePage' | translate }}</a>
+                </div>
+              </div>
+              <div class="col-lg-8 col-12 px-4 py-3 mt-5" *ngIf="responseError">
+                <p>{{errorMessage}}</p>
+                <hr>
+                <div class="d-sm-flex justify-content-end font-small-2">
+                  <a [routerLink]="['/']">{{'merchant.link.homePage' | translate }}</a>
+                </div>
+              </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Login Page Ends-->

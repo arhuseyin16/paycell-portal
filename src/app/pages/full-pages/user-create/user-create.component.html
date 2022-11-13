@@ -1,0 +1,382 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="content-header">{{'user-create.new.user' | translate}}</div>
+  </div>
+</div>
+
+<section id="ngx">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-body">
+
+        <aw-wizard #wizard [navBarLayout]="'large-empty-symbols'">
+
+
+          <aw-wizard-step [stepTitle]="'KULLANICI BİLGİLERİ'" [navigationSymbol]="{ symbol: '&#xf007;', fontFamily: 'FontAwesome' }">
+<!--STEP1-->
+            <form [formGroup]="step1Form">
+              <hr>
+              <h5 class="head text-center">{{'user-create.header.warning' | translate}}</h5>
+              <div class="row">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label for="firstname" class="form-control-label">{{'user-create.first.name' | translate}}</label>
+                        <input type="text" id="firstname" formControlName="firstname" class="form-control" required>
+
+                        <div *ngIf="!step1Form.controls.firstname.valid && step1Form.controls.firstname.touched && !step1Form.controls.firstname.errors?.required"
+                          class="form-text text-muted danger">
+                          <i class="ft-alert-circle align-middle"></i> zorunlu
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label for="lastname" class="form-control-label">{{'user-create.surname' | translate}}</label>
+                        <input type="text"  id="lastname" formControlName="lastname"  class="form-control" required>
+
+                        <div *ngIf="!step1Form.controls.lastname.valid && step1Form.controls.lastname.touched && !step1Form.controls.lastname.errors?.required"
+                             class="form-text text-muted danger">
+                          <i class="ft-alert-circle align-middle"></i> zorunlu
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label for="identityNo" class="form-control-label">{{'user-create.identity.number' | translate}}</label>
+                        <input type="text"  id="identityNo" formControlName="identityNo"  class="form-control" required>
+
+                        <div *ngIf="!step1Form.controls.identityNo.valid && step1Form.controls.identityNo.touched && !step1Form.controls.identityNo.errors?.required"
+                             class="form-text text-muted danger">
+                          <i class="ft-alert-circle align-middle"></i> zorunlu
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label for="dateOfBirth" class="form-control-label">{{'user-create.birth.date' | translate}}</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control pickadate" id="dateOfBirth" formControlName="dateOfBirth"
+                                 ngbDatepicker (click)="datePicker.toggle()" #datePicker="ngbDatepicker">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label for="email" class="form-control-label">{{'user-create.email' | translate}}</label>
+                        <input type="text"  id="email" formControlName="email"  class="form-control" required>
+
+                        <div *ngIf="!step1Form.controls.email.valid && step1Form.controls.email.touched && !step1Form.controls.email.errors?.required"
+                             class="form-text text-muted danger">
+                          <i class="ft-alert-circle align-middle"></i> zorunlu
+                        </div>
+                        <div *ngIf="!step1Form.controls.email.valid && step1Form.controls.email.touched && !step1Form.controls.email.errors?.email"
+                             class="form-text text-muted danger">
+                          <i class="ft-alert-circle align-middle"></i> geçersiz format
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label for="phone" class="form-control-label">{{'user-create.phone.number' | translate}}</label>
+                        <input type="text"  id="phone" formControlName="phone"  class="form-control" required>
+
+                        <div *ngIf="!step1Form.controls.phone.valid && step1Form.controls.phone.touched && !step1Form.controls.phone.errors?.required"
+                             class="form-text text-muted danger">
+                          <i class="ft-alert-circle align-middle"></i> zorunlu
+                        </div>
+                        <div *ngIf="!step1Form.controls.phone.valid && step1Form.controls.phone.touched && !step1Form.controls.phone.errors?.pattern"
+                             class="form-text text-muted danger">
+                          <i class="ft-alert-circle align-middle"></i> 10 haneli telefon
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+
+              <div class="d-flex justify-content-end flex-sm-row flex-column">
+                <button type="submit" awNextStep class="btn btn-primary style" [disabled]="!step1Form.valid">
+                  Devam
+                  <span style="margin-left: 10px;"><i class="ft-chevron-right"></i></span>
+                </button>
+              </div>
+<!--STEP1-->
+            </form>
+          </aw-wizard-step>
+
+
+          <aw-wizard-step [stepTitle]="'FİRMA BİLGİLERİ'" [navigationSymbol]="{ symbol: '&#xf0b1;', fontFamily: 'FontAwesome' }">
+<!--STEP2-->
+            <form novalidate="" class="editForm ng-untouched ng-pristine ng-valid">
+              <hr>
+              <h5 class="head text-center">{{'user-create.user.authorization.message.warning' | translate}}</h5>
+              <div class="row">
+                <div class="col-md-10">
+                  <ng-select class="form-control mb-2"
+                             [disabled]="this.selectedMerchants?.length>0"
+                             [items]="masterMerchants"
+                             [(ngModel)]="selectedMasterMerchant" [ngModelOptions]="{standalone: true}"
+                             (ngModelChange)="onSelectedMasterMerchantChange()"
+                             bindLabel="legalName"
+                             placeholder="{{'user-create.selecting.shop.placeholder' | translate}}">
+                    <ng-template ng-option-tmp let-item="item">
+                      <div title="{{item.merchantId}}">{{item.legalName}} : {{item.merchantName}}</div>
+                    </ng-template>
+                  </ng-select>
+
+                  <ng-select class="form-control mb-2" *ngIf="l1Merchants"
+                             [items]="l1Merchants"
+                             [(ngModel)]="selectedL1Merchant" [ngModelOptions]="{standalone: true}"
+                             (ngModelChange)="onL1MerchantChange()"
+                             bindLabel="legalName"
+                             placeholder="{{'user-create.selecting.sub.shop.placeholder' | translate}}">
+                    <ng-template ng-option-tmp let-item="item">
+                      <div title="{{item.merchantId}}">{{item.legalName}} : {{item.merchantName}}</div>
+                    </ng-template>
+                  </ng-select>
+
+                  <ng-select class="form-control mb-2" *ngIf="l2Merchants"
+                             [items]="l2Merchants"
+                             [(ngModel)]="selectedL2Merchant" [ngModelOptions]="{standalone: true}"
+                             bindLabel="legalName"
+                             placeholder="{{'user-create.selecting.sub.shop.placeholder' | translate}}">
+                    <ng-template ng-option-tmp let-item="item">
+                      <div title="{{item.merchantId}}">{{item.legalName}} : {{item.merchantName}}</div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+                <div class="col-md-2">
+                  <button type="button" class="btn btn-primary style" (click)="addMerchant()">{{'user-create.add.selected' | translate}}</button>
+                </div>
+              </div>
+              <br>
+
+              <div class="row" *ngFor="let rootMerchant of selectedMerchants">
+                <div class="d-flex justify-content-between flex-sm-row flex-column">
+                  <a href="javascript:;" class="ml-2" (click)="removeMerchant(rootMerchant)">{{'user-create.delete' | translate}}</a>
+
+                  <i class="ft-check-circle ml-2"></i>
+
+                  <ul class="ml-2" style="list-style-type:none;">
+                    <li *ngIf="rootMerchant">
+                      {{rootMerchant.master.legalName}}
+                      <ul style="list-style-type:none;" *ngIf="rootMerchant.l1">
+                        <li>
+                          {{rootMerchant.l1.legalName}}
+                          <ul style="list-style-type:none;" *ngIf="rootMerchant.l2">
+                            <li>{{rootMerchant.l2.legalName}}</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end flex-sm-row flex-column">
+                <button type="button" class="btn btn-primary style mr-2" awPreviousStep>
+                  <span style="margin-right: 10px;"><i class="ft-chevron-left"></i></span>
+                  {{'user-create.back' | translate}}
+                </button>
+                <button type="button" awNextStep class="btn btn-primary style">
+                  {{'user-create.next' | translate}}
+                  <span style="margin-left: 10px;"><i class="ft-chevron-right"></i></span>
+                </button>
+              </div>
+
+            </form>
+<!--STEP2-->
+          </aw-wizard-step>
+
+
+          <aw-wizard-step [stepTitle]="'YETKİ BİLGİLERİ'" [navigationSymbol]="{ symbol: '&#xf0ac;', fontFamily: 'FontAwesome' }">
+<!--STEP3-->
+            <form novalidate="" class="editForm ng-untouched ng-pristine ng-invalid">
+              <hr>
+              <h5 class="head text-center">{{'user-create.role.warning.message' | translate}}</h5>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <form class="form-bordered" >
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="role-input">{{'user-create.choosing.role.header' | translate}}</label>
+                      <div class="col-md-9">
+                        <div class="position-relative">
+                          <ng-select id="role-input" class="form-control" name="role-input"
+                                     [items]="permissions?.roles"
+                                     [(ngModel)]="selectedRoles" ngModelOptions="standalone"
+                                     bindLabel="name"
+                                     placeholder="{{'user-create.selection.role.placeholder' | translate}}"
+                                     multiple="true">
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{item.id}}">{{item.name}} : {{item.description}}</div>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-md-3 label-control" for="authority-input">{{'user-create.choosing.authorization.header' | translate}}</label>
+                      <div class="col-md-9">
+                        <div class="position-relative">
+                          <ng-select id="authority-input" class="form-control" name="authority-input"
+                                     [items]="permissions?.authorities"
+                                     [(ngModel)]="selectedAuthorities" ngModelOptions="standalone"
+                                     bindLabel="name"
+                                     placeholder="{{'user-create.selection.authorization.placeholder' | translate}}"
+                                     multiple="true">
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{item.id}}">{{item.name}} : {{item.description}}</div>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <br>
+
+              <div class="d-flex justify-content-end flex-sm-row flex-column">
+                <button type="button" class="btn btn-primary style mr-2" awPreviousStep>
+                  <span style="margin-right: 10px;"><i class="ft-chevron-left"></i></span>
+                  {{'user-create.back' | translate}}
+                </button>
+                <button type="button" awNextStep class="btn btn-primary style">
+                  {{'user-create.next' | translate}}
+                  <span style="margin-left: 10px;"><i class="ft-chevron-right"></i></span>
+                </button>
+              </div>
+
+            </form>
+<!--STEP3-->
+          </aw-wizard-step>
+
+
+          <aw-wizard-step [stepTitle]="'İŞLEM ONAYI'" [navigationSymbol]="{ symbol: '&#xf0ac;', fontFamily: 'FontAwesome' }">
+<!--STEP4-->
+            <form novalidate="" class="editForm ng-untouched ng-pristine ng-invalid">
+              <hr>
+              <h5 class="head text-center"> {{'user-create.checking.info.warning' | translate}}</h5>
+
+              <form class="striped-rows">
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-firstname"> {{'user-create.first.name' | translate}}</label>
+                  <div class="col-md-9">
+                    <span class="form-control" id="final-firstname">{{step1Form.controls.firstname.value}}</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-lastname"> {{'user-create.surname' | translate}}</label>
+                  <div class="col-md-9">
+                    <span class="form-control" id="final-lastname">{{step1Form.controls.lastname.value}}</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-identity-no"> {{'user-create.identity.number' | translate}}</label>
+                  <div class="col-md-9">
+                    <span class="form-control" id="final-identity-no">{{step1Form.controls.identityNo.value}}</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-date-of-birth"> {{'user-create.birth.date' | translate}}</label>
+                  <div class="col-md-9">
+                    <span class="form-control" id="final-date-of-birth">{{getDateOfBirth(step1Form.controls.dateOfBirth.value)}}</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-email"> {{'user-create.email' | translate}}</label>
+                  <div class="col-md-9">
+                    <span class="form-control" id="final-email">{{step1Form.controls.email.value}}</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-phone"> {{'user-create.phone.number' | translate}}</label>
+                  <div class="col-md-9">
+                    <span class="form-control" id="final-phone">{{step1Form.controls.phone.value}}</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-merchant"> {{'user-create.firm.info' | translate}}</label>
+                  <div class="col-md-9">
+
+                    <div id="final-merchant" class="form-control" style="height: unset !important;">
+                      <div *ngFor="let rootMerchant of selectedMerchants">
+                        <div class="row d-flex justify-content-start flex-sm-row flex-column">
+                          <i class="ft-check-circle ml-2"></i>
+
+                          <ul class="ml-2" style="list-style-type:none;">
+                            <li *ngIf="rootMerchant">
+                              {{rootMerchant.master.legalName}}
+                              <ul style="list-style-type:none;" *ngIf="rootMerchant.l1">
+                                <li>
+                                  {{rootMerchant.l1.legalName}}
+                                  <ul style="list-style-type:none;" *ngIf="rootMerchant.l2">
+                                    <li>{{rootMerchant.l2.legalName}}</li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-authorities">{{'user-create.selected.authorities' | translate}}</label>
+                  <div class="col-md-9">
+                      <span class="form-control" id="final-authorities" style="height: unset !important;">
+                        <span *ngFor="let authority of selectedAuthorities" style="display: block">
+                          <i class="ft-check-circle mr-2"></i>
+                          <span class="badge badge-light mb-1 mr-2">{{authority.name}}</span>
+                          {{authority.description}}
+                        </span>
+                      </span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="final-roles">{{'user-create.selected.roles' | translate}}</label>
+                  <div class="col-md-9">
+                    <span class="form-control" id="final-roles" style="height: unset !important;">
+                      <span *ngFor="let role of selectedRoles" style="display: block">
+                        <i class="ft-check-circle mr-2"></i>
+                        <span class="badge badge-light mb-1 mr-2">{{role.name}}</span>
+                        {{role.description}}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </form>
+
+              <br>
+
+              <div class="d-flex justify-content-end flex-sm-row flex-column">
+                <button type="button" class="btn btn-secondary style mr-2" awPreviousStep>
+                  <i class="ft-chevron-left mr-1"></i> {{'user-create.back' | translate}}
+                </button>
+                <button type="button" awNextStep class="btn btn-success style" (click)="createUser()">
+                  <i class="ft-check-square mr-1"></i> {{'user-create.user.create' | translate}} <i class="ft-chevron-right ml-1"></i>
+                </button>
+              </div>
+
+            </form>
+<!--STEP4-->
+          </aw-wizard-step>
+        </aw-wizard>
+      </div>
+    </div>
+  </div>
+</section>
+<ngx-spinner><p *ngIf="spinnerText" style="font-size: 20px; color: white">{{spinnerText | translate}}</p></ngx-spinner>

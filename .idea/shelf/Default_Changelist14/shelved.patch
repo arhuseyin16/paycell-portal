@@ -1,0 +1,387 @@
+Index: src/app/layouts/mail-templates/reset-password.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/layouts/mail-templates/reset-password.html b/src/app/layouts/mail-templates/reset-password.html
+new file mode 100644
+--- /dev/null	(date 1644307569909)
++++ b/src/app/layouts/mail-templates/reset-password.html	(date 1644307569909)
+@@ -0,0 +1,182 @@
++<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
++  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
++<html xmlns="http://www.w3.org/1999/xhtml">
++<head>
++  <meta http-equiv="content-type" content="text/html; charset=utf-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0;">
++  <meta name="format-detection" content="telephone=no"/>
++
++  <style>
++    /* Reset styles */
++    body {
++      margin: 0;
++      padding: 0;
++      min-width: 100%;
++      width: 100% !important;
++      height: 100% !important;
++    }
++
++    body, table, td, div, p, a {
++      -webkit-font-smoothing: antialiased;
++      text-size-adjust: 100%;
++      -ms-text-size-adjust: 100%;
++      -webkit-text-size-adjust: 100%;
++      line-height: 100%;
++    }
++
++    table, td {
++      mso-table-lspace: 0pt;
++      mso-table-rspace: 0pt;
++      border-collapse: collapse !important;
++      border-spacing: 0;
++    }
++
++    img {
++      border: 0;
++      line-height: 100%;
++      outline: none;
++      text-decoration: none;
++      -ms-interpolation-mode: bicubic;
++    }
++
++    #outlook a {
++      padding: 0;
++    }
++
++    .ReadMsgBody {
++      width: 100%;
++    }
++
++    .ExternalClass {
++      width: 100%;
++    }
++
++    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
++      line-height: 100%;
++    }
++
++    /* Rounded corners for advanced mail clients only */
++    @media all and (min-width: 560px) {
++      .container {
++        border-radius: 2px;
++        -webkit-border-radius: 2px;
++        -moz-border-radius: 2px;
++        -khtml-border-radius: 2px;
++      }
++
++      .title {
++        line-height: 30px;
++      }
++    }
++
++    /* Set color for auto links (addresses, dates, etc.) */
++    a, a:hover {
++      color: #127DB3;
++    }
++
++    .footer a, .footer a:hover {
++      color: #999999;
++    }
++
++  </style>
++
++</head>
++
++<body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%"
++      style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;
++	background-color: rgb(234,234,234);color: #000000;" text="#000000">
++
++<!-- SECTION / BACKGROUND -->
++<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0"
++       style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background">
++  <tr>
++    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
++      background-color: rgb(234,234,234)"
++        bgcolor="#000">
++
++      <!-- HEADER -->
++      <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%;" class="wrapper">
++
++        <!-- LOGO -->
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; max-width: 1100px">
++            <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; max-width: 1100px;">
++              <tr>
++                <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 5px 10px 30px 0; width: 50%;">
++                  <a target="_blank" style="text-decoration: none; width: 100%; display: block;">
++                    <img border="0" vspace="0" hspace="0"
++                         src="https://cdntest.vjoin.com.tr/private/mailing/vjoinlogoson.png"
++                         alt="Vjoin" title="Vjoin" style="
++                   color: #000000;
++                   max-height: 80px;
++                   font-size: 10px; margin: 0; padding: 0; outline: none; width: auto;
++                   height: auto; text-decoration: none; -ms-interpolation-mode: bicubic; border: none;" />
++                  </a>
++                </td>
++              </tr>
++            </table>
++          </td>
++        </tr>
++
++        <!-- End of WRAPPER -->
++      </table>
++
++      <!-- CONTENT -->
++      <table border="0" cellpadding="0" cellspacing="0" align="center"
++             width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
++	max-width: 1080px;" class="container">
++
++        <!-- HEADER BOTTOM IMAGE -->
++        <!-- HEADER BOTTOM TEXT -->
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 30px 15px 10px 15px;
++          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++            Merhaba,
++          </td>
++        </tr>
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 25px 15px 30px 15px;
++          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++            Paycell portal &#351;ifrenizi <br> sıfırlamak i&#231;in
++          </td>
++        </tr>
++        <tr>
++          <td align="center" valign="top">
++            <table border="0" cellpadding="0" cellspacing="0" align="center"
++                   width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; cursor: pointer;max-width: 250px;" class="container">
++              <tr>
++                <td align="center" valign="top" style="background-color: rgb(34, 205, 219); border-radius: 5px; padding: 12px; ">
++                  <a href="reset-password-link" style="font-size: 25px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;">
++                    Tıklayın
++                  </a>
++                </td>
++              </tr>
++            </table>
++          </td>
++        </tr>
++      </table>
++
++      <!-- FOOTER -->
++      <table border="0" cellpadding="0" cellspacing="0" align="center"
++             width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
++	min-width: 100%;" class="wrapper">
++
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 100px 15px 0px 15px;
++          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
++            &#304;yi g&#252;nler dileriz,
++          </td>
++        </tr>
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0px 15px 10px 15px;
++          font-size: 25px; font-style: italic; line-height: 28px; color: black; font-family: futura; " class="hero">
++            Paycell
++          </td>
++        </tr>
++      </table>
++
++    </td>
++  </tr>
++</table>
++</body>
++</html>
+Index: src/app/layouts/mail-templates/mail-verification.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/layouts/mail-templates/mail-verification.html b/src/app/layouts/mail-templates/mail-verification.html
+new file mode 100644
+--- /dev/null	(date 1644307629224)
++++ b/src/app/layouts/mail-templates/mail-verification.html	(date 1644307629224)
+@@ -0,0 +1,185 @@
++<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
++  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
++<html xmlns="http://www.w3.org/1999/xhtml">
++<head>
++  <meta http-equiv="content-type" content="text/html; charset=utf-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0;">
++  <meta name="format-detection" content="telephone=no"/>
++
++  <style>
++    /* Reset styles */
++    body {
++      margin: 0;
++      padding: 0;
++      min-width: 100%;
++      width: 100% !important;
++      height: 100% !important;
++    }
++
++    body, table, td, div, p, a {
++      -webkit-font-smoothing: antialiased;
++      text-size-adjust: 100%;
++      -ms-text-size-adjust: 100%;
++      -webkit-text-size-adjust: 100%;
++      line-height: 100%;
++    }
++
++    table, td {
++      mso-table-lspace: 0pt;
++      mso-table-rspace: 0pt;
++      border-collapse: collapse !important;
++      border-spacing: 0;
++    }
++
++    img {
++      border: 0;
++      line-height: 100%;
++      outline: none;
++      text-decoration: none;
++      -ms-interpolation-mode: bicubic;
++    }
++
++    #outlook a {
++      padding: 0;
++    }
++
++    .ReadMsgBody {
++      width: 100%;
++    }
++
++    .ExternalClass {
++      width: 100%;
++    }
++
++    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
++      line-height: 100%;
++    }
++
++    /* Rounded corners for advanced mail clients only */
++    @media all and (min-width: 560px) {
++      .container {
++        border-radius: 2px;
++        -webkit-border-radius: 2px;
++        -moz-border-radius: 2px;
++        -khtml-border-radius: 2px;
++      }
++
++      .title {
++        line-height: 30px;
++      }
++    }
++
++    /* Set color for auto links (addresses, dates, etc.) */
++    a, a:hover {
++      color: #127DB3;
++    }
++
++    .footer a, .footer a:hover {
++      color: #999999;
++    }
++
++  </style>
++
++</head>
++
++<body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%"
++      style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;
++	background-color: rgb(234,234,234);color: #000000;"
++      text="#000000">
++
++<!-- SECTION / BACKGROUND -->
++<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0"
++       style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background">
++  <tr>
++    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
++      background-color: rgb(234,234,234)"
++        bgcolor="#000">
++
++      <!-- HEADER -->
++      <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%;" class="wrapper">
++
++        <!-- LOGO -->
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; max-width: 1100px">
++            <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; max-width: 1100px;">
++              <tr>
++                <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 5px 10px 30px 0; width: 50%;">
++                  <a target="_blank" style="text-decoration: none; width: 100%; display: block;">
++                    <img border="0" vspace="0" hspace="0"
++                         src="https://cdntest.vjoin.com.tr/private/mailing/vjoinlogoson.png"
++                         alt="Vjoin" title="Vjoin" style="
++                   color: #000000;
++                   max-height: 80px;
++                   font-size: 10px; margin: 0; padding: 0; outline: none; width: auto;
++                   height: auto; text-decoration: none; -ms-interpolation-mode: bicubic; border: none;" />
++                  </a>
++                </td>
++              </tr>
++            </table>
++          </td>
++        </tr>
++
++        <!-- End of WRAPPER -->
++      </table>
++
++      <!-- CONTENT -->
++      <table border="0" cellpadding="0" cellspacing="0" align="center"
++             width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
++	max-width: 1080px;" class="container">
++
++        <!-- HEADER BOTTOM IMAGE -->
++        <!-- HEADER BOTTOM TEXT -->
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 30px 15px 10px 15px;
++          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++            Merhaba,
++          </td>
++        </tr>
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 25px 15px 30px 15px;
++          font-size: 25px; line-height: 28px; color: black;font-family: futura; " class="hero">
++            Paycell portal'ı kullanmaya ba&#351;lamadan &#246;nce <br>
++            e-mail adresinizi do&#287;rulamak i&#231;in
++          </td>
++        </tr>
++        <tr>
++          <td align="center" valign="top">
++            <table border="0" cellpadding="0" cellspacing="0" align="center"
++                   width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; cursor: pointer;
++	max-width: 260px;" class="container">
++              <tr>
++                <td align="center" valign="top" style="background-color: rgb(255, 128, 57); border-radius: 5px; padding: 12px; ">
++                  <a href="mail-link" style="font-size: 25px; font-weight: bold; font-family: futura; text-decoration: none; width: 100%; display: block; color: black;">
++                    Tıklayın
++                  </a>
++                </td>
++              </tr>
++            </table>
++          </td>
++        </tr>
++      </table>
++
++      <!-- FOOTER -->
++      <table border="0" cellpadding="0" cellspacing="0" align="center"
++             width="100%" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
++	min-width: 100%;" class="wrapper">
++
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 100px 15px 0px 15px;
++          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
++            &#304;yi g&#252;nler dileriz,
++          </td>
++        </tr>
++        <tr>
++          <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0px 15px 10px 15px;
++          font-size: 25px; font-style: italic; line-height: 28px; color: black;font-family: futura; " class="hero">
++            Paycell
++          </td>
++        </tr>
++      </table>
++
++    </td>
++  </tr>
++</table>
++</body>
++</html>

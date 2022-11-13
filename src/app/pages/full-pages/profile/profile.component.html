@@ -1,0 +1,177 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">{{'profile.setting.header' | translate}}</div>
+    <p class="content-sub-header mb-1">{{'profile.setting.info' | translate}}</p>
+  </div>
+</div>
+<!-- Account Settings starts -->
+<div class="row">
+  <div class="col-md-3 mt-3">
+    <!-- Nav tabs -->
+    <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'general'}"
+          (click)="setActiveTab('general')" id="general-tab" data-toggle="tab" role="tab" aria-controls="general"
+          aria-selected="true">
+          <i class="ft-settings mr-1 align-middle"></i>
+          <span class="align-middle">{{'profile.setting.name' | translate}}</span>
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="valueHidden">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'change-business'}"
+          (click)="setActiveTab('change-business')" id="change-business-tab" data-toggle="tab" role="tab"
+          aria-controls="change-business" aria-selected="true">
+          <i class="ft-settings mr-1 align-middle"></i>
+          <span class="align-middle">{{'profile.change.member.firm' | translate}}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'change-password'}"
+          (click)="setActiveTab('change-password')" id="change-password-tab" data-toggle="tab" role="tab"
+          aria-controls="change-password" aria-selected="false">
+          <i class="ft-lock mr-1 align-middle"></i>
+          <span class="align-middle">{{'profile.password.operations' | translate}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <!-- Tab panes -->
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="tab-content">
+            <!-- General Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'general'}" id="general" role="tabpanel"
+              aria-labelledby="general-tab">
+              <div class="media">
+                <img [src]="account.imageUrl" alt="profile-img" class="rounded mr-3" height="64" width="64">
+              </div>
+              <hr class="mt-1 mt-sm-2">
+              <form>
+                <div class="row">
+                  <div *ngIf="account?.customerType!=potentialCustomerType" class="col-12 form-group">
+                    <label for="name">{{'profile.name.surname' | translate}}</label>
+                    <span id="name" class="form-control"> {{account?.firstName}} {{account?.lastName}}</span>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="email">{{'profile.email' | translate}}</label>
+                    <span id="email" class="form-control"> {{account?.email}}</span>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="msisdn">{{'profile.phone.number' | translate}}</label>
+                    <span id="msisdn" class="form-control"> {{account?.msisdn}}</span>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="lang">{{'profile.preferred.language' | translate}}</label>
+                    <span id="lang" class="form-control"> {{account?.langKey}}</span>
+                  </div>
+                  <div *ngIf="!isAllPotentialMerchant" class="col-12 form-group">
+                    <label for="firm">{{'profile.firm' | translate}}</label>
+                    <div class="pb-1" *ngFor="let merchant of merchantList?.userMerchants">
+                      <span *ngIf="!merchant.isPotential" id="firm" class="form-control"> {{merchant?.merchantName}}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+
+            <!-- Change Password Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'change-password'}" id="change-password"
+              role="tabpanel" aria-labelledby="change-password-tab">
+              <span *ngIf="success">{{'profile.password.change.alert' | translate}}</span>
+              <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordFormSubmit()" *ngIf="!success">
+                <div class="form-group">
+                  <label for="oldPassword">{{'profile.old.password' | translate}}</label>
+                  <div class="controls input-group">
+                    <input autocomplete="null" [type]="oldPasswordInputType" id="oldPassword" formControlName="oldPassword" class="form-control"
+                      placeholder="{{'profile.old.password' | translate}}"
+                      [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.oldPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.oldPassword.invalid }"
+                      required>
+                    <span *ngIf="browserName!=='edge'" class="input-group-append">
+                      <button (click)="changePasswordInputType(PasswordType.oldPassword)" class="btn btn-outline-secondary border-left-0 border"
+                        type="button">
+                        <i [class]="oldPasswordInputType==='password' ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
+                      </button>
+                    </span>
+                    <div
+                      *ngIf="changePasswordFormSubmitted && (cpf.oldPassword.invalid || cpf.oldPassword.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> zorunlu
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="newPassword">{{'profile.new.password' | translate}}</label>
+                  <div class="controls input-group">
+                    <input [type]="newPasswordInputType" id="newPassword" formControlName="newPassword" class="form-control"
+                      placeholder="{{'profile.new.password' | translate}}"
+                      [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.newPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.newPassword.invalid }"
+                      required>
+                      <span *ngIf="browserName!=='edge'" class="input-group-append">
+                        <button (click)="changePasswordInputType(PasswordType.newPassword)" class="btn btn-outline-secondary border-left-0 border"
+                          type="button">
+                          <i [class]="newPasswordInputType==='password' ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
+                        </button>
+                      </span>
+                    <div
+                      *ngIf="changePasswordFormSubmitted && (cpf.newPassword.invalid || cpf.newPassword.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> zorunlu
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="retypeNewPassword">{{'profile.retype.new.password' | translate}}</label>
+                  <div class="controls input-group">
+                    <input [type]="retypeNewPasswordInputType" id="retypeNewPassword" formControlName="retypeNewPassword"
+                      class="form-control" placeholder="{{'profile.retype.new.password' | translate}}"
+                      [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.retypeNewPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.retypeNewPassword.invalid }"
+                      required>
+                      <span *ngIf="browserName!=='edge'" class="input-group-append">
+                        <button (click)="changePasswordInputType(PasswordType.retypeNewPassword)" class="btn btn-outline-secondary border-left-0 border"
+                          type="button">
+                          <i [class]="retypeNewPasswordInputType==='password' ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
+                        </button>
+                      </span>
+                    <div
+                      *ngIf="changePasswordFormSubmitted && (cpf.retypeNewPassword.invalid || cpf.retypeNewPassword.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> zorunlu
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div *ngIf="changePasswordFormSubmitted && (cpf.retypeNewPassword.errors?.equal)"
+                    class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> alanlar aynı
+                    olmalıdır</div>
+                </div>
+
+                <div class="d-flex flex-sm-row flex-column justify-content-end">
+                  <button type="submit" class="btn btn-dark mr-sm-2 mb-1">{{'profile.submit'| translate }}</button>
+                  <button type="reset" class="btn btn-secondary mb-1">{{'profile.cancel' | translate}}</button>
+                </div>
+              </form>
+            </div>
+
+            <!--Change Member Business Tab-->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'change-business'}" id="change-business"
+              role="tabpanel" aria-labelledby="change-business-tab">
+              <div class="col">
+                <ng-select [items]="merchantList?.userMerchants" (ngModelChange)="changeMerchant($event)"
+                  bindLabel="merchantName" bindValue="merchantId" placeholder="{{'profile.firm.name' | translate}}" [(ngModel)]="merchant">
+                </ng-select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Account Settings ends -->
+<ngx-spinner>
+  <p *ngIf="spinnerText" style="font-size: 20px; color: white">{{spinnerText | translate}}</p>
+</ngx-spinner>

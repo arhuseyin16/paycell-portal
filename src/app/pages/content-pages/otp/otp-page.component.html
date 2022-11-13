@@ -1,0 +1,56 @@
+<!--Login Page Starts-->
+<section id="validate-otp">
+  <div class="row auth-height full-height-vh m-0"><div class="row full-width justify-content-end" style="position:absolute;z-index: 9999"> <app-lang-selector></app-lang-selector></div>
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body auth-img">
+            <div class="row m-0">
+              <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center auth-img-bg p-3">
+                <img src="assets/img/gallery/login.png" alt="" class="img-fluid" width="300" height="230">
+              </div>
+              <div class="col-lg-6 col-12 px-4 py-3">
+                <h4 class="mb-2 card-title">{{'validate-otp.welcome.header' | translate }}</h4>
+                <p>{{'validate-otp.welcome.message' | translate }}</p>
+                <hr>
+
+                <form [formGroup]="validateForm">
+                  <div class="form-group">
+                    <input type="text" formControlName="otp" class="form-control" [placeholder]="'validate-otp.placeholder.otp' | translate"
+                      [ngClass]="{ 'is-invalid': validateFormSubmitted && lf.otp.invalid, 'is-valid': validateFormSubmitted && !lf.otp.invalid }"
+                      required>
+                    <div *ngIf="validateFormSubmitted && (lf.otp.invalid || lf.otp.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> {{'validate-otp.error.required' | translate }}</div>
+                    <div *ngIf="validateFormSubmitted && (lf.otp.invalid || lf.otp.errors?.pattern)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> {{'validate-otp.error.pattern' | translate:{size: otpLength} }}</div>
+                  </div>
+                  <div class="flex-column mb-2">
+                    <ngb-progressbar striped="true" inputmode="" animated="true"  type="dark" [max]="expireTotalTimeInSecs" [value]="expireTimeLeft" height="10px"></ngb-progressbar>
+                  </div>
+
+                  <div class="d-flex justify-content-between flex-sm-row flex-column">
+                    <a  class="btn btn-dark" (click)="sendOtp()" [ngClass]="{'disabled' : nextRequestTimeLeft > 0}">
+                      {{'validate-otp.button.sendOtp' | translate }}
+                      <ng-container *ngIf="nextRequestTimeLeft > 0">({{nextRequestTimeLeft}} {{'validate-otp.button.sendOtpSecs' | translate}})</ng-container>
+                    </a>
+                    <a  class="btn btn-dark" (click)="onSubmit()" [ngClass]="{'disabled' : expireTimeLeft <= 0}">
+                      {{'validate-otp.button.submit' | translate }}
+                      <ng-container *ngIf="expireTimeLeft > 0">({{expireTimeLeft}} {{'validate-otp.button.sendOtpSecs' | translate}})</ng-container>
+                    </a>
+                  </div>
+
+                </form>
+                <hr>
+                <div class="d-sm-flex justify-content-end font-small-2">
+                  <a [routerLink]="['/']">{{'validate-otp.link.homePage' | translate }}</a>
+                  <ngx-spinner><p *ngIf="loadingText" style="font-size: 20px; color: white">{{loadingText | translate}}</p></ngx-spinner>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Login Page Ends-->

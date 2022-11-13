@@ -1,0 +1,28 @@
+Index: src/app/shared/navbar/navbar.component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><nav class=\"navbar navbar-expand-lg navbar-light header-navbar {{transparentBGClass}}\"\n  [ngClass]=\"{'navbar-brand-center': menuPosition === 'Top', 'navbar-static': menuPosition === 'Side' &&\n  config?.layout.navbar.type === 'Static' , 'navbar-sticky': menuPosition === 'Side' &&\n  config?.layout.navbar.type === 'Fixed', 'fixed-top': isSmallScreen && menuPosition === 'Top'}\">\n  <div class=\"container-fluid navbar-wrapper\">\n    <div class=\"navbar-header d-flex\">\n      <div class=\"navbar-toggle menu-toggle d-xl-none d-block float-left align-items-center justify-content-center\"\n        data-toggle=\"collapse\" (click)=\"toggleSidebar()\">\n        <i class=\"ft-menu font-medium-3\"></i>\n      </div>\n\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item mr-2 d-none d-lg-block\">\n          <a class=\"nav-link apptogglefullscreen\" id=\"navbar-fullscreen\" href=\"javascript:;\" appToggleFullscreen\n            (click)=\"ToggleClass()\"><i class=\" {{toggleClass}} font-medium-3\"></i></a>\n        </li>\n      </ul>\n\n      <div class=\"navbar-brand-center\">\n        <div class=\"navbar-header\" style=\"width: unset !important;\">\n          <ul class=\"navbar-nav\">\n            <li class=\"nav-item\">\n              <div class=\"logo\">\n              <div class=\"logo-text\">\n                  <span class=\"text\">{{'navbar.PAYCELL.PORTAL' | translate}}</span>\n                </div>\n                </div>\n            </li>\n          </ul>\n        </div>\n      </div>\n\n    </div>\n\n    <div class=\"navbar-container\">\n      <div class=\"collapse navbar-collapse d-block\" id=\"navbarSupportedContent\">\n        <ul class=\"navbar-nav\">\n\n          <li class=\"i18n-dropdown nav-item mr-2\" display=\"dynamic\" >\n            <app-lang-selector></app-lang-selector>\n          </li>\n\n          <li class=\"dropdown nav-item mr-1\" placement=\"bottom-left\" display=\"static\" ngbDropdown >\n            <app-nav-user-menu></app-nav-user-menu>\n          </li>\n\n        </ul>\n      </div>\n    </div>\n  </div>\n</nav>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/shared/navbar/navbar.component.html b/src/app/shared/navbar/navbar.component.html
+--- a/src/app/shared/navbar/navbar.component.html	(revision 644773f095bb6844f92bd077c23e465040578f35)
++++ b/src/app/shared/navbar/navbar.component.html	(date 1651059828649)
+@@ -36,12 +36,15 @@
+       <div class="collapse navbar-collapse d-block" id="navbarSupportedContent">
+         <ul class="navbar-nav">
+ 
+-          <li class="i18n-dropdown nav-item mr-2" display="dynamic" >
++          <!--<li class="i18n-dropdown nav-item mr-2" display="dynamic" >
+             <app-lang-selector></app-lang-selector>
+-          </li>
++          </li>-->
+ 
+           <li class="dropdown nav-item mr-1" placement="bottom-left" display="static" ngbDropdown >
+             <app-nav-user-menu></app-nav-user-menu>
++            <div class="d-flex justify-content-end mr-5">
++              <app-lang-selector></app-lang-selector>
++            </div>
+           </li>
+ 
+         </ul>

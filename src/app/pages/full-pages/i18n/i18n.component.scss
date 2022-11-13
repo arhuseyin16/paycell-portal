@@ -1,0 +1,18 @@
+.sort-asc::after {
+  font: normal normal normal 14px/1 FontAwesome;
+  -webkit-font-smoothing: antialiased;
+  content: '  \f077';
+}
+
+.sort-desc::after {
+  font: normal normal normal 14px/1 FontAwesome;
+  -webkit-font-smoothing: antialiased;
+  content: '  \f078';
+}
+
+.sort-unset::after {
+  font: normal normal normal 14px/1 FontAwesome;
+  -webkit-font-smoothing: antialiased;
+  content: '  \f0dc';
+  opacity: 0.5;
+}

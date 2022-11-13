@@ -1,0 +1,358 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">{{'home-page.header' | translate }}</div>
+    <p *ngIf="isPermission" class="content-sub-header d-flex justify-content-between flex-sm-row flex-column mb-1">
+      {{'home-page.sub.header' | translate }}
+      <br>
+      {{'home-page.member.business' | translate}}: {{storageMerchantName ? storageMerchantName : '-'}}
+      <br>
+      {{'home-page.full.date' | translate}}: {{startDateValue ? startDateValue : ''}} - {{endDateValue ? endDateValue : ''}}
+      <button type="button" class="btn btn-info mb-1" (click)="openModal(true)">
+        {{'home-page.button.filter' | translate }}  <i class="ft-filter font-medium-1"></i>
+      </button>
+    </p>
+  </div>
+</div>
+
+<div *ngIf="isPermission">
+  <div class="row">
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media">
+              <div class="media-body text-left">
+                <h3 class="mb-1 success">{{successTotalCount}}  {{'home-page.count' | translate }}</h3>
+                <span>{{'home-page.sales.quantity' | translate }}</span>
+              </div>
+              <div class="media-right align-self-center">
+                <i class="ft-check success font-large-2 float-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media">
+              <div class="media-body text-left">
+                <h3 class="mb-1 success">{{successTotalAmount|number: '1.2-2' : 'tr-TR'}} {{'home-page.currency' | translate }}</h3>
+                <span>{{'home-page.sales.volume' | translate }}</span>
+              </div>
+              <div class="media-right align-self-center">
+                <i class="icon-wallet success font-large-2 float-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media">
+              <div class="media-body text-left">
+                <h3 class="mb-1 danger" style="width: 100%">{{reverseTotalCount}}  {{'home-page.count' | translate }}</h3>
+                <span>{{'home-page.reverse.quantity' | translate }}</span>
+              </div>
+              <div class="media-right align-self-center">
+                <i class="ft-x danger font-large-2 float-right" style="width: auto !important"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media">
+              <div class="media-body text-left">
+                <h3 class="mb-1 danger" style="width: 100%">{{reverseTotalAmount|number: '1.2-2' : 'tr-TR'}} {{'home-page.currency' | translate }}</h3>
+                <span>{{'home-page.reverse.volume' | translate }}</span>
+              </div>
+              <div class="media-right align-self-center">
+                <i class="icon-wallet danger font-large-2 float-right" style="width: auto !important"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xl-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">{{'home-page.sales.quantity' | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div *ngIf="!isSuccessSaleCountNoData" id="line-area0" class="lineArea">
+              <apx-chart  *ngIf="chartData"
+                          [series]="columnChartOptions.series"
+                          [colors]="columnChartOptions.colors"
+                          [chart]="columnChartOptions.chart"
+                          [xaxis]="columnChartOptions.xaxis"
+                          [yaxis]="columnChartOptions.yaxis"
+                          [title]="columnChartOptions.title"
+                          [dataLabels]="columnChartOptions.dataLabels"
+                          [stroke]="columnChartOptions.stroke"
+                          [grid]="columnChartOptions.grid"
+                          [tooltip]="columnChartOptions.tooltip"
+                          [plotOptions]="columnChartOptions.plotOptions"
+                          [fill]="columnChartOptions.fill"
+                          [legend]="columnChartOptions.legend"
+                          [labels]="columnChartOptions.labels"
+                          [markers]="columnChartOptions.markers"
+                          [theme]="columnChartOptions.theme"
+                          [responsive]="columnChartOptions.responsive"
+              ></apx-chart>
+            </div>
+            <div *ngIf="isSuccessSaleCountNoData" class="col-12 col-sm-12" style="background-color: white;height: 10rem">
+              <label style="margin-top: 4rem;margin-left:6rem">{{'home-page.no.data.to.display' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">{{'home-page.sales.volume' | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div *ngIf="!isSuccessSaleAmountNoData" id="line-area1" class="lineArea">
+              <apx-chart *ngIf="chartData"
+                         [series]="columnChartOptions2.series"
+                         [colors]="columnChartOptions2.colors"
+                         [chart]="columnChartOptions2.chart"
+                         [xaxis]="columnChartOptions2.xaxis"
+                         [yaxis]="columnChartOptions2.yaxis"
+                         [title]="columnChartOptions2.title"
+                         [dataLabels]="columnChartOptions2.dataLabels"
+                         [stroke]="columnChartOptions2.stroke"
+                         [grid]="columnChartOptions2.grid"
+                         [tooltip]="columnChartOptions2.tooltip"
+                         [plotOptions]="columnChartOptions2.plotOptions"
+                         [fill]="columnChartOptions2.fill"
+                         [legend]="columnChartOptions2.legend"
+                         [labels]="columnChartOptions2.labels"
+                         [markers]="columnChartOptions2.markers"
+                         [theme]="columnChartOptions2.theme"
+                         [responsive]="columnChartOptions2.responsive"
+              ></apx-chart>
+            </div>
+            <div *ngIf="isSuccessSaleAmountNoData" class="col-12 col-sm-12" style="background-color: white;height: 10rem">
+              <label style="margin-top: 4rem;margin-left:6rem">{{'home-page.no.data.to.display' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">{{'home-page.reverse.quantity' | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div *ngIf="!isFailSaleCountNoData" id="line-area2" class="lineArea">
+              <apx-chart *ngIf="chartData"
+                         [series]="columnChartOptions3.series"
+                         [colors]="columnChartOptions3.colors"
+                         [chart]="columnChartOptions3.chart"
+                         [xaxis]="columnChartOptions3.xaxis"
+                         [yaxis]="columnChartOptions3.yaxis"
+                         [title]="columnChartOptions3.title"
+                         [dataLabels]="columnChartOptions3.dataLabels"
+                         [stroke]="columnChartOptions3.stroke"
+                         [grid]="columnChartOptions3.grid"
+                         [tooltip]="columnChartOptions3.tooltip"
+                         [plotOptions]="columnChartOptions3.plotOptions"
+                         [fill]="columnChartOptions3.fill"
+                         [legend]="columnChartOptions3.legend"
+                         [labels]="columnChartOptions3.labels"
+                         [markers]="columnChartOptions3.markers"
+                         [theme]="columnChartOptions3.theme"
+                         [responsive]="columnChartOptions3.responsive"
+              ></apx-chart>
+            </div>
+            <div *ngIf="isFailSaleCountNoData" class="col-12 col-sm-12" style="background-color: white;height: 10rem">
+              <label style="margin-top: 4rem;margin-left:6rem">{{'home-page.no.data.to.display' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">{{'home-page.reverse.volume' | translate }}
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div *ngIf="!isReverseRefundSaleCountNoData" id="line-area3" class="lineArea">
+              <apx-chart *ngIf="chartData"
+                         [series]="columnChartOptions4.series"
+                         [colors]="columnChartOptions4.colors"
+                         [chart]="columnChartOptions4.chart"
+                         [xaxis]="columnChartOptions4.xaxis"
+                         [yaxis]="columnChartOptions4.yaxis"
+                         [title]="columnChartOptions4.title"
+                         [dataLabels]="columnChartOptions4.dataLabels"
+                         [stroke]="columnChartOptions4.stroke"
+                         [grid]="columnChartOptions4.grid"
+                         [tooltip]="columnChartOptions4.tooltip"
+                         [plotOptions]="columnChartOptions4.plotOptions"
+                         [fill]="columnChartOptions4.fill"
+                         [legend]="columnChartOptions4.legend"
+                         [labels]="columnChartOptions4.labels"
+                         [markers]="columnChartOptions4.markers"
+                         [theme]="columnChartOptions4.theme"
+                         [responsive]="columnChartOptions4.responsive"
+              ></apx-chart>
+            </div>
+            <div *ngIf="isReverseRefundSaleCountNoData" class="col-12 col-sm-12" style="background-color: white;height: 10rem">
+              <label style="margin-top: 4rem;margin-left:6rem">{{'home-page.no.data.to.display' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div id="mdlSample" class="overlay" role="dialog"
+         [ngStyle]="{'display': isOpen ? 'block' : 'none', 'opacity': 1}">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 10rem;"
+             [ngStyle]="{'height': getModalHeight()}">
+          <div class="modal-header">
+            <h4 class="modal-title">{{'home-page.button.filter' | translate }}</h4>
+            <button type="button" aria-label="Close" class="close">
+              <span aria-hidden="true" (click)="openModal(false)">×</span>
+            </button>
+          </div>
+          <div class="modal-body" id="popup">
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <label id="başlangıçtarihi" class="form-control-label" style="font-weight: 500">{{'home-page.start.date' | translate }}</label>
+                <div class="input-group" id="p1">
+                  <input class="form-control" [minDate]="{year: 2019, month: 1, day: 1}"
+                         placeholder="{{past | date: 'yyyy-MM-dd'}}" name="dp" ngbDatepicker
+                         #d="ngbDatepicker" [(ngModel)]="startD">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="d.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-sm-6">
+                <label id="bitistarihi" class="form-control-label" style="font-weight: 500">{{'home-page.end.date' | translate }}</label>
+                <div class="input-group" id="p2">
+                  <input class="form-control" [minDate]="{year: 2019, month: 1, day: 1}" [maxDate]="maxDate"
+                         placeholder="{{current | date: 'yyyy-MM-dd'}}" name="b" ngbDatepicker
+                         #b="ngbDatepicker" [(ngModel)]="endD">
+                  <!---->
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="b.toggle();">
+                      <i class="fa fa-calendar" style="cursor: pointer;">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12" *ngIf="merchantFilters && merchantFilters.length>0">
+              <label id="üyeisyeri" class="form-control-label"
+                     style="font-weight: 500;margin-top: 2rem;margin-left: -1rem">{{'home-page.merchant' | translate }}</label>
+              <ng-select *ngIf="merchantFilters"
+                         [items]="merchantFilters"
+                         [(ngModel)]="selectedMasterMerchant" [ngModelOptions]="{standalone: true}"
+                         (ngModelChange)="onSelectedMasterMerchantChange()"
+                         bindLabel="merchantName"
+                         placeholder="{{'home-page.choose.company' | translate }}">
+                <ng-template ng-label-tmp let-item="item">
+                  {{item.merchantName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+                </ng-template>
+              </ng-select>
+
+              <ng-select style="margin-top: 0.8rem;" *ngIf="ll1Merchants && ll1Merchants.length>0"
+                         [items]="ll1Merchants"
+                         [(ngModel)]="selectedLl1Merchant" [ngModelOptions]="{standalone: true}"
+                         (ngModelChange)="getOnL1MerchantChange()"
+                         bindLabel="merchantName"
+                         placeholder="{{'home-page.choose.sub.company' | translate }}">
+                <ng-template  ng-option-tmp let-item="item">
+                  <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+                </ng-template>
+              </ng-select>
+
+              <ng-select style="margin-top: 0.8rem;" *ngIf="ll2Merchants && ll2Merchants.length>0"
+                         [items]="ll2Merchants"
+                         [(ngModel)]="selectedLl2Merchant" [ngModelOptions]="{standalone: true}"
+                         (ngModelChange)="getOnL2MerchantChange()"
+                         bindLabel="merchantName"
+                         placeholder="{{'home-page.choose.sub.company' | translate }}">
+                <ng-template ng-label-tmp let-item="item">
+                  {{item.merchantName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+                </ng-template>
+              </ng-select>
+
+              <ng-select style="margin-top: 0.8rem;" *ngIf="ll3Merchants && ll3Merchants.length>0"
+                         [items]="ll3Merchants"
+                         [(ngModel)]="selectedLl3Merchant" [ngModelOptions]="{standalone: true}"
+                         (ngModelChange)="getOnL3MerchantChange()"
+                         bindLabel="merchantName"
+                         placeholder="{{'home-page.choose.sub.company' | translate }}">
+                <ng-template ng-label-tmp let-item="item">
+                  {{item.merchantName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  <div title="{{item.merchantId}}">{{item.merchantName}}</div>
+                </ng-template>
+              </ng-select>
+
+            </div>
+          </div>
+          <div class="modal-footer" align="right">
+            <button type="button" id="btnClose" class="btn btn-secondary"
+                    (click)="onUserDcbTransactionsSummary(startD,endD);">
+              {{'home-page.button.apply' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isPermission" class="row">
+  <div class="col-12 col-sm-12" style="background-color: white;height: 10rem">
+    <label style="margin-top: 4rem">{{message | translate }}</label>
+  </div>
+</div>
+
+

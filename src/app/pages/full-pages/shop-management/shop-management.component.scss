@@ -1,0 +1,125 @@
+.mat-tab-label:first-of-type[aria-selected="false"] {
+    border-left: 2px;
+    border-style: solid;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.mat-tab-label {
+    border-width: 2px 0px;
+    border-style: solid;
+}
+
+.mat-tab-label:last-of-type[aria-selected="false"] {
+    border-right: 2px;
+    border-style: solid;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.mat-tab-label-active {
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    border: 5px solid black;
+}
+
+.mat-ripple.mat-tab-label.mat-focus-indicator.mat-tab-label.ng-star-inserted {
+    opacity: 1;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #000000;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(10px);
+  -ms-transform: translateX(10px);
+  transform: translateX(19px);
+}
+.slider.round {
+  border-radius: 16px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.newheader-hr {
+  border: none;
+  height: 3px;
+  color: #333;
+  background-color: #333;
+}
+
+.shop-list-items{
+  margin-top: 5%;
+}
+.header-hr{
+  background-color: transparent;
+  background: #f0f0f0;
+}
+
+.div-disabled
+{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.radio-input {
+  vertical-align: middle;
+  margin: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.table{
+  text-align: center;
+}

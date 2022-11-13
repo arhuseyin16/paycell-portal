@@ -1,0 +1,36 @@
+.mat-tab-label:first-of-type[aria-selected="false"] {
+    border-left: 2px;
+    border-style: solid;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.mat-tab-label {
+    border-width: 2px 0px;
+    border-style: solid;
+}
+
+.mat-tab-label:last-of-type[aria-selected="false"] {
+    border-right: 2px;
+    border-style: solid;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.mat-tab-label-active {
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    border: 5px solid black;
+}
+
+.mat-ripple.mat-tab-label.mat-focus-indicator.mat-tab-label.ng-star-inserted {
+    opacity: 1;
+}
+hr {
+    border: none;
+    height: 4px;
+    color: #333; 
+    background-color: #333;
+}
+

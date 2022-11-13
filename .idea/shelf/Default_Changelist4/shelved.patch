@@ -1,0 +1,23 @@
+Index: src/app/pages/content-pages/merchant/merchant.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {ChangeDetectorRef, Component, OnInit} from '@angular/core';\nimport {Router} from '@angular/router';\nimport {MerchantService} from '../../../services/merchant.service';\nimport {MessageService} from '../../../shared/services/message.service';\nimport {TranslateService} from '@ngx-translate/core';\nimport {MerchantRoleResponse} from '../../../models/response/merchant-role.response';\nimport {MerchantRoleModel} from '../../../models/request/merchant-role.model';\nimport {AccountService} from '../../../shared/auth/account.service';\nimport {UserMerchantResponse} from '../../../models/response/user-merchant-response';\n\n@Component({\n  selector: 'app-merchant',\n  templateUrl: './merchant.component.html',\n  styleUrls: ['./merchant.component.scss']\n})\nexport class MerchantComponent implements OnInit {\n  merchant: any\n // merchantList: MerchantRoleResponse;\n  merchantList: UserMerchantResponse\n  merchantRoleRequest: MerchantRoleModel = new MerchantRoleModel();\n  showMerchant = false;\n  responseSuccess = false;\n  responseError = false;\n  errorMessage: string;\n\n  constructor(private router: Router,\n              private messageService: MessageService,\n              private translate: TranslateService,\n              private accountService: AccountService,\n              private service: ChangeDetectorRef,\n              private merchantService: MerchantService) {\n    this.merchantRequest();\n  }\n\n  ngOnInit(): void {\n\n  }\n\n  merchantRequest() {\n    const username = localStorage.getItem('username');\n    this.merchantRoleRequest = {\n      email: username,\n      msisdn: username\n    }\n    if (username) {\n      localStorage.removeItem('merchantLength');\n      this.accountService.getUserAllMerchants().subscribe((res) => {\n        if (res.userMerchants.length === 1) {\n          localStorage.setItem('merchantLength', '1');\n          this.merchant = res.userMerchants[0].merchantId;\n          this.merchantList = res;\n          this.submitClick();\n        } else {\n          this.merchantList = res;\n        }\n        this.responseError = false;\n        this.responseSuccess = true;\n        this.showMerchant = true;\n        this.service.detectChanges();\n      }, (err) => {\n        this.errorMessage = err.error.localizedMessage;\n        this.responseSuccess = false;\n        this.responseError = true;\n        this.showMerchant = true;\n        this.service.detectChanges();\n      });\n    }\n  }\n\n  submitClick() {\n    if (this.merchant) {\n      const merchant = this.merchantList.userMerchants.find(m => m.merchantId === this.merchant);\n      localStorage.setItem('merchantName', JSON.stringify(merchant));\n      this.router.navigate(['/pages/terminus']).then(() => {\n        window.location.reload();\n      });\n    } else {\n      this.messageService.addError(this.translate.instant('merchant.merchant.required'));\n    }\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/pages/content-pages/merchant/merchant.component.ts b/src/app/pages/content-pages/merchant/merchant.component.ts
+--- a/src/app/pages/content-pages/merchant/merchant.component.ts	
++++ b/src/app/pages/content-pages/merchant/merchant.component.ts	
+@@ -71,9 +71,10 @@
+     if (this.merchant) {
+       const merchant = this.merchantList.userMerchants.find(m => m.merchantId === this.merchant);
+       localStorage.setItem('merchantName', JSON.stringify(merchant));
+-      this.router.navigate(['/pages/terminus']).then(() => {
++      /*this.router.navigate(['/pages/terminus']).then(() => {
+         window.location.reload();
+-      });
++      });*/
++      this.router.navigate(['/pages/terminus']);
+     } else {
+       this.messageService.addError(this.translate.instant('merchant.merchant.required'));
+     }
